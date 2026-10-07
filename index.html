@@ -3,46 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة دعوات الزفاف التفاعلية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>منصة دعوات الزفاف الملكية</title>
+    <!-- خطوط عربية فاخرة -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #12090b;
+            --card-bg: #1c0d12;
+            --cream-bg: #fdfbf7;
+            --gold-primary: #d4af37;
+            --gold-light: #f5d061;
+            --gold-dark: #aa771c;
+            --text-dark: #2c1d18;
+            --text-gold: #e6ca65;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #2c1d18; font-family: 'Cairo', sans-serif; color: #fff; min-height: 100vh; overflow-x: hidden; text-align: center; }
         
-        /* استمارة صانع الدعوات */
-        #generator-screen { padding: 40px 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .gen-card { background: #fdfbf7; color: #3d2c24; width: 100%; max-width: 450px; padding: 35px 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid #d4af37; text-align: right; }
-        .gen-card h2 { text-align: center; color: #3d2c24; margin-bottom: 25px; font-size: 1.8rem; }
-        .form-group { margin-bottom: 18px; }
-        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.95rem; color: #555; }
-        .form-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; font-family: 'Cairo', sans-serif; font-size: 1rem; background: #fff; color: #333; }
-        .gen-btn { width: 100%; background: #3d2c24; color: #fdfbf7; border: none; padding: 14px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .gen-btn:hover { background: #5c4237; }
-        .share-box { margin-top: 20px; background: #f4efe6; padding: 15px; border-radius: 10px; display: none; word-break: break-all; font-size: 0.9rem; color: #333; border: 1px dashed #d4af37; }
+        body { 
+            background: var(--bg-color); 
+            font-family: 'Cairo', sans-serif; 
+            color: #fff; 
+            min-height: 100vh; 
+            overflow-x: hidden; 
+            text-align: center;
+        }
 
-        /* واجهة الغلاف المعروضة للضيوف */
-        #cover-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(44, 29, 24, 0.97); display: none; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.8s ease; }
-        .cover-card { background: #fdfbf7; color: #3d2c24; width: 85%; max-width: 400px; padding: 40px 20px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid #d4af37; text-align: center; }
-        .heart-icon { width: 50px; height: 50px; background: #3d2c24; color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; font-size: 1.5rem; }
-        .open-btn { background: #3d2c24; color: #fdfbf7; border: none; padding: 12px 45px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); margin-top: 20px; }
+        /* التدرج الذهبي للنصوص والأزرار */
+        .gold-text {
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Amiri', serif;
+        }
 
-        /* تفاصيل الدعوة الديناميكية */
-        #invitation-screen { display: none; padding: 40px 20px; min-height: 100vh; flex-direction: column; align-items: center; }
-        .section { width: 100%; max-width: 500px; background: #3d2c24; padding: 35px 20px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #c5a059; text-align: center; }
-        .section h1 { color: #fdfbf7; font-size: 2.2rem; margin-bottom: 15px; }
-        .section p { color: #e0d0c0; line-height: 1.8; margin-bottom: 15px; font-size: 1.05rem; }
-        .map-frame { width: 100%; height: 250px; border: none; border-radius: 10px; margin-top: 15px; }
-        .floating-audio { position: fixed; bottom: 20px; left: 20px; background: #3d2c24; border: 1px solid #d4af37; color: #fff; width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center; align-items: center; cursor: pointer; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+        .gold-border {
+            border: 1px solid var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        /* ------------------ 1. لوحة صانع الدعوات ------------------ */
+        #generator-screen { 
+            padding: 40px 15px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+
+        .gen-card { 
+            background: var(--cream-bg); 
+            color: var(--text-dark); 
+            width: 100%; 
+            max-width: 480px; 
+            padding: 35px 25px; 
+            border-radius: 24px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px rgba(212,175,55,0.3); 
+            border: 2px solid var(--gold-primary); 
+            text-align: right; 
+            position: relative;
+        }
+
+        .gen-card h2 { 
+            text-align: center; 
+            color: var(--text-dark); 
+            margin-bottom: 25px; 
+            font-size: 1.8rem; 
+            font-family: 'Reem Kufi', sans-serif;
+        }
+
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.9rem; color: #444; }
+        .form-group input { 
+            width: 100%; 
+            padding: 12px 15px; 
+            border: 1px solid #ccc; 
+            border-radius: 12px; 
+            font-family: 'Cairo', sans-serif; 
+            font-size: 0.95rem; 
+            background: #fff; 
+            color: #222;
+            transition: 0.3s;
+        }
+        .form-group input:focus { border-color: var(--gold-primary); outline: none; box-shadow: 0 0 8px rgba(212,175,55,0.4); }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+
+        .gen-btn { 
+            flex: 1;
+            background: linear-gradient(135deg, #3d2c24 0%, #1c0d12 100%); 
+            color: var(--gold-light); 
+            border: 1px solid var(--gold-primary); 
+            padding: 14px; 
+            border-radius: 30px; 
+            font-size: 1rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+        }
+        .gen-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212,175,55,0.4); }
+
+        .share-box { 
+            margin-top: 20px; 
+            background: #f4efe6; 
+            padding: 18px; 
+            border-radius: 15px; 
+            display: none; 
+            text-align: center;
+            border: 1px dashed var(--gold-primary); 
+        }
+        .share-url {
+            width: 100%;
+            padding: 8px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #555;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        .copy-btn {
+            background: var(--gold-primary);
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .copy-btn:hover { background: var(--gold-dark); }
+
+        /* ------------------ 2. واجهة الغلاف المعروضة للضيوف ------------------ */
+        #cover-screen { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100vh; 
+            background: rgba(18, 9, 11, 0.98); 
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 9999; 
+            transition: opacity 0.8s ease, transform 0.8s ease; 
+        }
+
+        .cover-card { 
+            background: var(--cream-bg); 
+            color: var(--text-dark); 
+            width: 88%; 
+            max-width: 420px; 
+            padding: 45px 25px; 
+            border-radius: 25px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9); 
+            border: 2px solid var(--gold-primary); 
+            text-align: center; 
+            position: relative;
+            animation: fadeInCard 1.2s ease;
+        }
+
+        .ring-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        .cover-card h2 { 
+            font-family: 'Amiri', serif; 
+            font-size: 2.3rem; 
+            color: var(--text-dark); 
+            font-weight: 700; 
+        }
+
+        .open-btn { 
+            background: linear-gradient(135deg, #3d2c24 0%, #201008 100%); 
+            color: var(--gold-light); 
+            border: 1px solid var(--gold-primary); 
+            padding: 14px 50px; 
+            border-radius: 30px; 
+            font-size: 1.1rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4); 
+            margin-top: 25px; 
+            transition: 0.3s;
+        }
+        .open-btn:hover { transform: scale(1.05); }
+
+        /* ------------------ 3. تفاصيل الدعوة الرئيسية ------------------ */
+        #invitation-screen { 
+            display: none; 
+            padding: 40px 15px 80px; 
+            min-height: 100vh; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+
+        .inv-section { 
+            width: 100%; 
+            max-width: 520px; 
+            background: var(--card-bg); 
+            padding: 35px 25px; 
+            border-radius: 20px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border: 1px solid var(--gold-primary); 
+            text-align: center; 
+            position: relative;
+        }
+
+        .inv-section h1 { 
+            font-family: 'Amiri', serif; 
+            font-size: 2.8rem; 
+            margin: 10px 0; 
+        }
+
+        .inv-section p { 
+            color: #d1c0b5; 
+            line-height: 1.9; 
+            font-size: 1.1rem; 
+        }
+
+        /* العداد التنازلي */
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .timer-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-primary);
+            padding: 10px 12px;
+            border-radius: 12px;
+            min-width: 65px;
+        }
+        .timer-num { font-size: 1.4rem; font-weight: bold; color: var(--gold-light); }
+        .timer-label { font-size: 0.75rem; color: #aaa; }
+
+        .map-frame { 
+            width: 100%; 
+            height: 260px; 
+            border: 1px solid var(--gold-primary); 
+            border-radius: 15px; 
+            margin-top: 18px; 
+        }
+
+        /* زر الصوت العائم */
+        .floating-audio { 
+            position: fixed; 
+            bottom: 25px; 
+            left: 25px; 
+            background: var(--card-bg); 
+            border: 1px solid var(--gold-primary); 
+            color: var(--gold-light); 
+            width: 50px; 
+            height: 50px; 
+            border-radius: 50%; 
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            cursor: pointer; 
+            z-index: 1000; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); 
+            font-size: 1.3rem;
+            transition: 0.3s;
+        }
+        .floating-audio.playing { animation: spin 4s linear infinite; }
+
+        /* قلوب متساقطة */
+        .heart {
+            position: fixed;
+            color: var(--gold-primary);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 9999;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes fadeInCard { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <audio id="weddingAudio" loop></audio>
 
-    <!-- 1. شاشة صانع الدعوات (الاستمارة) -->
+    <!-- 1. شاشة صانع الدعوات (لوحة التحكم) -->
     <div id="generator-screen">
         <div class="gen-card">
-            <h2>صانع دعوات الزفاف</h2>
+            <h2>✨ صانع دعوات الزفاف الفاخرة ✨</h2>
             <div class="form-group">
                 <label>اسم العريس:</label>
                 <input type="text" id="groomInput" value="إبراهيم">
@@ -52,64 +310,82 @@
                 <input type="text" id="brideInput" value="نور">
             </div>
             <div class="form-group">
-                <label>تاريخ الحفل:</label>
-                <input type="text" id="dateInput" value="31 أكتوبر، 2026">
+                <label>تاريخ الحفل (مثال: 2026-10-31):</label>
+                <input type="text" id="dateInput" value="2026-10-31">
             </div>
             <div class="form-group">
-                <label>مكان القاعة:</label>
-                <input type="text" id="locationInput" value="السيدية - قاعات بغداد الدولية">
+                <label>اسم القاعة والمكان:</label>
+                <input type="text" id="locationInput" value="بغداد - السيدية - قاعات بغداد الدولية">
             </div>
             <div class="form-group">
-                <label>رابط الأغنية (MP3):</label>
+                <label>رابط الأغنية (MP3 Direct Link):</label>
                 <input type="text" id="audioInput" value="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
             </div>
-            <button class="gen-btn" onclick="generateInvitation()">إنشاء ورابط الدعوة 🔗</button>
-            <div class="share-box" id="shareBox"></div>
+
+            <div class="btn-group">
+                <button class="gen-btn" onclick="generateInvitation()">إنشاء ورابط الدعوة 🔗</button>
+            </div>
+
+            <div class="share-box" id="shareBox">
+                <strong style="color: var(--text-dark);">تم إنشاء رابط الدعوة بنجاح! 🎉</strong>
+                <input type="text" id="shareUrlInput" class="share-url" readonly>
+                <button class="copy-btn" onclick="copyShareUrl()" id="copyBtn">نسخ الرابط 📋</button>
+            </div>
         </div>
     </div>
 
-    <!-- 2. واجهة الغلاف للضيوف -->
+    <!-- 2. واجهة الغلاف المعروضة للضيوف -->
     <div id="cover-screen">
         <div class="cover-card">
-            <div class="heart-icon">❤</div>
-            <h2 id="coverGroom">إبراهيم</h2>
-            <div style="font-size: 1.2rem; color: #8c6d53; margin: 5px 0;">&</div>
-            <h2 id="coverBride">نور</h2>
-            <hr style="width: 50px; margin: 15px auto; border: 1px solid #d4af37;">
-            <div id="coverDate" style="font-size: 1.1rem; color: #666; margin: 15px 0;">31 أكتوبر، 2026</div>
-            <div style="font-size: 1rem; color: #555; margin-bottom: 20px;">نتشرف بدعوتكم</div>
-            <button class="open-btn" onclick="openInvitation()">فتح</button>
+            <div class="ring-icon">💍</div>
+            <h2 id="coverGroom" class="gold-text">إبراهيم</h2>
+            <div style="font-size: 1.4rem; color: var(--gold-dark); margin: 5px 0;">&</div>
+            <h2 id="coverBride" class="gold-text">نور</h2>
+            <hr style="width: 60px; margin: 18px auto; border: 1px solid var(--gold-primary);">
+            <div id="coverDate" style="font-size: 1.1rem; color: #666; margin-bottom: 10px;">31 أكتوبر 2026</div>
+            <div style="font-size: 1rem; color: #777;">نتشرف بدعوتكم لمشاركتنا فرحتنا</div>
+            <button class="open-btn" onclick="openInvitation()">فتح الدعوة ✉️</button>
         </div>
     </div>
 
-    <div class="floating-audio" id="audioBtn" onclick="toggleAudio()" title="تشغيل/إيقاف الموسيقى">🎶</div>
+    <!-- زر الموسيقى العائم -->
+    <div class="floating-audio" id="audioBtn" onclick="toggleAudio()" title="تشغيل / إيقاف الصوت">🎶</div>
 
     <!-- 3. شاشة عرض الدعوة للضيوف -->
     <div id="invitation-screen">
-        <div class="section">
-            <span style="color: #c5a059; font-size: 0.9rem;">جنة الأطفال منازلهم</span>
-            <h1 id="mainNames" style="margin-top: 10px;">إبراهيم & نور</h1>
-            <p>يسرنا ويسعدنا حضوركم لحفل زفافنا المبارك وتشاركونا أجمل لحظات عمرنا.</p>
+        <div class="inv-section">
+            <span style="color: var(--gold-light); font-size: 0.95rem; letter-spacing: 1px;">« بارك الله لهما وبارك عليهما »</span>
+            <h1 id="mainNames" class="gold-text">إبراهيم & نور</h1>
+            <p>يسرنا ويسعدنا حضوركم حفل زفافنا المبارك لتكتمل سعادتنا بوجودكم معنا.</p>
+            
+            <!-- العداد التنازلي -->
+            <div class="timer-container" id="timerContainer">
+                <div class="timer-box"><div class="timer-num" id="days">00</div><div class="timer-label">يوم</div></div>
+                <div class="timer-box"><div class="timer-num" id="hours">00</div><div class="timer-label">ساعة</div></div>
+                <div class="timer-box"><div class="timer-num" id="minutes">00</div><div class="timer-label">دقيقة</div></div>
+                <div class="timer-box"><div class="timer-num" id="seconds">00</div><div class="timer-label">ثانية</div></div>
+            </div>
         </div>
 
-        <div class="section">
-            <h2 style="color: #c5a059; font-size: 1.5rem; margin-bottom: 15px;">معلومات الاستقبال</h2>
-            <p><strong>التاريخ:</strong> <span id="displayDate">31 أكتوبر، 2026</span></p>
-            <p><strong>المكان:</strong> <span id="displayLocation">السيدية - قاعات بغداد الدولية</span></p>
+        <div class="inv-section">
+            <h2 class="gold-text" style="font-size: 1.8rem; margin-bottom: 15px;">تفاصيل الموعد والمكان</h2>
+            <p><strong>التاريخ:</strong> <span id="displayDate" style="color:#fff;">31 أكتوبر 2026</span></p>
+            <p><strong>المكان:</strong> <span id="displayLocation" style="color:#fff;">السيدية - قاعات بغداد الدولية</span></p>
             
-            <iframe class="map-frame" src="https://maps.google.com/maps?q=Baghdad&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+            <iframe id="mapIframe" class="map-frame" src=""></iframe>
         </div>
     </div>
 
     <script>
-        // التحقق مما إذا كان هناك بيانات مرسلة عبر الرابط
+        // جلب البيانات من رابط URL
         const urlParams = new URLSearchParams(window.location.search);
+        let weddingTargetDate = new Date();
+
         if (urlParams.has('groom')) {
             document.getElementById('generator-screen').style.display = 'none';
             document.getElementById('cover-screen').style.display = 'flex';
 
-            // جلب البيانات من الرابط
-            window.invData = {
+            const invData = {
                 groom: urlParams.get('groom'),
                 bride: urlParams.get('bride'),
                 date: urlParams.get('date'),
@@ -117,16 +393,29 @@
                 audio: urlParams.get('audio')
             };
 
-            // تعبئة النصوص
-            document.getElementById('coverGroom').innerText = window.invData.groom;
-            document.getElementById('coverBride').innerText = window.invData.bride;
-            document.getElementById('coverDate').innerText = window.invData.date;
-            document.getElementById('mainNames').innerText = window.invData.groom + ' & ' + window.invData.bride;
-            document.getElementById('displayDate').innerText = window.invData.date;
-            document.getElementById('displayLocation').innerText = window.invData.location;
-            document.getElementById('weddingAudio').src = window.invData.audio;
+            // تطبيق البيانات في الواجهات
+            document.getElementById('coverGroom').innerText = invData.groom;
+            document.getElementById('coverBride').innerText = invData.bride;
+            document.getElementById('coverDate').innerText = invData.date;
+            document.getElementById('mainNames').innerText = `${invData.groom} & ${invData.bride}`;
+            document.getElementById('displayDate').innerText = invData.date;
+            document.getElementById('displayLocation').innerText = invData.location;
+            document.getElementById('weddingAudio').src = invData.audio;
+
+            // ضبط خريطة Google أوتوماتيكياً
+            const mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(invData.location)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+            document.getElementById('mapIframe').src = mapUrl;
+
+            // تحديد موعد الحفل للعداد التنازلي
+            if (!isNaN(Date.parse(invData.date))) {
+                weddingTargetDate = new Date(invData.date);
+            } else {
+                weddingTargetDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // الافتراضي 30 يوم
+            }
+            startTimer();
         }
 
+        // إنشاء الرابط ورابط المشاركة
         function generateInvitation() {
             const groom = document.getElementById('groomInput').value;
             const bride = document.getElementById('brideInput').value;
@@ -134,31 +423,92 @@
             const location = document.getElementById('locationInput').value;
             const audio = document.getElementById('audioInput').value;
 
-            const currentUrl = window.location.origin + window.location.pathname;
-            const generatedLink = `${currentUrl}?groom=${encodeURIComponent(groom)}&bride=${encodeURIComponent(bride)}&date=${encodeURIComponent(date)}&location=${encodeURIComponent(location)}&audio=${encodeURIComponent(audio)}`;
+            const baseUrl = window.location.origin + window.location.pathname;
+            const fullLink = `${baseUrl}?groom=${encodeURIComponent(groom)}&bride=${encodeURIComponent(bride)}&date=${encodeURIComponent(date)}&location=${encodeURIComponent(location)}&audio=${encodeURIComponent(audio)}`;
 
-            const shareBox = document.getElementById('shareBox');
-            shareBox.style.display = 'block';
-            shareBox.innerHTML = `<strong>تم إنشاء الرابط بنجاح! انسخه وأرسله للضيوف:</strong><br><a href="${generatedLink}" target="_blank" style="color:#8c6d53; font-weight:bold;">${generatedLink}</a>`;
+            document.getElementById('shareUrlInput').value = fullLink;
+            document.getElementById('shareBox').style.display = 'block';
         }
 
+        // نسخ الرابط
+        function copyShareUrl() {
+            const urlInput = document.getElementById('shareUrlInput');
+            urlInput.select();
+            navigator.clipboard.writeText(urlInput.value);
+            
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtn.innerText = 'تم النسخ! ✅';
+            copyBtn.style.background = '#28a745';
+            setTimeout(() => {
+                copyBtn.innerText = 'نسخ الرابط 📋';
+                copyBtn.style.background = 'var(--gold-primary)';
+            }, 2500);
+        }
+
+        // فتح الدعوة وتفعيل المؤثرات والصوت
         function openInvitation() {
             const audio = document.getElementById("weddingAudio");
-            audio.play().catch(e => console.log("Audio blocked"));
+            const audioBtn = document.getElementById('audioBtn');
+            
+            audio.play().then(() => {
+                audioBtn.classList.add('playing');
+            }).catch(e => console.log("Audio autoplay restricted"));
 
             const cover = document.getElementById("cover-screen");
             cover.style.opacity = '0';
+            cover.style.transform = 'scale(1.1)';
+
             setTimeout(() => {
                 cover.style.display = 'none';
                 document.getElementById('invitation-screen').style.display = 'flex';
-                document.getElementById('audioBtn').style.display = 'flex';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 800);
+                audioBtn.style.display = 'flex';
+                createHearts(); // إطلاق القلوب المتساقطة
+            }, 700);
         }
 
+        // تشغيل وإيقاف الصوت
         function toggleAudio() {
             const audio = document.getElementById("weddingAudio");
-            if (audio.paused) { audio.play(); } else { audio.pause(); }
+            const audioBtn = document.getElementById('audioBtn');
+            if (audio.paused) {
+                audio.play();
+                audioBtn.classList.add('playing');
+            } else {
+                audio.pause();
+                audioBtn.classList.remove('playing');
+            }
+        }
+
+        // العداد التنازلي
+        function startTimer() {
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = weddingTargetDate - now;
+
+                if (distance > 0) {
+                    document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+                }
+            }, 1000);
+        }
+
+        // تأثر تساقط القلوب
+        function createHearts() {
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = '❤';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+                    heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => heart.remove(), 5000);
+                }, i * 200);
+            }
         }
     </script>
 </body>
