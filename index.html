@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف إبراهيم ونور</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #2c1d18; font-family: 'Cairo', sans-serif; color: #fff; overflow-x: hidden; text-align: center; }
+        
+        /* واجهة الغلاف */
+        #cover-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(44, 29, 24, 0.95); display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.8s ease; }
+        .cover-card { background: #fdfbf7; color: #3d2c24; width: 85%; max-width: 400px; padding: 40px 20px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid #d4af37; position: relative; }
+        .heart-icon { width: 50px; height: 50px; background: #3d2c24; color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; font-size: 1.5rem; }
+        .cover-card h2 { font-size: 2rem; margin-bottom: 10px; color: #3d2c24; font-weight: 700; }
+        .cover-card .amp { font-size: 1.2rem; color: #8c6d53; margin: 5px 0; }
+        .date-text { font-size: 1.1rem; color: #666; margin: 20px 0; }
+        .welcome-text { font-size: 1rem; color: #555; margin-bottom: 25px; }
+        .open-btn { background: #3d2c24; color: #fdfbf7; border: none; padding: 12px 45px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: 0.3s; }
+        .open-btn:hover { background: #5c4237; transform: scale(1.05); }
+
+        /* محتوى الموقع الأساسي */
+        .main-content { opacity: 0; transition: opacity 1s ease; padding: 40px 20px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+        .section { width: 100%; max-width: 500px; background: #3d2c24; padding: 35px 20px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #c5a059; }
+        h1 { color: #fdfbf7; font-size: 2.2rem; margin-bottom: 15px; }
+        p { color: #e0d0c0; line-height: 1.8; margin-bottom: 15px; font-size: 1.05px; }
+        .map-frame { width: 100%; height: 250px; border: none; border-radius: 10px; margin-top: 15px; }
+        
+        /* مشغل الموسيقى العائم */
+        .floating-audio { position: fixed; bottom: 20px; left: 20px; background: #3d2c24; border: 1px solid #d4af37; color: #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+    <!-- ملف الصوت -->
+    <audio id="weddingAudio" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- شاشة الغلاف الأولى -->
+    <div id="cover-screen">
+        <div class="cover-card">
+            <div class="heart-icon">❤</div>
+            <h2>إبراهيم</h2>
+            <div class="amp">&</div>
+            <h2>نور</h2>
+            <hr style="width: 50px; margin: 15px auto; border: 1px solid #d4af37;">
+            <div class="date-text">31 أكتوبر، 2026</div>
+            <div class="welcome-text">نتشرف بدعوتكم</div>
+            <button class="open-btn" onclick="openInvitation()">فتح</button>
+        </div>
+    </div>
+
+    <!-- زر الموسيقى العائم -->
+    <div class="floating-audio" onclick="toggleAudio()" title="تشغيل/إيقاف الموسيقى">🎶</div>
+
+    <!-- المحتوى الرئيسي للدعوة -->
+    <div class="main-content" id="mainContent">
+        <div class="section">
+            <span style="color: #c5a059; font-size: 0.9rem;">جنة الأطفال منازلهم</span>
+            <h1 style="margin-top: 10px;">إبراهيم & نور</h1>
+            <p>يسرنا ويسعدنا حضوركم لحفل زفافنا المبارك وتشاركونا أجمل لحظات عمرنا.</p>
+        </div>
+
+        <div class="section">
+            <h2 style="color: #c5a059; font-size: 1.5rem; margin-bottom: 15px;">معلومات الاستقبال</h2>
+            <p><strong>سيقام الاستقبال في:</strong> السبت، 31 أكتوبر 2026 (الساعة 17:00)</p>
+            <p><strong>المكان:</strong> السيدية - قاعات بغداد الدولية / القاعة البيضاء</p>
+            
+            <iframe class="map-frame" src="https://maps.google.com/maps?q=Baghdad&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function openInvitation() {
+            // تشغيل الموسيقى
+            const audio = document.getElementById("weddingAudio");
+            audio.play().catch(e => console.log("Audio play blocked"));
+
+            // إخفاء الغلاف بسلاسة
+            const cover = document.getElementById("cover-screen");
+            cover.style.opacity = '0';
+            setTimeout(() => {
+                cover.style.display = 'none';
+            }, 800);
+
+            // إظهار المحتوى الرئيسي والنزول له تلقائياً
+            const main = document.getElementById("mainContent");
+            main.style.opacity = '1';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleAudio() {
+            const audio = document.getElementById("weddingAudio");
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+    </script>
+</body>
+</html>
+
