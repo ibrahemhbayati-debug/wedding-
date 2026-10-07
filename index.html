@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة دعوات الزفاف التفاعلية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #2c1d18; font-family: 'Cairo', sans-serif; color: #fff; min-height: 100vh; overflow-x: hidden; text-align: center; }
+        
+        /* استمارة صانع الدعوات */
+        #generator-screen { padding: 40px 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .gen-card { background: #fdfbf7; color: #3d2c24; width: 100%; max-width: 450px; padding: 35px 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid #d4af37; text-align: right; }
+        .gen-card h2 { text-align: center; color: #3d2c24; margin-bottom: 25px; font-size: 1.8rem; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.95rem; color: #555; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; font-family: 'Cairo', sans-serif; font-size: 1rem; background: #fff; color: #333; }
+        .gen-btn { width: 100%; background: #3d2c24; color: #fdfbf7; border: none; padding: 14px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .gen-btn:hover { background: #5c4237; }
+        .share-box { margin-top: 20px; background: #f4efe6; padding: 15px; border-radius: 10px; display: none; word-break: break-all; font-size: 0.9rem; color: #333; border: 1px dashed #d4af37; }
+
+        /* واجهة الغلاف المعروضة للضيوف */
+        #cover-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(44, 29, 24, 0.97); display: none; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.8s ease; }
+        .cover-card { background: #fdfbf7; color: #3d2c24; width: 85%; max-width: 400px; padding: 40px 20px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid #d4af37; text-align: center; }
+        .heart-icon { width: 50px; height: 50px; background: #3d2c24; color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin: 0 auto 20px; font-size: 1.5rem; }
+        .open-btn { background: #3d2c24; color: #fdfbf7; border: none; padding: 12px 45px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); margin-top: 20px; }
+
+        /* تفاصيل الدعوة الديناميكية */
+        #invitation-screen { display: none; padding: 40px 20px; min-height: 100vh; flex-direction: column; align-items: center; }
+        .section { width: 100%; max-width: 500px; background: #3d2c24; padding: 35px 20px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #c5a059; text-align: center; }
+        .section h1 { color: #fdfbf7; font-size: 2.2rem; margin-bottom: 15px; }
+        .section p { color: #e0d0c0; line-height: 1.8; margin-bottom: 15px; font-size: 1.05rem; }
+        .map-frame { width: 100%; height: 250px; border: none; border-radius: 10px; margin-top: 15px; }
+        .floating-audio { position: fixed; bottom: 20px; left: 20px; background: #3d2c24; border: 1px solid #d4af37; color: #fff; width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center; align-items: center; cursor: pointer; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+    </style>
+</head>
+<body>
+
+    <audio id="weddingAudio" loop></audio>
+
+    <!-- 1. شاشة صانع الدعوات (الاستمارة) -->
+    <div id="generator-screen">
+        <div class="gen-card">
+            <h2>صانع دعوات الزفاف</h2>
+            <div class="form-group">
+                <label>اسم العريس:</label>
+                <input type="text" id="groomInput" value="إبراهيم">
+            </div>
+            <div class="form-group">
+                <label>اسم العروس:</label>
+                <input type="text" id="brideInput" value="نور">
+            </div>
+            <div class="form-group">
+                <label>تاريخ الحفل:</label>
+                <input type="text" id="dateInput" value="31 أكتوبر، 2026">
+            </div>
+            <div class="form-group">
+                <label>مكان القاعة:</label>
+                <input type="text" id="locationInput" value="السيدية - قاعات بغداد الدولية">
+            </div>
+            <div class="form-group">
+                <label>رابط الأغنية (MP3):</label>
+                <input type="text" id="audioInput" value="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+            </div>
+            <button class="gen-btn" onclick="generateInvitation()">إنشاء ورابط الدعوة 🔗</button>
+            <div class="share-box" id="shareBox"></div>
+        </div>
+    </div>
+
+    <!-- 2. واجهة الغلاف للضيوف -->
+    <div id="cover-screen">
+        <div class="cover-card">
+            <div class="heart-icon">❤</div>
+            <h2 id="coverGroom">إبراهيم</h2>
+            <div style="font-size: 1.2rem; color: #8c6d53; margin: 5px 0;">&</div>
+            <h2 id="coverBride">نور</h2>
+            <hr style="width: 50px; margin: 15px auto; border: 1px solid #d4af37;">
+            <div id="coverDate" style="font-size: 1.1rem; color: #666; margin: 15px 0;">31 أكتوبر، 2026</div>
+            <div style="font-size: 1rem; color: #555; margin-bottom: 20px;">نتشرف بدعوتكم</div>
+            <button class="open-btn" onclick="openInvitation()">فتح</button>
+        </div>
+    </div>
+
+    <div class="floating-audio" id="audioBtn" onclick="toggleAudio()" title="تشغيل/إيقاف الموسيقى">🎶</div>
+
+    <!-- 3. شاشة عرض الدعوة للضيوف -->
+    <div id="invitation-screen">
+        <div class="section">
+            <span style="color: #c5a059; font-size: 0.9rem;">جنة الأطفال منازلهم</span>
+            <h1 id="mainNames" style="margin-top: 10px;">إبراهيم & نور</h1>
+            <p>يسرنا ويسعدنا حضوركم لحفل زفافنا المبارك وتشاركونا أجمل لحظات عمرنا.</p>
+        </div>
+
+        <div class="section">
+            <h2 style="color: #c5a059; font-size: 1.5rem; margin-bottom: 15px;">معلومات الاستقبال</h2>
+            <p><strong>التاريخ:</strong> <span id="displayDate">31 أكتوبر، 2026</span></p>
+            <p><strong>المكان:</strong> <span id="displayLocation">السيدية - قاعات بغداد الدولية</span></p>
+            
+            <iframe class="map-frame" src="https://maps.google.com/maps?q=Baghdad&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // التحقق مما إذا كان هناك بيانات مرسلة عبر الرابط
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('groom')) {
+            document.getElementById('generator-screen').style.display = 'none';
+            document.getElementById('cover-screen').style.display = 'flex';
+
+            // جلب البيانات من الرابط
+            window.invData = {
+                groom: urlParams.get('groom'),
+                bride: urlParams.get('bride'),
+                date: urlParams.get('date'),
+                location: urlParams.get('location'),
+                audio: urlParams.get('audio')
+            };
+
+            // تعبئة النصوص
+            document.getElementById('coverGroom').innerText = window.invData.groom;
+            document.getElementById('coverBride').innerText = window.invData.bride;
+            document.getElementById('coverDate').innerText = window.invData.date;
+            document.getElementById('mainNames').innerText = window.invData.groom + ' & ' + window.invData.bride;
+            document.getElementById('displayDate').innerText = window.invData.date;
+            document.getElementById('displayLocation').innerText = window.invData.location;
+            document.getElementById('weddingAudio').src = window.invData.audio;
+        }
+
+        function generateInvitation() {
+            const groom = document.getElementById('groomInput').value;
+            const bride = document.getElementById('brideInput').value;
+            const date = document.getElementById('dateInput').value;
+            const location = document.getElementById('locationInput').value;
+            const audio = document.getElementById('audioInput').value;
+
+            const currentUrl = window.location.origin + window.location.pathname;
+            const generatedLink = `${currentUrl}?groom=${encodeURIComponent(groom)}&bride=${encodeURIComponent(bride)}&date=${encodeURIComponent(date)}&location=${encodeURIComponent(location)}&audio=${encodeURIComponent(audio)}`;
+
+            const shareBox = document.getElementById('shareBox');
+            shareBox.style.display = 'block';
+            shareBox.innerHTML = `<strong>تم إنشاء الرابط بنجاح! انسخه وأرسله للضيوف:</strong><br><a href="${generatedLink}" target="_blank" style="color:#8c6d53; font-weight:bold;">${generatedLink}</a>`;
+        }
+
+        function openInvitation() {
+            const audio = document.getElementById("weddingAudio");
+            audio.play().catch(e => console.log("Audio blocked"));
+
+            const cover = document.getElementById("cover-screen");
+            cover.style.opacity = '0';
+            setTimeout(() => {
+                cover.style.display = 'none';
+                document.getElementById('invitation-screen').style.display = 'flex';
+                document.getElementById('audioBtn').style.display = 'flex';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 800);
+        }
+
+        function toggleAudio() {
+            const audio = document.getElementById("weddingAudio");
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+        }
+    </script>
+</body>
+</html>
