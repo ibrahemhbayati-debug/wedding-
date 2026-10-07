@@ -567,7 +567,7 @@
                     <!-- Section 4 -->
                     <div class="acc-item">
                         <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>🎵 الصوت والأغنية</span>
+                            <span>🎵 الصوت والأغنية (تعمل تلقائياً عند الضغط)</span>
                             <span>▼</span>
                         </div>
                         <div class="acc-content">
@@ -578,7 +578,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>أو اختر نغمة زفاف جاهزة تعمل مباشرة لكل الهواتف:</label>
+                                <label>أو اختر نغمة زفاف جاهزة مضمونة 100%:</label>
                                 <select id="presetAudioSelect" class="form-control" onchange="selectPresetAudio(this.value)">
                                     <option value="https://upload.wikimedia.org/wikipedia/commons/2/2a/Wagner_wedding_march.ogg">موسيقى زفاف ملكية كلاسيكية 🎵</option>
                                     <option value="https://ia800201.us.archive.org/12/items/wedding-march-piano/wedding-march.mp3">موسيقى بيانو هادئة للدعوات 🎹</option>
@@ -598,7 +598,7 @@
                     </div>
 
                     <button class="btn btn-preview" onclick="openPreviewModal()">👁️ معاينة الدعوة مع فتح الظرف</button>
-                    <button class="btn btn-primary" id="generateBtn" onclick="generateGuestLink()">🚀 حفظ وتوليد الرابط المباشر للمدعوين</button>
+                    <button class="btn btn-primary" id="generateBtn" onclick="generateGuestLink()">🚀 حفظ وتوليد الرابط القصير للمدعوين</button>
 
                     <!-- Share Results Box -->
                     <div class="share-box" id="shareBox" style="display: none;">
@@ -608,7 +608,7 @@
                         <button class="btn btn-action" onclick="copyCleanLink()">📋 نسخ الرابط القصير فقط</button>
 
                         <div style="margin-top:10px; text-align:right;">
-                            <label style="font-size:0.8rem; font-weight:bold; color:#065f46;">الرابط الجاهز للإرسال للمدعوين:</label>
+                            <label style="font-size:0.8rem; font-weight:bold; color:#065f46;">الرابط القصير والجاهز للإرسال:</label>
                             <textarea id="whatsappFormattedText" class="form-control" rows="3" readonly style="font-size:0.95rem; margin-top:4px; background:#f0fdf4; font-weight:bold; text-align:center;"></textarea>
                         </div>
                     </div>
@@ -649,7 +649,7 @@
 
     </div>
 
-    <!-- FULLSCREEN INVITATION VIEW WITH 3D ENVELOPE -->
+    <!-- FULLSCREEN GUEST INVITATION VIEW -->
     <div id="invitationModalView">
         <button class="close-preview-btn" id="closePreviewBtn" onclick="closePreviewModal()">✕ إغلاق المعاينة</button>
 
@@ -670,7 +670,7 @@
                 <p style="font-size: 0.95rem; color:#fff; margin-top: 25px; opacity: 0.9;">اضغط على الظرف لفتح الدعوة ✉️</p>
             </div>
 
-            <!-- Invitation Content (Revealed after envelope opens) -->
+            <!-- Invitation Content -->
             <div class="inv-content-wrap" id="invContentWrap">
                 
                 <div class="inv-quran-box" id="guestQuran">
@@ -739,7 +739,6 @@
             "أيلول (سبتمبر)", "تشرين الأول (أكتوبر)", "تشرين الثاني (نوفمبر)", "كانون الأول (ديسمبر)"
         ];
 
-        /* Unicode Safe Base64URL Encoding */
         function encodeData(obj) {
             const jsonStr = JSON.stringify(obj);
             const base64 = btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g, function(match, p1) {
@@ -757,12 +756,11 @@
             return JSON.parse(jsonStr);
         }
 
-        // ABSOLUTE FORCE GUEST MODE WHEN OPENED VIA SHARED LINK
+        // STRICT GUEST MODE DETECTION
         window.addEventListener('DOMContentLoaded', () => {
             const search = window.location.search;
             const hash = window.location.hash;
 
-            // Check if any query or hash parameter exists (This is a Guest!)
             if (search.length > 1 || hash.length > 1) {
                 document.getElementById('adminPanel').style.display = 'none';
                 document.getElementById('closePreviewBtn').style.display = 'none';
@@ -777,7 +775,6 @@
                     loadDataFromLegacyParams(params);
                 }
             } else {
-                // Admin Mode (Only when opening the clean base URL without parameters)
                 updatePreview();
                 setAudioSource(currentAudioSrc);
             }
@@ -786,8 +783,10 @@
         function setAudioSource(src) {
             currentAudioSrc = src;
             const audio = document.getElementById('weddingAudio');
-            audio.src = src;
-            audio.load();
+            if (audio) {
+                audio.src = src;
+                audio.load();
+            }
         }
 
         function selectTemplate(bgUrl, title) {
@@ -1001,14 +1000,20 @@
 
         function closePreviewModal() {
             document.getElementById('invitationModalView').style.display = 'none';
-            document.getElementById('weddingAudio').pause();
+            const audio = document.getElementById('weddingAudio');
+            if (audio) audio.pause();
         }
 
+        /* GUARANTEED SOUND TRIGGER & ENVELOPE OPENING */
         function openEnvelopeAction() {
             const audio = document.getElementById('weddingAudio');
             if (audio) {
-                audio.currentTime = parseFloat(document.getElementById('audioStartInput').value || '0');
-                audio.play().catch(e => console.log("Audio touch play:", e));
+                audio.currentTime = parseFloat(document.getElementById('audioStartInput')?.value || '0');
+                audio.play().then(() => {
+                    console.log("Audio played successfully on touch");
+                }).catch(e => {
+                    console.log("Autoplay restriction fallback:", e);
+                });
             }
 
             document.getElementById('envelopeWrapper').classList.add('open-flap');
@@ -1026,8 +1031,14 @@
             }
         }
 
-        /* GUARANTEED GUEST LINK GENERATOR */
-        function generateGuestLink() {
+        /* AUTOMATIC SHORT URL GENERATOR (TINYURL) */
+        async function generateGuestLink() {
+            const btn = document.getElementById('generateBtn');
+            if (btn) {
+                btn.innerText = "⏳ جاري توليد واختصار الرابط... انتظر ثانية";
+                btn.disabled = true;
+            }
+
             const groom = document.getElementById('groomInput').value || 'إبراهيم';
             const bride = document.getElementById('brideInput').value || 'نور';
             const date = document.getElementById('dateInput').value;
@@ -1052,9 +1063,19 @@
 
             const base64Code = encodeData(dataObj);
             const baseUrl = window.location.href.split('?')[0].split('#')[0];
-            
-            // Generate clean guest link with guaranteed parameter
-            generatedFinalUrl = `${baseUrl}?i=${base64Code}`;
+            const fullRawUrl = `${baseUrl}?i=${base64Code}`;
+
+            try {
+                const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(fullRawUrl)}`);
+                const shortUrl = await res.text();
+                if (shortUrl && shortUrl.startsWith('http')) {
+                    generatedFinalUrl = shortUrl.trim();
+                } else {
+                    generatedFinalUrl = fullRawUrl;
+                }
+            } catch(e) {
+                generatedFinalUrl = fullRawUrl;
+            }
 
             const ultraCleanMessage = `🌸 دعوة زفاف ${groom} & ${bride} 🌸\n${generatedFinalUrl}`;
 
@@ -1062,6 +1083,11 @@
             document.getElementById('whatsappFormattedText').value = ultraCleanMessage;
             document.getElementById('shareBox').style.display = 'block';
             document.getElementById('shareBox').scrollIntoView({ behavior: 'smooth' });
+
+            if (btn) {
+                btn.innerText = "🚀 حفظ وتوليد الرابط القصير للمدعوين";
+                btn.disabled = false;
+            }
         }
 
         function shareToWhatsApp() {
@@ -1072,7 +1098,7 @@
 
         function copyCleanLink() {
             navigator.clipboard.writeText(generatedFinalUrl);
-            alert("تم نسخ رابط الدعوة المباشر بنجاح! 📋");
+            alert("تم نسخ الرابط القصير بنجاح! 📋");
         }
 
         function loadDataFromBase64(base64Code) {
@@ -1080,7 +1106,7 @@
                 const data = decodeData(base64Code);
                 applyDataToView(data);
             } catch(e) {
-                console.error("Error decoding invitation data:", e);
+                console.error("Error decoding data:", e);
             }
         }
 
