@@ -3,707 +3,458 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعوتكم الفاخرة - الثيم الملكي السمائي</title>
-    <!-- خطوط عربية فاخرة -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@500;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <title>منصة تصميم دعوات الزفاف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --sky-bg: #eef7ff;
-            --sky-card: rgba(255, 255, 255, 0.92);
-            --sky-primary: #0288d1;
-            --sky-dark: #01579b;
-            --sky-light: #e0f7fa;
-            --gold-accent: #d4af37;
-            --gold-gradient: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #aa7c11 100%);
-            --text-main: #1a237e;
-            --text-muted: #455a64;
+            --primary: #ec4899;
+            --primary-hover: #db2777;
+            --bg-body: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background: radial-gradient(circle at center, #e3f2fd 0%, #bbdefb 100%);
             font-family: 'Tajawal', sans-serif;
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
             direction: rtl;
-            overflow-x: hidden;
+            min-height: 100vh;
+            padding: 20px 10px;
         }
 
-        /* 1. لوحة صانع الدعوات */
-        #generator-screen {
-            width: 100%;
-            padding: 30px 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        .gen-card {
-            background: var(--sky-card);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 2px solid rgba(212, 175, 55, 0.4);
-            box-shadow: 0 20px 40px rgba(2, 136, 209, 0.15), 0 0 25px rgba(212, 175, 55, 0.2);
-            border-radius: 28px;
-            padding: 35px 25px;
-            width: 100%;
-            max-width: 550px;
-            text-align: right;
-        }
-
-        .main-title {
+        /* Header */
+        .main-header {
             text-align: center;
-            font-family: 'Reem Kufi', serif;
-            font-size: 2.1rem;
             margin-bottom: 25px;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
         }
-
-        .section-header {
-            font-size: 1.1rem;
-            color: var(--sky-dark);
-            margin: 20px 0 10px;
-            border-bottom: 2px solid var(--sky-light);
-            padding-bottom: 5px;
-            font-weight: 700;
+        .main-header h1 {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            color: var(--text-dark);
         }
-
-        .form-group { margin-bottom: 15px; }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 6px;
-            color: var(--text-main);
+        .main-header p {
+            color: var(--text-muted);
             font-size: 0.95rem;
-            font-weight: 600;
+            margin-top: 5px;
         }
 
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            background: #ffffff;
-            border: 1px solid #b3e5fc;
-            border-radius: 12px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            font-family: 'Tajawal', sans-serif;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--sky-primary);
-            box-shadow: 0 0 10px rgba(2, 136, 209, 0.2);
-        }
-
-        .events-grid {
+        /* 1. Theme Gallery */
+        .templates-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 10px;
-            margin-bottom: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
         }
 
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            margin-top: 25px;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 14px;
-            border-radius: 14px;
-            font-size: 1rem;
-            font-weight: 700;
+        .template-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Tajawal', sans-serif;
-            border: none;
+            position: relative;
             text-align: center;
         }
+        .template-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+        .template-img { width: 100%; height: 280px; object-fit: cover; background: #e2e8f0; }
+        .template-badge {
+            position: absolute; top: 12px; right: 12px;
+            background: #ef4444; color: #fff; padding: 4px 10px;
+            border-radius: 20px; font-size: 0.75rem; font-weight: bold;
+        }
+        .template-info { padding: 15px; }
+        .template-info h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .template-info p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
 
-        .btn-generate {
-            background: var(--gold-gradient);
-            color: #1a1a1a;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        /* Buttons */
+        .btn {
+            display: inline-block; width: 100%; padding: 10px 15px;
+            border-radius: 10px; border: none; font-weight: bold;
+            font-family: inherit; font-size: 0.9rem; cursor: pointer;
+            text-align: center; transition: background 0.2s; text-decoration: none;
+        }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-hover); }
+        .btn-file { background: #0284c7; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-file:hover { background: #0369a1; }
+        .btn-success { background: #10b981; color: #fff; }
+        .btn-success:hover { background: #059669; }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-dark); }
+
+        /* 2. Editor Layout */
+        .editor-screen { display: none; }
+        .editor-topbar {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--card-bg); padding: 12px 20px; border-radius: 12px;
+            margin-bottom: 20px; border: 1px solid var(--border-color);
         }
 
-        .btn-generate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        .editor-layout {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 25px;
+            align-items: start;
         }
 
-        .btn-preview-mode {
-            background: #e3f2fd;
-            color: var(--sky-dark);
-            border: 1px solid var(--sky-primary);
+        @media (max-width: 850px) {
+            .editor-layout { grid-template-columns: 1fr; }
+        }
+
+        /* Accordions */
+        .acc-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .acc-header {
+            padding: 15px 18px; font-weight: bold; display: flex;
+            justify-content: space-between; align-items: center;
+            cursor: pointer; user-select: none; font-size: 0.95rem; background: #fff;
+        }
+        .acc-header:hover { background: #f8fafc; }
+        .acc-content {
+            padding: 18px; border-top: 1px solid var(--border-color);
+            display: none; background: #fff;
+        }
+        .acc-item.active .acc-content { display: block; }
+        .acc-item.active .acc-header { color: var(--primary); }
+
+        /* Form Inputs */
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+        .form-control {
+            width: 100%; padding: 10px 12px; border: 1px solid var(--border-color);
+            border-radius: 8px; font-size: 0.9rem; font-family: inherit; outline: none;
+        }
+        .form-control:focus { border-color: var(--primary); }
+
+        /* Mobile Mockup Live Preview */
+        .phone-container { position: sticky; top: 20px; display: flex; justify-content: center; }
+        .phone-mockup {
+            width: 310px; height: 580px; background: #1e293b;
+            border-radius: 36px; padding: 10px; box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            position: relative; border: 4px solid #0f172a;
+        }
+        .phone-screen {
+            width: 100%; height: 100%; border-radius: 26px; overflow: hidden;
+            position: relative; background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: space-between;
+            padding: 20px 15px; color: #fff; text-align: center;
+        }
+        .phone-overlay {
+            position: absolute; inset: 0;
+            background: rgba(0,0,0,0.45); z-index: 1;
+        }
+        .phone-content {
+            position: relative; z-index: 2; height: 100%;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+
+        .inv-names { font-family: 'Amiri', serif; font-size: 1.7rem; margin: 12px 0; }
+        .inv-sub { font-size: 0.8rem; opacity: 0.95; line-height: 1.4; }
+        .inv-details { background: rgba(0,0,0,0.35); backdrop-filter: blur(4px); padding: 10px; border-radius: 10px; font-size: 0.8rem; margin: 10px 0; }
+
+        .audio-toggle-btn {
+            position: absolute; bottom: 12px; left: 12px; z-index: 10;
+            background: rgba(255, 255, 255, 0.9); color: #000;
+            width: 38px; height: 38px; border-radius: 50%;
+            display: none; justify-content: center; align-items: center;
+            cursor: pointer; font-size: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .door-btn {
+            background: rgba(255,255,255,0.25); backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.4); padding: 10px;
+            border-radius: 20px; color: #fff; font-size: 0.78rem;
+            cursor: pointer; font-weight: bold;
         }
 
         .share-box {
-            margin-top: 25px;
-            background: #f0f8ff;
-            border: 2px dashed var(--gold-accent);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            display: none;
-        }
-
-        .share-url {
-            width: 100%;
-            padding: 10px;
-            background: #ffffff;
-            border: 1px solid #b3e5fc;
-            border-radius: 8px;
-            color: var(--sky-dark);
-            font-size: 0.85rem;
-            margin: 12px 0;
-            direction: ltr;
-            text-align: left;
-        }
-
-        .copy-btn {
-            background: #25d366;
-            color: #fff;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.95rem;
-        }
-
-        /* 2. شاشة الظرف الملكي الفاخر */
-        #envelope-screen {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
-            background: radial-gradient(circle, #eef7ff 0%, #b3e5fc 100%);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.8s ease;
-        }
-
-        .envelope-wrapper {
-            position: relative;
-            width: 320px;
-            height: 220px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(2, 136, 209, 0.25), 0 0 20px rgba(212, 175, 55, 0.3);
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid var(--gold-accent);
-        }
-
-        .envelope-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            border-top: 110px solid #e1f5fe;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            transform-origin: top;
-            transition: transform 0.6s ease;
-            z-index: 3;
-        }
-
-        .envelope-wrapper.open::before {
-            transform: rotateX(180deg);
-            z-index: 1;
-        }
-
-        .wax-seal {
-            position: absolute;
-            width: 75px; height: 75px;
-            background: radial-gradient(circle, #ffe082 0%, #d4af37 100%);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            color: #fff;
-            box-shadow: 0 0 18px rgba(212, 175, 55, 0.7);
-            border: 2px solid #ffffff;
-            z-index: 4;
-            transition: transform 0.3s ease;
-        }
-
-        .envelope-wrapper:hover .wax-seal { transform: scale(1.08); }
-
-        .envelope-title {
-            position: absolute;
-            bottom: 20px;
-            font-family: 'Amiri', serif;
-            font-size: 1.4rem;
-            color: var(--sky-dark);
-            font-weight: 700;
-            z-index: 2;
-        }
-
-        /* 3. واجهة عرض الدعوة للضيوف */
-        #invitation-screen {
-            display: none;
-            width: 100%;
-            max-width: 500px;
-            padding: 30px 15px 100px;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .inv-card {
-            background: var(--sky-card);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(212, 175, 55, 0.35);
-            border-radius: 24px;
-            padding: 35px 25px;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 22px;
-            box-shadow: 0 12px 30px rgba(2, 136, 209, 0.12);
-        }
-
-        .couple-photo-container {
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            padding: 4px;
-            background: var(--gold-gradient);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-            display: none;
-        }
-
-        .couple-photo {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .inv-card h1 {
-            font-family: 'Amiri', serif;
-            font-size: 2.5rem;
-            color: var(--sky-dark);
-            margin: 12px 0;
-            text-shadow: 0 2px 8px rgba(2, 136, 209, 0.15);
-        }
-
-        .inv-card p {
-            color: var(--text-muted);
-            line-height: 1.8;
-            font-size: 1.05rem;
-        }
-
-        /* جدول الأحداث المخصص */
-        .timeline-section {
-            margin-top: 20px;
-            text-align: right;
-        }
-
-        .timeline-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 12px 0;
-            border-bottom: 1px dashed #b3e5fc;
-        }
-
-        .timeline-item:last-child { border-bottom: none; }
-
-        .timeline-icon {
-            width: 42px;
-            height: 42px;
-            background: var(--sky-light);
-            border: 1px solid var(--sky-primary);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.1rem;
-            color: var(--sky-dark);
-            flex-shrink: 0;
-        }
-
-        .timeline-info h4 { font-size: 1rem; color: var(--sky-dark); }
-        .timeline-info p { font-size: 0.88rem; color: var(--text-muted); margin: 0; }
-
-        /* أزرار الحضور والاعتذار */
-        .rsvp-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .btn-rsvp {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            padding: 14px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-accept { background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; }
-        .btn-decline { background: #f5f5f5; color: #c62828; border: 1px solid #ef9a9a; }
-        .btn-map-link { background: var(--gold-gradient); color: #1a1a1a; }
-
-        .btn-rsvp:hover { transform: translateY(-2px); opacity: 0.95; }
-
-        /* العداد التنازلي */
-        .timer-grid {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 22px;
-        }
-
-        .timer-unit {
-            background: #ffffff;
-            border: 1px solid #b3e5fc;
-            padding: 12px;
-            border-radius: 14px;
-            min-width: 70px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-
-        .timer-val { font-size: 1.4rem; font-weight: bold; color: var(--sky-dark); }
-        .timer-lbl { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
-
-        .floating-audio-btn {
-            position: fixed;
-            bottom: 25px;
-            left: 25px;
-            background: #ffffff;
-            border: 2px solid var(--gold-accent);
-            color: var(--sky-dark);
-            width: 52px; height: 52px;
-            border-radius: 50%;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 1000;
-            font-size: 1.3rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            margin-top: 12px; background: #ecfdf5; border: 1px solid #a7f3d0;
+            border-radius: 10px; padding: 12px; text-align: center;
         }
     </style>
 </head>
 <body>
 
+    <!-- Hidden Audio Player -->
     <audio id="weddingAudio" loop></audio>
 
-    <!-- 1. لوحة صانع الدعوات -->
-    <div id="generator-screen">
-        <div class="gen-card">
-            <h2 class="main-title">صانع الدعوات الملكية (بياضات وسمائي)</h2>
+    <div class="container">
+
+        <!-- 1. Screen: Template Selector -->
+        <div id="screenTemplates">
+            <div class="main-header">
+                <h1>اختر ثيم الدعوة المناسب</h1>
+                <p>اختر القالب وابدأ بتخصيص المعلومات والصوتية بسهولة</p>
+            </div>
+
+            <div class="templates-grid">
+                <div class="template-card" onclick="selectTemplate('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600', 'باب الفرح')">
+                    <span class="template-badge">الأكثر طلباً</span>
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600" class="template-img">
+                    <div class="template-info">
+                        <h3>باب الفرح</h3>
+                        <p>باب خشبي كلاسيكي مع تحضيرات الورود</p>
+                        <button class="btn btn-primary">اختيار هذا الثيم 👈</button>
+                    </div>
+                </div>
+
+                <div class="template-card" onclick="selectTemplate('https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=600', 'قوس الزهور')">
+                    <span class="template-badge" style="background:#0284c7;">جديد</span>
+                    <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=600" class="template-img">
+                    <div class="template-info">
+                        <h3>قوس الزهور</h3>
+                        <p>مدخل مبهج بزهور بيضاء راقية</p>
+                        <button class="btn btn-primary">اختيار هذا الثيم 👈</button>
+                    </div>
+                </div>
+
+                <div class="template-card" onclick="selectTemplate('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600', 'كلاسيك ناعم')">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600" class="template-img">
+                    <div class="template-info">
+                        <h3>كلاسيك ناعم</h3>
+                        <p>طابع بسيط وأنيق للمناسبات الرائقة</p>
+                        <button class="btn btn-primary">اختيار هذا الثيم 👈</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Screen: Split Editor & Live Preview -->
+        <div class="editor-screen" id="screenEditor">
             
-            <div class="section-header">1. تفاصيل العروسين والمعازيم</div>
-            <div class="form-group">
-                <label>اسم العريس:</label>
-                <input type="text" id="groomInput" class="form-control" value="إبراهيم">
+            <div class="editor-topbar">
+                <button class="btn btn-outline" style="width: auto; padding: 6px 14px;" onclick="showTemplatesScreen()">← اختيار ثيم آخر</button>
+                <strong id="activeThemeTitle" style="color: var(--primary);">الثيم الحالي: باب الفرح</strong>
             </div>
 
-            <div class="form-group">
-                <label>اسم العروس:</label>
-                <input type="text" id="brideInput" class="form-control" value="نور">
+            <div class="editor-layout">
+                
+                <!-- Controls Side (Accordions) -->
+                <div>
+                    <!-- Section 1: Basics -->
+                    <div class="acc-item active">
+                        <div class="acc-header" onclick="toggleAccordion(this)">
+                            <span>📝 الأساسيات (الأسماء والدعوة)</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="acc-content">
+                            <div class="form-group">
+                                <label>اسم العريس:</label>
+                                <input type="text" id="groomInput" class="form-control" value="محمد" oninput="updatePreview()">
+                            </div>
+                            <div class="form-group">
+                                <label>اسم العروس:</label>
+                                <input type="text" id="brideInput" class="form-control" value="زينب" oninput="updatePreview()">
+                            </div>
+                            <div class="form-group">
+                                <label>عبارة الدعوة:</label>
+                                <input type="text" id="subInput" class="form-control" value="يتشرفان بدعوتكم لمشاركتهما فرحة العمر" oninput="updatePreview()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: iOS Audio / Voice File -->
+                    <div class="acc-item">
+                        <div class="acc-header" onclick="toggleAccordion(this)">
+                            <span>🎵 البصمة / الأغنية (من الآيفون)</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="acc-content">
+                            <div class="form-group">
+                                <label>اختر البصمة أو الصوتية المخزونة بملفات الآيفون:</label>
+                                <!-- Native File Input targeting Files app -->
+                                <input type="file" id="audioFileInput" accept="audio/*" style="display: none;" onchange="handleAudioUpload(this)">
+                                
+                                <button type="button" class="btn btn-file" onclick="document.getElementById('audioFileInput').click()">
+                                    📂 اختر ملف الصوت من الملفات (Files)
+                                </button>
+                                <p id="audioFileName" style="font-size: 0.8rem; color: var(--primary); margin-top: 8px; text-align: center; font-weight: bold;"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Date & Location -->
+                    <div class="acc-item">
+                        <div class="acc-header" onclick="toggleAccordion(this)">
+                            <span>📅 التاريخ والمكان</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="acc-content">
+                            <div class="form-group">
+                                <label>تاريخ الحفل:</label>
+                                <input type="date" id="dateInput" class="form-control" value="2026-11-20" oninput="updatePreview()">
+                            </div>
+                            <div class="form-group">
+                                <label>القاعة / المكان:</label>
+                                <input type="text" id="locInput" class="form-control" value="قاعة الفردوس - بغداد" oninput="updatePreview()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save & Publish Button -->
+                    <button class="btn btn-success" style="padding: 12px; margin-top: 8px;" onclick="generateLink()">حفظ الدعوة وتوليد الرابط 🚀</button>
+
+                    <!-- Share Link Box -->
+                    <div class="share-box" id="shareBox" style="display: none;">
+                        <p style="font-size:0.85rem; color:#065f46; margin-bottom:6px; font-weight:bold;">تم جاهزية الرابط الخاص بك! 🎉</p>
+                        <input type="text" id="finalUrl" class="form-control" readonly style="margin-bottom:8px; text-align:center;">
+                        <button class="btn btn-primary" onclick="copyLink()">نسخ رابط الدعوة 📋</button>
+                    </div>
+
+                </div>
+
+                <!-- Live Phone Mockup Side -->
+                <div class="phone-container">
+                    <div class="phone-mockup">
+                        <div class="phone-screen" id="phoneCard">
+                            <div class="phone-overlay"></div>
+                            
+                            <!-- Audio Floating Control -->
+                            <div class="audio-toggle-btn" id="audioToggleBtn" onclick="toggleAudio()">🎶</div>
+
+                            <div class="phone-content">
+                                <div>
+                                    <p style="font-size:0.75rem; letter-spacing:1px; margin-top:5px;">دعوة زفاف</p>
+                                    <h2 class="inv-names" id="pNames">محمد & زينب</h2>
+                                    <p class="inv-sub" id="pSub">يتشرفان بدعوتكم لمشاركتهما فرحة العمر</p>
+                                </div>
+
+                                <div class="inv-details">
+                                    <p id="pDate">📅 2026-11-20</p>
+                                    <p id="pLoc" style="margin-top:4px;">📍 قاعة الفردوس - بغداد</p>
+                                </div>
+
+                                <div class="door-btn" onclick="playAudioDirect()">
+                                    اضغط لفتح الدعوة وسماع البصمة ✨
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="form-group">
-                <label>رابط صورة العروسين / البوستر (اختياري):</label>
-                <input type="text" id="photoInput" class="form-control" placeholder="https://example.com/photo.jpg">
-            </div>
-
-            <div class="form-group">
-                <label>تاريخ الحفل (مثال: 2026-10-31):</label>
-                <input type="text" id="dateInput" class="form-control" value="2026-10-31">
-            </div>
-
-            <div class="form-group">
-                <label>اسم القاعة والموقع:</label>
-                <input type="text" id="locationInput" class="form-control" value="بغداد - السيدية - قاعات بغداد الدولية">
-            </div>
-
-            <div class="form-group">
-                <label>رقم الواتساب لتأكيد الحضور (مع رمز الدولة):</label>
-                <input type="text" id="whatsappInput" class="form-control" value="9647700000000">
-            </div>
-
-            <div class="section-header">2. التحكم بالفقرات والأحداث (حسب رغبتك)</div>
-            <div class="events-grid">
-                <input type="text" id="t1" class="form-control" value="07:00 م">
-                <input type="text" id="e1" class="form-control" value="استقبال الضيوف الكرام">
-            </div>
-            <div class="events-grid">
-                <input type="text" id="t2" class="form-control" value="08:00 م">
-                <input type="text" id="e2" class="form-control" value="دخول العروسين القاعة">
-            </div>
-            <div class="events-grid">
-                <input type="text" id="t3" class="form-control" value="09:00 م">
-                <input type="text" id="e3" class="form-control" value="تقديم وجبة العشاء">
-            </div>
-            <div class="events-grid">
-                <input type="text" id="t4" class="form-control" value="10:00 م">
-                <input type="text" id="e4" class="form-control" value="تقطيع الكيك والتبريكات">
-            </div>
-
-            <div class="section-header">3. الموسيقى الخلفية</div>
-            <div class="form-group">
-                <label>اختر الصوت أو ضع رابط MP3 مباشر:</label>
-                <select id="audioTypeSelect" class="form-control" onchange="toggleAudioField()">
-                    <option value="preset1">معزوفة رومانسية ملكية 1</option>
-                    <option value="preset2">معزوفة هادئة فاخرة 2</option>
-                    <option value="custom">رابط صوت MP3 مباشر خاص بك</option>
-                </select>
-            </div>
-
-            <div class="form-group" id="audioUrlGroup" style="display:none;">
-                <label>رابط صوت مباشر (.mp3):</label>
-                <input type="text" id="audioUrlInput" class="form-control" placeholder="https://site.com/song.mp3">
-            </div>
-
-            <div class="btn-group">
-                <button class="action-btn btn-preview-mode" onclick="previewInvitation()">👁️ معاينة الدعوة</button>
-                <button class="action-btn btn-generate" onclick="generateInvitation()">🔗 إنشاء الرابط</button>
-            </div>
-
-            <div class="share-box" id="shareBox">
-                <strong style="color: var(--sky-dark);">تم إنشاء رابط الدعوة الفاخرة بنجاح! 🎉</strong>
-                <input type="text" id="shareUrlInput" class="share-url" readonly>
-                <button class="copy-btn" onclick="copyShareUrl()">نسخ الرابط 📋</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2. شاشة الظرف الملكي -->
-    <div id="envelope-screen">
-        <div class="envelope-wrapper" id="envWrapper" onclick="openEnvelope()">
-            <div class="wax-seal">👑</div>
-            <div class="envelope-title" id="envNames">إبراهيم & نور</div>
-        </div>
-    </div>
-
-    <!-- زر التحكم بالصوت -->
-    <div class="floating-audio-btn" id="audioBtn" onclick="toggleAudio()">🎶</div>
-
-    <!-- 3. شاشة عرض الدعوة للضيوف -->
-    <div id="invitation-screen">
-        <div class="inv-card">
-            <!-- صورة العروسين -->
-            <div class="couple-photo-container" id="couplePhotoBox">
-                <img id="couplePhoto" class="couple-photo" src="" alt="صورة العروسين">
-            </div>
-
-            <span style="color: var(--gold-accent); font-size: 1rem; font-weight: 700;">« بارك الله لهما وبارك عليهما »</span>
-            <h1 id="mainNames">إبراهيم & نور</h1>
-            <p>يتشرفون بدعوتكم لمشاركتهم أجمل لحظات العمر في حفل زفافهم المبارك، وتكتمل سعادتنا بحضوركم الكريم.</p>
-            
-            <!-- العداد التنازلي -->
-            <div class="timer-grid">
-                <div class="timer-unit"><div class="timer-val" id="days">00</div><div class="timer-lbl">يوم</div></div>
-                <div class="timer-unit"><div class="timer-val" id="hours">00</div><div class="timer-lbl">ساعة</div></div>
-                <div class="timer-unit"><div class="timer-val" id="minutes">00</div><div class="timer-lbl">دقيقة</div></div>
-                <div class="timer-unit"><div class="timer-val" id="seconds">00</div><div class="timer-lbl">ثانية</div></div>
-            </div>
-        </div>
-
-        <!-- تفاصيل الحفل وجدول الفقرات المخصص -->
-        <div class="inv-card">
-            <h2 style="color: var(--sky-dark); font-size: 1.4rem; margin-bottom: 15px;">تفاصيل ومواعيد الحفل</h2>
-            <p><strong>التاريخ:</strong> <span id="displayDate" style="color:var(--sky-dark);">31 أكتوبر 2026</span></p>
-            <p style="margin-top: 6px;"><strong>المكان:</strong> <span id="displayLocation" style="color:var(--sky-dark);">السيدية - قاعات بغداد الدولية</span></p>
-            
-            <div class="timeline-section" id="timelineContainer">
-                <!-- يتم توليد الفقرات المخصصة هنا ديناميكياً -->
-            </div>
-
-            <div style="margin-top: 22px;">
-                <a id="mapBtn" class="btn-rsvp btn-map-link" target="_blank">📍 موقع الحفل على Google Maps</a>
-            </div>
         </div>
 
-        <!-- تأكيد الحضور RSVP -->
-        <div class="inv-card">
-            <h3 style="color: var(--sky-dark); margin-bottom: 12px;">تأكيد الحضور</h3>
-            <div class="rsvp-buttons">
-                <button class="btn-rsvp btn-accept" onclick="sendRSVP(true)">💬 يشرفني الحضور بكل سرور</button>
-                <button class="btn-rsvp btn-decline" onclick="sendRSVP(false)">💐 اعتذر لعدم التمكن من الحضور</button>
-            </div>
-        </div>
     </div>
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        let weddingTargetDate = new Date();
-        let targetWhatsapp = "";
+        let currentBgImg = '';
 
-        const presets = {
-            preset1: 'https://www.bensound.com/bensound-music/bensound-romantic.mp3',
-            preset2: 'https://www.bensound.com/bensound-music/bensound-love.mp3'
-        };
-
-        function toggleAudioField() {
-            const type = document.getElementById('audioTypeSelect').value;
-            document.getElementById('audioUrlGroup').style.display = (type === 'custom') ? 'block' : 'none';
+        function selectTemplate(bgUrl, title) {
+            currentBgImg = bgUrl;
+            document.getElementById('phoneCard').style.backgroundImage = `url('${bgUrl}')`;
+            document.getElementById('activeThemeTitle').innerText = `الثيم الحالي: ${title}`;
+            document.getElementById('screenTemplates').style.display = 'none';
+            document.getElementById('screenEditor').style.display = 'block';
+            updatePreview();
         }
 
-        if (urlParams.has('groom')) {
-            document.getElementById('generator-screen').style.display = 'none';
-            document.getElementById('envelope-screen').style.display = 'flex';
-
-            const groom = urlParams.get('groom');
-            const bride = urlParams.get('bride');
-            const date = urlParams.get('date');
-            const location = urlParams.get('location');
-            const photo = urlParams.get('photo');
-            const audio = urlParams.get('audio');
-            targetWhatsapp = urlParams.get('wa') || "";
-
-            document.getElementById('envNames').innerText = `${groom} & ${bride}`;
-            document.getElementById('mainNames').innerText = `${groom} & ${bride}`;
-            document.getElementById('displayDate').innerText = date;
-            document.getElementById('displayLocation').innerText = location;
-            
-            if (photo && photo.trim() !== "") {
-                document.getElementById('couplePhoto').src = photo;
-                document.getElementById('couplePhotoBox').style.display = 'block';
-            }
-
-            // توليد فقرات الحفل المخصصة
-            const eventsHtml = [];
-            for (let i = 1; i <= 4; i++) {
-                const time = urlParams.get(`t${i}`);
-                const event = urlParams.get(`e${i}`);
-                if (time && event) {
-                    eventsHtml.push(`
-                        <div class="timeline-item">
-                            <div class="timeline-icon">✨</div>
-                            <div class="timeline-info">
-                                <h4>${event}</h4>
-                                <p>الساعة ${time}</p>
-                            </div>
-                        </div>
-                    `);
-                }
-            }
-            document.getElementById('timelineContainer').innerHTML = eventsHtml.join('');
-
-            document.getElementById('mapBtn').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
-            document.getElementById('weddingAudio').src = audio || presets.preset1;
-
-            if (!isNaN(Date.parse(date))) {
-                weddingTargetDate = new Date(date);
-            } else {
-                weddingTargetDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
-            }
-            startTimer();
+        function showTemplatesScreen() {
+            document.getElementById('screenEditor').style.display = 'none';
+            document.getElementById('screenTemplates').style.display = 'block';
         }
 
-        function getAudioUrl() {
-            const type = document.getElementById('audioTypeSelect').value;
-            if (type === 'custom') return document.getElementById('audioUrlInput').value || presets.preset1;
-            return presets[type] || presets.preset1;
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            item.classList.toggle('active');
         }
 
-        function getParamsUrl() {
-            const groom = document.getElementById('groomInput').value;
-            const bride = document.getElementById('brideInput').value;
-            const photo = document.getElementById('photoInput').value;
+        function updatePreview() {
+            const groom = document.getElementById('groomInput').value || 'العريس';
+            const bride = document.getElementById('brideInput').value || 'العروس';
+            const sub = document.getElementById('subInput').value;
             const date = document.getElementById('dateInput').value;
-            const location = document.getElementById('locationInput').value;
-            const wa = document.getElementById('whatsappInput').value;
-            const audio = getAudioUrl();
+            const loc = document.getElementById('locInput').value;
 
-            const t1 = document.getElementById('t1').value;
-            const e1 = document.getElementById('e1').value;
-            const t2 = document.getElementById('t2').value;
-            const e2 = document.getElementById('e2').value;
-            const t3 = document.getElementById('t3').value;
-            const e3 = document.getElementById('e3').value;
-            const t4 = document.getElementById('t4').value;
-            const e4 = document.getElementById('e4').value;
-
-            return `${window.location.origin}${window.location.pathname}?groom=${encodeURIComponent(groom)}&bride=${encodeURIComponent(bride)}&photo=${encodeURIComponent(photo)}&date=${encodeURIComponent(date)}&location=${encodeURIComponent(location)}&wa=${encodeURIComponent(wa)}&audio=${encodeURIComponent(audio)}&t1=${encodeURIComponent(t1)}&e1=${encodeURIComponent(e1)}&t2=${encodeURIComponent(t2)}&e2=${encodeURIComponent(e2)}&t3=${encodeURIComponent(t3)}&e3=${encodeURIComponent(e3)}&t4=${encodeURIComponent(t4)}&e4=${encodeURIComponent(e4)}`;
+            document.getElementById('pNames').innerText = `${groom} & ${bride}`;
+            document.getElementById('pSub').innerText = sub;
+            document.getElementById('pDate').innerText = `📅 ${date}`;
+            document.getElementById('pLoc').innerText = `📍 ${loc}`;
         }
 
-        function previewInvitation() {
-            window.open(getParamsUrl(), '_blank');
-        }
+        // Handling Native iOS Audio File Picker
+        function handleAudioUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                document.getElementById('audioFileName').innerText = `تم اختيار الصوت: ${file.name}`;
+                
+                // Convert audio file into local URL for immediate playback
+                const objectUrl = URL.createObjectURL(file);
+                const audio = document.getElementById('weddingAudio');
+                audio.src = objectUrl;
 
-        function generateInvitation() {
-            document.getElementById('shareUrlInput').value = getParamsUrl();
-            document.getElementById('shareBox').style.display = 'block';
-        }
-
-        function copyShareUrl() {
-            const urlInput = document.getElementById('shareUrlInput');
-            urlInput.select();
-            navigator.clipboard.writeText(urlInput.value);
-            alert("تم نسخ رابط الدعوة السماوية بنجاح! 📋");
-        }
-
-        function openEnvelope() {
-            const audio = document.getElementById("weddingAudio");
-            audio.play().catch(e => console.log("Audio play touch required"));
-
-            const env = document.getElementById("envWrapper");
-            env.classList.add("open");
-
-            setTimeout(() => {
-                const screen = document.getElementById("envelope-screen");
-                screen.style.opacity = '0';
-                setTimeout(() => {
-                    screen.style.display = 'none';
-                    document.getElementById('invitation-screen').style.display = 'flex';
-                    document.getElementById('audioBtn').style.display = 'flex';
-                }, 600);
-            }, 600);
+                // Show music toggle icon on mockup
+                document.getElementById('audioToggleBtn').style.display = 'flex';
+                
+                // Try playing audio
+                audio.play().catch(() => {});
+            }
         }
 
         function toggleAudio() {
-            const audio = document.getElementById("weddingAudio");
-            if (audio.paused) { audio.play(); } else { audio.pause(); }
+            const audio = document.getElementById('weddingAudio');
+            if (audio.src) {
+                audio.paused ? audio.play() : audio.pause();
+            }
         }
 
-        function sendRSVP(attending) {
-            let msg = attending 
-                ? "ألف مبروك! يشرفني ويعدني تأكيد حضوري لحفل الزفاف المبارك 🎉✨" 
-                : "ألف مبروك! أقدم أطيب التبريكات وأعتذر عن عدم التمكن من الحضور بسبب الظروف. أتمنى لكم حياة سعيدة 💐";
-            
-            window.open(`https://wa.me/${targetWhatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
+        function playAudioDirect() {
+            const audio = document.getElementById('weddingAudio');
+            if (audio.src) {
+                audio.play().catch(() => {});
+            }
         }
 
-        function startTimer() {
-            setInterval(() => {
-                const now = new Date().getTime();
-                const distance = weddingTargetDate - now;
-                if (distance > 0) {
-                    document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
-                }
-            }, 1000);
+        function generateLink() {
+            const url = new URL(window.location.href.split('?')[0]);
+            url.searchParams.set('g', document.getElementById('groomInput').value);
+            url.searchParams.set('b', document.getElementById('brideInput').value);
+            url.searchParams.set('sub', document.getElementById('subInput').value);
+            url.searchParams.set('d', document.getElementById('dateInput').value);
+            url.searchParams.set('l', document.getElementById('locInput').value);
+            if (currentBgImg) url.searchParams.set('bg', currentBgImg);
+
+            document.getElementById('finalUrl').value = url.toString();
+            document.getElementById('shareBox').style.display = 'block';
         }
+
+        function copyLink() {
+            const urlInput = document.getElementById('finalUrl');
+            urlInput.select();
+            navigator.clipboard.writeText(urlInput.value);
+            alert("تم نسخ رابط الدعوة بنجاح! 📋");
+        }
+
+        // On Page Load: Check if opened via generated URL parameters
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('g') || params.has('b')) {
+                const bg = params.get('bg') || 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600';
+                selectTemplate(bg, 'الدعوة المشاركة');
+                if (params.get('g')) document.getElementById('groomInput').value = params.get('g');
+                if (params.get('b')) document.getElementById('brideInput').value = params.get('b');
+                if (params.get('sub')) document.getElementById('subInput').value = params.get('sub');
+                if (params.get('d')) document.getElementById('dateInput').value = params.get('d');
+                if (params.get('l')) document.getElementById('locInput').value = params.get('l');
+                updatePreview();
+            }
+        });
     </script>
 </body>
 </html>
