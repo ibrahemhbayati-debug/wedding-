@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعوة زفاف إلكترونية احترافية</title>
+    <title id="pageTitle">دعوة زفاف إلكترونية</title>
+    
+    <!-- Open Graph for Social Media Link Previews -->
+    <meta property="og:title" content="دعوة زفاف إلكترونية">
+    <meta property="og:description" content="يتشرفان بدعوتكم لمشاركتهما فرحة العمر وحضور حفل الزفاف">
+    
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -26,7 +31,6 @@
             min-height: 100vh;
         }
 
-        /* ADMIN PANEL LAYOUT */
         .admin-container {
             max-width: 1050px;
             margin: 0 auto;
@@ -48,7 +52,6 @@
             margin-top: 5px;
         }
 
-        /* Templates Grid */
         .templates-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -68,7 +71,6 @@
         .template-img { width: 100%; height: 260px; object-fit: cover; background: #e7e5e4; }
         .template-info { padding: 15px; }
 
-        /* Buttons */
         .btn {
             display: inline-block; width: 100%; padding: 12px 15px;
             border-radius: 10px; border: none; font-weight: bold;
@@ -83,9 +85,10 @@
         .btn-primary:hover { background: #059669; }
         .btn-action { background: #0284c7; color: #fff; }
         .btn-action:hover { background: #0369a1; }
+        .btn-whatsapp { background: #25D366; color: #fff; font-size: 1rem; }
+        .btn-whatsapp:hover { background: #1da851; }
         .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-dark); }
 
-        /* Editor Screen */
         .editor-screen { display: none; }
         .editor-topbar {
             display: flex; justify-content: space-between; align-items: center;
@@ -104,7 +107,6 @@
             .editor-layout { grid-template-columns: 1fr; }
         }
 
-        /* Accordions */
         .acc-item {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -125,7 +127,6 @@
         .acc-item.active .acc-content { display: block; }
         .acc-item.active .acc-header { color: var(--primary); }
 
-        /* Form Inputs */
         .form-group { margin-bottom: 14px; }
         .form-group label { display: block; margin-bottom: 6px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
         .form-control {
@@ -134,7 +135,6 @@
         }
         .form-control:focus { border-color: var(--primary); }
 
-        /* Mobile Mockup Preview */
         .phone-container { position: sticky; top: 20px; display: flex; justify-content: center; }
         .phone-mockup {
             width: 310px; height: 580px; background: #0c0a09;
@@ -153,7 +153,6 @@
             border-radius: 12px; padding: 15px; text-align: center;
         }
 
-        /* FULLSCREEN INVITATION VIEW */
         #invitationModalView {
             display: none;
             position: fixed;
@@ -179,7 +178,6 @@
             text-align: center;
         }
 
-        /* Blurred Overlay / Cover */
         .cover-overlay {
             position: absolute;
             inset: 0;
@@ -221,7 +219,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Animated Content */
         .inv-content-wrap {
             position: relative;
             z-index: 5;
@@ -268,7 +265,6 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Countdown Timer */
         .countdown-bar {
             width: 100%;
             background: rgba(0, 0, 0, 0.65);
@@ -284,7 +280,6 @@
         .timer-num { font-size: 1.3rem; font-weight: bold; color: #fbbf24; }
         .timer-label { font-size: 0.72rem; opacity: 0.85; margin-top: 2px; }
 
-        /* Calendar Grid Style */
         .calendar-card {
             width: 100%;
             background: rgba(0, 0, 0, 0.65);
@@ -322,7 +317,6 @@
             text-align: right;
         }
 
-        /* Map Embed Box */
         .map-box-container {
             width: 100%;
             background: rgba(0, 0, 0, 0.65);
@@ -393,7 +387,6 @@
 
     <audio id="weddingAudio" loop></audio>
 
-    <!-- ADMIN PANEL -->
     <div class="admin-container" id="adminPanel">
 
         <div id="screenTemplates">
@@ -440,7 +433,7 @@
             <div class="editor-layout">
                 
                 <div>
-                    <!-- Section 1: Names & Quranic Verses -->
+                    <!-- Section 1 -->
                     <div class="acc-item active">
                         <div class="acc-header" onclick="toggleAccordion(this)">
                             <span>📝 أسماء العروسين والعبارات القرآنية</span>
@@ -466,7 +459,7 @@
                         </div>
                     </div>
 
-                    <!-- Section 2: Date, Location & Google Maps -->
+                    <!-- Section 2 -->
                     <div class="acc-item">
                         <div class="acc-header" onclick="toggleAccordion(this)">
                             <span>📍 التاريخ والموقع وترسيم الخريطة</span>
@@ -474,29 +467,29 @@
                         </div>
                         <div class="acc-content">
                             <div class="form-group">
-                                <label>تاريخ الحفل (لتوليد التقويم والعد التنازلي):</label>
-                                <input type="date" id="dateInput" class="form-control" value="2026-11-20" onchange="updatePreview()">
+                                <label>تاريخ الحفل:</label>
+                                <input type="date" id="dateInput" class="form-control" value="2026-10-31" onchange="updatePreview()">
                             </div>
                             <div class="form-group">
                                 <label>ساعة موعد الحضور:</label>
                                 <input type="text" id="timeInput" class="form-control" value="الساعة 7:00 مساءً" placeholder="مثال: الساعة 7:30 مساءً" oninput="updatePreview()">
                             </div>
                             <div class="form-group">
-                                <label>اسم القاعة والموقع (سيتم إيجاد خريطتها تلقائياً):</label>
+                                <label>اسم القاعة والموقع:</label>
                                 <input type="text" id="locInput" class="form-control" value="قاعات بغداد الدولية، القاعة الفضية" oninput="updatePreview()">
                             </div>
                             <div class="form-group">
-                                <label>رابط موقع مباشر إن وجد (Google Maps):</label>
+                                <label>رابط خريطة مباشر (Google Maps Link):</label>
                                 <input type="text" id="mapInput" class="form-control" placeholder="https://maps.google.com/..." value="" oninput="updatePreview()">
                             </div>
                             <div class="form-group">
-                                <label>ملاحظات إضافية (مثل: جنة الأطفال منازلهم / يرجى عدم التصوير):</label>
+                                <label>ملاحظات إضافية:</label>
                                 <input type="text" id="notesInput" class="form-control" value="ملاحظة: جنة الأطفال منازلهم 🌸 | يرجى عدم التصوير 🚫" oninput="updatePreview()">
                             </div>
                         </div>
                     </div>
 
-                    <!-- Section 3: Background Image -->
+                    <!-- Section 3 -->
                     <div class="acc-item">
                         <div class="acc-header" onclick="toggleAccordion(this)">
                             <span>🖼️ خلفية الدعوة</span>
@@ -514,10 +507,10 @@
                         </div>
                     </div>
 
-                    <!-- Section 4: Audio Files Fix for iOS -->
+                    <!-- Section 4 -->
                     <div class="acc-item">
                         <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>🎵 الصوت والأغنية (مُحدث لدعم iOS والملفات)</span>
+                            <span>🎵 الصوت والأغنية (مرفوعة سحابياً لضمان تشغيلها عند الجميع)</span>
                             <span>▼</span>
                         </div>
                         <div class="acc-content">
@@ -531,27 +524,39 @@
                             </div>
 
                             <div class="form-group">
-                                <label>أو ارفع أغنية/ملف صوتي من جهازك (معدل للآيفون iOS):</label>
-                                <!-- Accept modified for all audio/video formats & extensions -->
+                                <label>أو ارفع أغنية من جهازك (سيتم رفعها سحابياً لتعمل عند كل المعازيم):</label>
                                 <input type="file" id="audioFileInput" accept="audio/*,video/*,.mp3,.m4a,.mp4,.wav,.aac,.mov" class="form-control" onchange="handleAudioUpload(this)">
-                                <p id="audioStatusText" style="font-size:0.8rem; color:#10b981; margin-top:5px; font-weight:bold;"></p>
+                                <p id="audioStatusText" style="font-size:0.85rem; color:#d97706; margin-top:6px; font-weight:bold;"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>أو ضع رابط مباشر لأغنية (MP3 Direct Link):</label>
+                                <input type="text" id="audioUrlInput" class="form-control" placeholder="https://.../song.mp3" oninput="handleAudioUrlInput(this.value)">
                             </div>
 
                             <div class="form-group">
                                 <label>ابدأ الأغنية من الثانية (اختياري):</label>
-                                <input type="number" id="audioStartInput" class="form-control" value="0" min="0" placeholder="مثلاً: 10">
+                                <input type="number" id="audioStartInput" class="form-control" value="0" min="0" placeholder="مثلاً: 15">
                             </div>
                         </div>
                     </div>
 
-                    <button class="btn btn-preview" onclick="openPreviewModal()">👁️ معاينة الدعوة بالكامل (مع الخريطة والتقويم والآية)</button>
-                    <button class="btn btn-primary" onclick="generateGuestLink()">🚀 حفظ وتوليد رابط الدعوة للمدعوين</button>
+                    <button class="btn btn-preview" onclick="openPreviewModal()">👁️ معاينة الدعوة بالكامل</button>
+                    <button class="btn btn-primary" onclick="generateGuestLink()">🚀 حفظ وتوليد الرابط النظيف للمدعوين</button>
 
+                    <!-- Share Results Box -->
                     <div class="share-box" id="shareBox" style="display: none;">
-                        <p style="font-size:0.95rem; color:#065f46; margin-bottom:6px; font-weight:bold;" id="shareTitleDisplay">💌 دعوة زفاف إبراهيم & نور</p>
-                        <p style="font-size:0.8rem; color:#047857; margin-bottom:10px;">رابط الدعوة المباشر جاهز للإرسال:</p>
-                        <input type="text" id="finalUrl" class="form-control" readonly style="margin-bottom:10px; text-align:center; font-weight:bold;">
-                        <button class="btn btn-action" onclick="copyLink()">نسخ رابط الدعوة 📋</button>
+                        <p style="font-size:1.05rem; color:#065f46; margin-bottom:8px; font-weight:bold;" id="shareTitleDisplay">💌 دعوة زفاف إبراهيم & نور</p>
+                        
+                        <p style="font-size:0.85rem; color:#047857; margin-bottom:10px;">اختر طريقة المشاركة الأنسب لك:</p>
+
+                        <button class="btn btn-whatsapp" onclick="shareToWhatsApp()">📲 مشاركة كرسالة واتساب أنيقة مباشرة</button>
+                        <button class="btn btn-action" onclick="copyCleanLink()">📋 نسخ الرابط المختصر الشفاف فقط</button>
+
+                        <div style="margin-top:12px; text-align:right;">
+                            <label style="font-size:0.8rem; font-weight:bold; color:#065f46;">معاينة النص والرابط قبل الإرسال:</label>
+                            <textarea id="whatsappFormattedText" class="form-control" rows="6" readonly style="font-size:0.85rem; margin-top:4px; background:#f0fdf4;"></textarea>
+                        </div>
                     </div>
 
                 </div>
@@ -570,7 +575,7 @@
                                 </div>
 
                                 <div style="background: rgba(0,0,0,0.45); padding: 8px; border-radius: 10px; font-size: 0.75rem;">
-                                    <p id="pDate">📅 2026-11-20</p>
+                                    <p id="pDate">📅 2026-10-31</p>
                                     <p id="pTime" style="margin-top:2px;">⏰ الساعة 7:00 مساءً</p>
                                     <p id="pLoc" style="margin-top:2px;">📍 قاعات بغداد الدولية</p>
                                 </div>
@@ -627,13 +632,13 @@
 
                 <!-- Calendar View -->
                 <div class="calendar-card">
-                    <div class="cal-header-title" id="calMonthTitle">تقويم الشهر (تشرين الثاني 2026)</div>
+                    <div class="cal-header-title" id="calMonthTitle">تقويم الشهر</div>
                     <div class="cal-grid-days" id="calGridDays"></div>
                 </div>
 
                 <!-- Location & Details Card -->
                 <div class="inv-info-card">
-                    <p id="guestDate" style="font-weight: bold; margin-bottom: 4px;">📅 التاريخ: 2026-11-20</p>
+                    <p id="guestDate" style="font-weight: bold; margin-bottom: 4px;">📅 التاريخ: 2026-10-31</p>
                     <p id="guestTime" style="margin-bottom: 4px; color:#fef08a; font-weight:bold;">⏰ موعد الحضور: الساعة 7:00 مساءً</p>
                     <p id="guestLoc" style="opacity: 0.95;">📍 المكان: قاعات بغداد الدولية، القاعة الفضية</p>
                 </div>
@@ -665,6 +670,7 @@
         let currentAudioSrc = '';
         let audioStartTime = 0;
         let countdownInterval = null;
+        let generatedFinalUrl = '';
 
         const monthNamesArabic = [
             "كانون الثاني (يناير)", "شباط (فبراير)", "آذار (مارس)", "نيسان (أبريل)", 
@@ -672,13 +678,31 @@
             "أيلول (سبتمبر)", "تشرين الأول (أكتوبر)", "تشرين الثاني (نوفمبر)", "كانون الأول (ديسمبر)"
         ];
 
+        // Unicode safe Base64 encoder/decoder
+        function safeBase64Encode(str) {
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+                return String.fromCharCode('0x' + p1);
+            }));
+        }
+
+        function safeBase64Decode(str) {
+            return decodeURIComponent(Array.prototype.map.call(atob(str), function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+        }
+
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            if (params.get('mode') === 'invite') {
+            if (params.get('i')) {
                 document.getElementById('adminPanel').style.display = 'none';
                 document.getElementById('closePreviewBtn').style.display = 'none';
                 document.getElementById('invitationModalView').style.display = 'block';
-                loadDataFromParams(params);
+                loadDataFromCompressedParam(params.get('i'));
+            } else if (params.get('mode') === 'invite') {
+                document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('closePreviewBtn').style.display = 'none';
+                document.getElementById('invitationModalView').style.display = 'block';
+                loadDataFromParamsOld(params);
             } else {
                 updatePreview();
             }
@@ -744,28 +768,58 @@
                 currentAudioSrc = url;
                 document.getElementById('weddingAudio').src = url;
                 document.getElementById('audioStatusText').innerText = "تم اختيار نغمة الزفاف الجاهزة 🎵";
+                document.getElementById('audioStatusText').style.color = "#10b981";
             }
         }
 
-        /* ----------------------------------------------------------------- */
-        /* iOS Safe Audio / Video Upload Handler                             */
-        /* ----------------------------------------------------------------- */
-        function handleAudioUpload(input) {
+        function handleAudioUrlInput(url) {
+            if (url) {
+                currentAudioSrc = url;
+                document.getElementById('weddingAudio').src = url;
+                document.getElementById('audioStatusText').innerText = "تم اعتماد رابط الأغنية المباشر 🎵";
+                document.getElementById('audioStatusText').style.color = "#10b981";
+            }
+        }
+
+        /* Cloud Upload Handler for Audio Files (Works on all Devices & Guests) */
+        async function handleAudioUpload(input) {
             const file = input.files[0];
             if (!file) return;
 
-            // Extract file extension to avoid depending solely on file.type for iOS
-            const extension = file.name.split('.').pop().toLowerCase();
-            const allowedExts = ['mp3', 'm4a', 'mp4', 'wav', 'aac', 'mov', 'ogg'];
+            const statusEl = document.getElementById('audioStatusText');
+            statusEl.innerText = "⏳ جاري رفع الأغنية إلى السحابة حتى تشتغل عند كل المعازيم...";
+            statusEl.style.color = "#d97706";
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                currentAudioSrc = e.target.result;
-                const audioEl = document.getElementById('weddingAudio');
-                audioEl.src = currentAudioSrc;
-                document.getElementById('audioStatusText').innerText = `تم رفع الملف بنجاح: ${file.name} 🎵`;
-            };
-            reader.readAsDataURL(file);
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                const res = await fetch('https://tmpfiles.org/api/v1/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+
+                if (data && data.status === 'success' && data.data && data.data.url) {
+                    let directUrl = data.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
+                    currentAudioSrc = directUrl;
+                    document.getElementById('weddingAudio').src = currentAudioSrc;
+                    statusEl.innerText = `✅ تم رفع الأغنية بنجاح! ستشتغل عند جميع المعازيم 🎵 (${file.name})`;
+                    statusEl.style.color = "#10b981";
+                } else {
+                    throw new Error('Upload failed');
+                }
+            } catch (err) {
+                // Fallback to local Base64
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentAudioSrc = e.target.result;
+                    document.getElementById('weddingAudio').src = currentAudioSrc;
+                    statusEl.innerText = "⚠️ تم حفظ الأغنية للمعاينة المحلية فقط. (يفضل اختيار نغمة جاهزة لضمان اشتغالها للجميع).";
+                    statusEl.style.color = "#ef4444";
+                };
+                reader.readAsDataURL(file);
+            }
         }
 
         function renderCalendar(dateString) {
@@ -862,7 +916,6 @@
             document.getElementById('guestLoc').innerText = `📍 المكان: ${loc}`;
             document.getElementById('guestNotes').innerText = notes;
 
-            // Render Embedded Google Maps Iframe
             const encodedLoc = encodeURIComponent(loc);
             const embedMapUrl = `https://maps.google.com/maps?q=${encodedLoc}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
             document.getElementById('guestMapIframe').src = embedMapUrl;
@@ -905,82 +958,139 @@
             }
         }
 
-        function generateGuestLink() {
+        /* ----------------------------------------------------------------- */
+        /* CLEAN URL GENERATION & ELEGANT WHATSAPP SHARING                   */
+        /* ----------------------------------------------------------------- */
+        async function generateGuestLink() {
             const groom = document.getElementById('groomInput').value || 'العريس';
             const bride = document.getElementById('brideInput').value || 'العروس';
+            const date = document.getElementById('dateInput').value;
+            const time = document.getElementById('timeInput').value;
+            const loc = document.getElementById('locInput').value;
 
-            const url = new URL(window.location.href.split('?')[0]);
-            url.searchParams.set('mode', 'invite');
-            url.searchParams.set('qr', document.getElementById('quranInput').value);
-            url.searchParams.set('g', groom);
-            url.searchParams.set('b', bride);
-            url.searchParams.set('sub', document.getElementById('subInput').value);
-            url.searchParams.set('d', document.getElementById('dateInput').value);
-            url.searchParams.set('t', document.getElementById('timeInput').value);
-            url.searchParams.set('l', document.getElementById('locInput').value);
-            url.searchParams.set('map', document.getElementById('mapInput').value);
-            url.searchParams.set('notes', document.getElementById('notesInput').value);
-            url.searchParams.set('astart', document.getElementById('audioStartInput').value || '0');
+            // Pack all fields into a single small JSON object
+            const invData = {
+                qr: document.getElementById('quranInput').value,
+                g: groom,
+                b: bride,
+                sub: document.getElementById('subInput').value,
+                d: date,
+                t: time,
+                l: loc,
+                map: document.getElementById('mapInput').value,
+                notes: document.getElementById('notesInput').value,
+                astart: document.getElementById('audioStartInput').value || '0'
+            };
 
-            if (currentBgImg && !currentBgImg.startsWith('data:')) {
-                url.searchParams.set('bg', currentBgImg);
-            }
-            if (currentAudioSrc && !currentAudioSrc.startsWith('data:')) {
-                url.searchParams.set('audio', currentAudioSrc);
-            }
+            if (currentBgImg && !currentBgImg.startsWith('data:')) invData.bg = currentBgImg;
+            if (currentAudioSrc && !currentAudioSrc.startsWith('data:')) invData.audio = currentAudioSrc;
 
+            const compressedCode = safeBase64Encode(JSON.stringify(invData));
+
+            const baseUrl = window.location.href.split('?')[0];
+            let fullCleanUrl = `${baseUrl}?i=${compressedCode}`;
+
+            // Try Shortening using TinyURL API for extreme elegance
             try {
-                localStorage.setItem('inv_bg', currentBgImg);
-                localStorage.setItem('inv_audio', currentAudioSrc);
-            } catch(e){}
+                const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(fullCleanUrl)}`);
+                const shortUrl = await res.text();
+                if (shortUrl && shortUrl.startsWith('http')) {
+                    generatedFinalUrl = shortUrl;
+                } else {
+                    generatedFinalUrl = fullCleanUrl;
+                }
+            } catch(e) {
+                generatedFinalUrl = fullCleanUrl;
+            }
+
+            // Build Beautiful WhatsApp Message
+            const formattedMessage = 
+`🌸 *دعوة زفاف ${groom} & ${bride}* 🌸
+
+يتشرفان بدعوتكم لمشاركتهما فرحة العمر وحضور حفل الزفاف 💕
+
+📅 *التاريخ:* ${date}
+⏰ *الوقت:* ${time}
+📍 *المكان:* ${loc}
+
+✨ *لفتح البطاقة التفاعلية وسماع الأغنية:*
+${generatedFinalUrl}`;
 
             document.getElementById('shareTitleDisplay').innerText = `💌 دعوة زفاف ${groom} & ${bride}`;
-            document.getElementById('finalUrl').value = url.toString();
+            document.getElementById('whatsappFormattedText').value = formattedMessage;
             document.getElementById('shareBox').style.display = 'block';
+            document.getElementById('shareBox').scrollIntoView({ behavior: 'smooth' });
         }
 
-        function copyLink() {
-            const urlInput = document.getElementById('finalUrl');
-            urlInput.select();
-            navigator.clipboard.writeText(urlInput.value);
-            alert("تم نسخ رابط الدعوة بنجاح! يمكنك مشاركته الآن 📋");
+        function shareToWhatsApp() {
+            const text = document.getElementById('whatsappFormattedText').value;
+            const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+            window.open(waUrl, '_blank');
         }
 
-        function loadDataFromParams(params) {
-            const quran = params.get('qr') || '﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا ﴾';
-            const groom = params.get('g') || 'العريس';
-            const bride = params.get('b') || 'العروس';
-            const sub = params.get('sub') || 'يتشرفان بدعوتكم لحضور حفل الزفاف';
-            const date = params.get('d') || '2026-11-20';
-            const time = params.get('t') || 'الساعة 7:00 مساءً';
-            const loc = params.get('l') || 'بغداد';
-            const map = params.get('map') || '';
-            const notes = params.get('notes') || '';
-            const bg = params.get('bg') || localStorage.getItem('inv_bg') || currentBgImg;
-            const audioUrl = params.get('audio') || localStorage.getItem('inv_audio') || '';
-            audioStartTime = parseFloat(params.get('astart') || '0');
+        function copyCleanLink() {
+            navigator.clipboard.writeText(generatedFinalUrl);
+            alert("تم نسخ رابط الدعوة المختصر والشفاف بنجاح! 📋");
+        }
+
+        function loadDataFromCompressedParam(compressedStr) {
+            try {
+                const invData = JSON.parse(safeBase64Decode(compressedStr));
+                applyDataToGuestView(invData);
+            } catch(e) {
+                console.error("Error decoding invitation data", e);
+            }
+        }
+
+        function loadDataFromParamsOld(params) {
+            const invData = {
+                qr: params.get('qr') || '﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا ﴾',
+                g: params.get('g') || 'العريس',
+                b: params.get('b') || 'العروس',
+                sub: params.get('sub') || 'يتشرفان بدعوتكم لحضور حفل الزفاف',
+                d: params.get('d') || '2026-10-31',
+                t: params.get('t') || 'الساعة 7:00 مساءً',
+                l: params.get('l') || 'بغداد',
+                map: params.get('map') || '',
+                notes: params.get('notes') || '',
+                bg: params.get('bg') || currentBgImg,
+                audio: params.get('audio') || '',
+                astart: params.get('astart') || '0'
+            };
+            applyDataToGuestView(invData);
+        }
+
+        function applyDataToGuestView(data) {
+            const groom = data.g || 'العريس';
+            const bride = data.b || 'العروس';
+            const bg = data.bg || currentBgImg;
+
+            // Set dynamic title for tabs and previews
+            document.title = `دعوة زفاف ${groom} & ${bride}`;
+            document.getElementById('pageTitle').innerText = `دعوة زفاف ${groom} & ${bride}`;
 
             document.getElementById('guestCardBg').style.backgroundImage = `url('${bg}')`;
             document.getElementById('coverOverlay').style.backgroundImage = `url('${bg}')`;
             document.getElementById('coverGroomBride').innerText = `${groom} & ${bride}`;
-            document.getElementById('guestQuran').innerText = quran;
+            document.getElementById('guestQuran').innerText = data.qr;
             document.getElementById('guestNames').innerText = `${groom} & ${bride}`;
-            document.getElementById('guestSub').innerText = sub;
-            document.getElementById('guestDate').innerText = `📅 التاريخ: ${date}`;
-            document.getElementById('guestTime').innerText = `⏰ موعد الحضور: ${time}`;
-            document.getElementById('guestLoc').innerText = `📍 المكان: ${loc}`;
-            document.getElementById('guestNotes').innerText = notes;
+            document.getElementById('guestSub').innerText = data.sub;
+            document.getElementById('guestDate').innerText = `📅 التاريخ: ${data.d}`;
+            document.getElementById('guestTime').innerText = `⏰ موعد الحضور: ${data.t}`;
+            document.getElementById('guestLoc').innerText = `📍 المكان: ${data.l}`;
+            document.getElementById('guestNotes').innerText = data.notes;
 
-            const encodedLoc = encodeURIComponent(loc);
+            const encodedLoc = encodeURIComponent(data.l);
             document.getElementById('guestMapIframe').src = `https://maps.google.com/maps?q=${encodedLoc}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
-            document.getElementById('guestMapLink').href = map ? map : `https://www.google.com/maps/search/?api=1&query=${encodedLoc}`;
+            document.getElementById('guestMapLink').href = data.map ? data.map : `https://www.google.com/maps/search/?api=1&query=${encodedLoc}`;
 
-            renderCalendar(date);
-            startCountdown(date);
+            renderCalendar(data.d);
+            startCountdown(data.d);
 
-            if (audioUrl) {
-                document.getElementById('weddingAudio').src = audioUrl;
+            if (data.audio) {
+                document.getElementById('weddingAudio').src = data.audio;
             }
+            audioStartTime = parseFloat(data.astart || '0');
         }
     </script>
 </body>
