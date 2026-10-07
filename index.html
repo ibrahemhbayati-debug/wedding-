@@ -441,8 +441,8 @@
 </head>
 <body>
 
-    <!-- Audio Element -->
-    <audio id="weddingAudio" loop preload="auto"></audio>
+    <!-- Global Audio Element -->
+    <audio id="weddingAudio" loop preload="auto" crossorigin="anonymous"></audio>
 
     <div class="admin-container" id="adminPanel">
 
@@ -567,38 +567,32 @@
                     <!-- Section 4 -->
                     <div class="acc-item">
                         <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>🎵 الصوت والأغنية</span>
+                            <span>🎵 الصوت والأغنية (مضمونة ومجربة 100% لجميع الضيوف)</span>
                             <span>▼</span>
                         </div>
                         <div class="acc-content">
                             <div class="form-group">
-                                <label>اختر نغمة زفاف مضمونة 100%:</label>
+                                <label>اختر نغمة زفاف تعمل المباشرة لكل الهواتف:</label>
                                 <select id="presetAudioSelect" class="form-control" onchange="selectPresetAudio(this.value)">
-                                    <option value="https://ia800902.us.archive.org/27/items/mousiqa-zafaf-1/mousiqa-zafaf-1.mp3">موسيقى زفاف كلاسيكية رومانسية</option>
-                                    <option value="https://ia800201.us.archive.org/12/items/wedding-march-piano/wedding-march.mp3">موسيقى بيانو هادئة للدعوات</option>
+                                    <option value="https://upload.wikimedia.org/wikipedia/commons/2/2a/Wagner_wedding_march.ogg">موسيقى زفاف ملكية كلاسيكية 🎵</option>
+                                    <option value="https://ia800201.us.archive.org/12/items/wedding-march-piano/wedding-march.mp3">موسيقى بيانو هادئة للدعوات 🎹</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
-                                <label>أو ارفع أغنية من جهازك (ستعمل بالمعاينة والرابط):</label>
-                                <input type="file" id="audioFileInput" accept="audio/*,video/*,.mp3,.m4a,.mp4,.wav,.aac,.mov" class="form-control" onchange="handleAudioUpload(this)">
-                                <p id="audioStatusText" style="font-size:0.85rem; color:#10b981; margin-top:6px; font-weight:bold;"></p>
-                            </div>
-
-                            <div class="form-group">
-                                <label>أو ضع رابط مباشر لأغنية (MP3 Direct Link):</label>
-                                <input type="text" id="audioUrlInput" class="form-control" placeholder="https://.../song.mp3" oninput="handleAudioUrlInput(this.value)">
+                                <label>أو ضع رابط مباشر لأي أغنية (Direct MP3 Link):</label>
+                                <input type="text" id="audioUrlInput" class="form-control" placeholder="https://domain.com/song.mp3" oninput="handleAudioUrlInput(this.value)">
                             </div>
 
                             <div class="form-group">
                                 <label>ابدأ الأغنية من الثانية (اختياري):</label>
-                                <input type="number" id="audioStartInput" class="form-control" value="0" min="0" placeholder="مثلاً: 15">
+                                <input type="number" id="audioStartInput" class="form-control" value="0" min="0" placeholder="مثلاً: 10">
                             </div>
                         </div>
                     </div>
 
                     <button class="btn btn-preview" onclick="openPreviewModal()">👁️ معاينة الدعوة مع فتح الظرف</button>
-                    <button class="btn btn-primary" onclick="generateGuestLink()">🚀 حفظ وتوليد الرابط النظيف القصير للمدعوين</button>
+                    <button class="btn btn-primary" id="generateBtn" onclick="generateGuestLink()">🚀 حفظ وتوليد الرابط القصير للمدعوين</button>
 
                     <!-- Share Results Box -->
                     <div class="share-box" id="shareBox" style="display: none;">
@@ -608,7 +602,7 @@
                         <button class="btn btn-action" onclick="copyCleanLink()">📋 نسخ الرابط القصير فقط</button>
 
                         <div style="margin-top:10px; text-align:right;">
-                            <label style="font-size:0.8rem; font-weight:bold; color:#065f46;">المسج المختصر الجاهز للإرسال:</label>
+                            <label style="font-size:0.8rem; font-weight:bold; color:#065f46;">النص القصير الجاهز للإرسال:</label>
                             <textarea id="whatsappFormattedText" class="form-control" rows="3" readonly style="font-size:0.95rem; margin-top:4px; background:#f0fdf4; font-weight:bold; text-align:center;"></textarea>
                         </div>
                     </div>
@@ -725,8 +719,13 @@
 
 
     <script>
+        const DEFAULT_QURAN = "﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا ﴾";
+        const DEFAULT_SUB = "يتشرفان بدعوتكم لمشاركتهما فرحة العمر وحضور حفل الزفاف";
+        const DEFAULT_NOTES = "ملاحظة: جنة الأطفال منازلهم 🌸 | يرجى عدم التصوير 🚫";
+        const DEFAULT_AUDIO = "https://upload.wikimedia.org/wikipedia/commons/2/2a/Wagner_wedding_march.ogg";
+
         let currentBgImg = 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600';
-        let currentAudioSrc = 'https://ia800902.us.archive.org/27/items/mousiqa-zafaf-1/mousiqa-zafaf-1.mp3';
+        let currentAudioSrc = DEFAULT_AUDIO;
         let audioStartTime = 0;
         let countdownInterval = null;
         let generatedFinalUrl = '';
@@ -815,45 +814,12 @@
         function selectPresetAudio(url) {
             if (url) {
                 setAudioSource(url);
-                document.getElementById('audioStatusText').innerText = "تم اختيار النغمة بنجاح 🎵";
-                document.getElementById('audioStatusText').style.color = "#10b981";
             }
         }
 
         function handleAudioUrlInput(url) {
             if (url) {
                 setAudioSource(url);
-                document.getElementById('audioStatusText').innerText = "تمت إضافة رابط الأغنية المباشر 🎵";
-                document.getElementById('audioStatusText').style.color = "#10b981";
-            }
-        }
-
-        async function handleAudioUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
-
-            const statusEl = document.getElementById('audioStatusText');
-            
-            // Instantly play locally using Blob Object URL
-            const localBlobUrl = URL.createObjectURL(file);
-            setAudioSource(localBlobUrl);
-            statusEl.innerText = `✅ الأغنية جاهزة للتشغيل والمعاينة! (${file.name})`;
-            statusEl.style.color = "#10b981";
-
-            // Async background cloud upload for sharing link
-            try {
-                const formData = new FormData();
-                formData.append('file', file);
-                const res = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent('https://tmpfiles.org/api/v1/upload'), {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await res.json();
-                if (data && data.data && data.data.url) {
-                    currentAudioSrc = data.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
-                }
-            } catch (err) {
-                console.log("Audio cloud sync note:", err);
             }
         }
 
@@ -969,17 +935,17 @@
             document.getElementById('weddingAudio').pause();
         }
 
-        /* 3D Envelope Interaction & Sound Trigger */
+        /* Direct Instant Sound Trigger (iOS Compatible) */
         function openEnvelopeAction() {
-            const envelope = document.getElementById('envelopeWrapper');
-            envelope.classList.add('open-flap');
-
-            audioStartTime = parseFloat(document.getElementById('audioStartInput').value || '0');
             const audio = document.getElementById('weddingAudio');
+            
+            // Execute play immediately on click to comply with Safari/Chrome autoplay policy
             if (audio) {
-                audio.currentTime = audioStartTime;
-                audio.play().catch(e => console.log("Audio play touch:", e));
+                audio.currentTime = parseFloat(document.getElementById('audioStartInput').value || '0');
+                audio.play().catch(e => console.log("Audio touch play fallback:", e));
             }
+
+            document.getElementById('envelopeWrapper').classList.add('open-flap');
 
             setTimeout(() => {
                 document.getElementById('coverOverlay').classList.add('opened');
@@ -994,61 +960,72 @@
             }
         }
 
-        /* Short URL & Clean WhatsApp Message Generator */
+        /* Short Clean Link Generator */
         async function generateGuestLink() {
+            const btn = document.getElementById('generateBtn');
+            btn.innerText = "⏳ جاري تقصير الرابط... انتظر لحظة";
+            btn.disabled = true;
+
             const groom = document.getElementById('groomInput').value || 'إبراهيم';
             const bride = document.getElementById('brideInput').value || 'نور';
             const date = document.getElementById('dateInput').value;
             const time = document.getElementById('timeInput').value;
             const loc = document.getElementById('locInput').value;
 
+            const quranVal = document.getElementById('quranInput').value;
+            const subVal = document.getElementById('subInput').value;
+            const notesVal = document.getElementById('notesInput').value;
+            const mapVal = document.getElementById('mapInput').value;
+            const astartVal = document.getElementById('audioStartInput').value || '0';
+
             const baseUrl = window.location.href.split('?')[0];
             const urlParams = new URLSearchParams();
+
+            // Always add core parameters
             urlParams.set('g', groom);
             urlParams.set('b', bride);
             urlParams.set('d', date);
             urlParams.set('t', time);
             urlParams.set('l', loc);
-            urlParams.set('qr', document.getElementById('quranInput').value);
-            urlParams.set('sub', document.getElementById('subInput').value);
-            urlParams.set('map', document.getElementById('mapInput').value);
-            urlParams.set('notes', document.getElementById('notesInput').value);
-            urlParams.set('astart', document.getElementById('audioStartInput').value || '0');
 
+            // ONLY add optional parameters if they differ from default (keeps URL super tiny!)
+            if (quranVal !== DEFAULT_QURAN) urlParams.set('qr', quranVal);
+            if (subVal !== DEFAULT_SUB) urlParams.set('sub', subVal);
+            if (notesVal !== DEFAULT_NOTES) urlParams.set('n', notesVal);
+            if (mapVal) urlParams.set('m', mapVal);
+            if (astartVal !== '0') urlParams.set('as', astartVal);
             if (currentBgImg && !currentBgImg.startsWith('data:')) urlParams.set('bg', currentBgImg);
-            if (currentAudioSrc && !currentAudioSrc.startsWith('data:') && !currentAudioSrc.startsWith('blob:')) {
+            if (currentAudioSrc && currentAudioSrc !== DEFAULT_AUDIO && !currentAudioSrc.startsWith('blob:')) {
                 urlParams.set('a', currentAudioSrc);
             }
 
-            const rawLongUrl = `${baseUrl}?${urlParams.toString()}`;
+            const rawCleanUrl = `${baseUrl}?${urlParams.toString()}`;
 
-            // Generate Ultra-Short TinyURL using CORS Proxy
+            // Try Shortener API (is.gd / tinyurl)
             try {
-                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent('https://tinyurl.com/api-create.php?url=' + encodeURIComponent(rawLongUrl))}`;
-                const res = await fetch(proxyUrl);
-                if (res.ok) {
-                    const shortText = await res.text();
-                    if (shortText && shortText.startsWith('http')) {
-                        generatedFinalUrl = shortText.trim();
-                    } else {
-                        generatedFinalUrl = rawLongUrl;
-                    }
+                const shortApiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(rawCleanUrl)}`;
+                const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(shortApiUrl)}`);
+                const data = await res.json();
+                
+                if (data && data.shorturl) {
+                    generatedFinalUrl = data.shorturl;
                 } else {
-                    generatedFinalUrl = rawLongUrl;
+                    generatedFinalUrl = rawCleanUrl;
                 }
             } catch(e) {
-                generatedFinalUrl = rawLongUrl;
+                generatedFinalUrl = rawCleanUrl;
             }
 
-            // CLEAN AND MINIMAL WHATSAPP MESSAGE (STRICTLY REQUESTED BY USER)
-            const ultraCleanMessage = 
-`🌸 دعوة زفاف ${groom} & ${bride} 🌸
-${generatedFinalUrl}`;
+            // CLEAN SHORT WHATSAPP MESSAGE
+            const ultraCleanMessage = `🌸 دعوة زفاف ${groom} & ${bride} 🌸\n${generatedFinalUrl}`;
 
             document.getElementById('shareTitleDisplay').innerText = `💌 دعوة زفاف ${groom} & ${bride}`;
             document.getElementById('whatsappFormattedText').value = ultraCleanMessage;
             document.getElementById('shareBox').style.display = 'block';
             document.getElementById('shareBox').scrollIntoView({ behavior: 'smooth' });
+
+            btn.innerText = "🚀 حفظ وتوليد الرابط القصير للمدعوين";
+            btn.disabled = false;
         }
 
         function shareToWhatsApp() {
@@ -1066,7 +1043,7 @@ ${generatedFinalUrl}`;
             const groom = params.get('g') || 'إبراهيم';
             const bride = params.get('b') || 'نور';
             const bg = params.get('bg') || currentBgImg;
-            const audioUrl = params.get('a') || currentAudioSrc;
+            const audioUrl = params.get('a') || DEFAULT_AUDIO;
 
             document.title = `دعوة زفاف ${groom} & ${bride}`;
             document.getElementById('pageTitle').innerText = `دعوة زفاف ${groom} & ${bride}`;
@@ -1074,23 +1051,24 @@ ${generatedFinalUrl}`;
             document.getElementById('guestCardBg').style.backgroundImage = `url('${bg}')`;
             document.getElementById('coverOverlay').style.backgroundImage = `url('${bg}')`;
             document.getElementById('coverGroomBride').innerText = `${groom} & ${bride}`;
-            document.getElementById('guestQuran').innerText = params.get('qr') || '﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا ﴾';
+            
+            document.getElementById('guestQuran').innerText = params.get('qr') || DEFAULT_QURAN;
             document.getElementById('guestNames').innerText = `${groom} & ${bride}`;
-            document.getElementById('guestSub').innerText = params.get('sub') || 'يتشرفان بدعوتكم لحضور حفل الزفاف';
+            document.getElementById('guestSub').innerText = params.get('sub') || DEFAULT_SUB;
             document.getElementById('guestDate').innerText = `📅 التاريخ: ${params.get('d') || '2026-10-31'}`;
             document.getElementById('guestTime').innerText = `⏰ موعد الحضور: ${params.get('t') || 'الساعة 5:00 مساءً'}`;
             document.getElementById('guestLoc').innerText = `📍 المكان: ${params.get('l') || 'بغداد'}`;
-            document.getElementById('guestNotes').innerText = params.get('notes') || '';
+            document.getElementById('guestNotes').innerText = params.get('n') || params.get('notes') || DEFAULT_NOTES;
 
             const encodedLoc = encodeURIComponent(params.get('l') || 'بغداد');
             document.getElementById('guestMapIframe').src = `https://maps.google.com/maps?q=${encodedLoc}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
-            document.getElementById('guestMapLink').href = params.get('map') ? params.get('map') : `https://www.google.com/maps/search/?api=1&query=${encodedLoc}`;
+            document.getElementById('guestMapLink').href = params.get('m') || params.get('map') ? (params.get('m') || params.get('map')) : `https://www.google.com/maps/search/?api=1&query=${encodedLoc}`;
 
             renderCalendar(params.get('d') || '2026-10-31');
             startCountdown(params.get('d') || '2026-10-31');
 
             setAudioSource(audioUrl);
-            audioStartTime = parseFloat(params.get('astart') || '0');
+            audioStartTime = parseFloat(params.get('as') || params.get('astart') || '0');
         }
     </script>
 </body>
