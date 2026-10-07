@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوتكم الفاخرة - دعوات زفاف ملكية</title>
+    <!-- خطوط عربية فاخرة -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@500;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0b0810;
+            --card-glass: rgba(23, 16, 29, 0.82);
+            --gold-light: #fbe38e;
+            --gold-primary: #d4af37;
+            --gold-dark: #aa7c11;
+            --text-light: #f5ebdc;
+            --accent-glow: rgba(212, 175, 55, 0.25);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: radial-gradient(circle at center, #1b1026 0%, #08050c 100%);
+            font-family: 'Tajawal', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            direction: rtl;
+            overflow-x: hidden;
+        }
+
+        /* 1. لوحة صانع الدعوات */
+        #generator-screen {
+            width: 100%;
+            padding: 30px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gen-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.9), 0 0 30px var(--accent-glow);
+            border-radius: 28px;
+            padding: 40px 28px;
+            width: 100%;
+            max-width: 520px;
+            text-align: right;
+        }
+
+        .main-title {
+            text-align: center;
+            font-family: 'Reem Kufi', serif;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #ffe8a3 0%, #d4af37 50%, #aa7c11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .form-group { margin-bottom: 18px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 13px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-family: 'Tajawal', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 15px var(--accent-glow);
+            background: rgba(255, 255, 255, 0.09);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-generate {
+            background: linear-gradient(135deg, #d4af37 0%, #aa7c11 100%);
+            color: #0f0c11;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-preview-mode {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-light);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .share-box {
+            margin-top: 25px;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px dashed var(--gold-primary);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .share-url {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: var(--gold-light);
+            font-size: 0.85rem;
+            margin: 12px 0;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .copy-btn {
+            background: #25d366;
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        /* 2. شاشة الباب الملكي والختم الشمعي */
+        #royal-gate-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: var(--bg-dark);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .gate-card {
+            width: 320px;
+            height: 420px;
+            background: linear-gradient(160deg, #261730 0%, #120919 100%);
+            border: 2px solid var(--gold-primary);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9), 0 0 35px var(--accent-glow);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gate-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 60%);
+            animation: rotateBg 12s linear infinite;
+        }
+
+        @keyframes rotateBg { 100% { transform: rotate(360deg); } }
+
+        .wax-seal {
+            width: 85px; height: 85px;
+            background: radial-gradient(circle, #e6c86e 0%, #aa7c11 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.2rem;
+            color: #120919;
+            margin-bottom: 25px;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6), inset 0 0 10px rgba(0,0,0,0.3);
+            border: 2px solid #fff3c4;
+            z-index: 2;
+            transition: transform 0.4s ease;
+        }
+
+        .gate-card:hover .wax-seal { transform: scale(1.1) rotate(5deg); }
+
+        .gate-names {
+            font-family: 'Amiri', serif;
+            font-size: 2.1rem;
+            color: var(--gold-light);
+            z-index: 2;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .gate-subtitle {
+            font-size: 0.9rem;
+            color: #d2c4dd;
+            z-index: 2;
+        }
+
+        .open-hint {
+            font-size: 0.85rem;
+            color: var(--gold-primary);
+            margin-top: 25px;
+            z-index: 2;
+            animation: pulse 1.8s infinite;
+            letter-spacing: 1px;
+        }
+
+        /* 3. واجهة عرض الدعوة */
+        #invitation-screen {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px 15px 100px;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .inv-card {
+            background: var(--card-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 24px;
+            padding: 35px 25px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 22px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+        }
+
+        /* صورة العروسين */
+        .couple-photo-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, #fbe38e, #aa7c11);
+            box-shadow: 0 0 20px var(--accent-glow);
+            display: none;
+        }
+
+        .couple-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .inv-card h1 {
+            font-family: 'Amiri', serif;
+            font-size: 2.6rem;
+            color: var(--gold-light);
+            margin: 12px 0;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .inv-card p {
+            color: #dfd5e5;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* جدول الأحداث Timeline */
+        .timeline-section {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.2);
+        }
+
+        .timeline-item:last-child { border-bottom: none; }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid var(--gold-primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.1rem;
+            color: var(--gold-light);
+            flex-shrink: 0;
+        }
+
+        .timeline-info h4 { font-size: 0.95rem; color: var(--gold-light); }
+        .timeline-info p { font-size: 0.85rem; color: #b8a8c4; margin: 0; }
+
+        /* أزرار الحضور والاعتذار */
+        .rsvp-title {
+            color: var(--gold-light);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .rsvp-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-rsvp {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-accept { background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; }
+        .btn-decline { background: rgba(255, 255, 255, 0.08); color: #e0a8a8; border: 1px solid rgba(224, 168, 168, 0.3); }
+        .btn-map-link { background: linear-gradient(135deg, #d4af37, #aa7c11); color: #0f0c11; }
+
+        .btn-rsvp:hover { transform: translateY(-2px); opacity: 0.95; }
+
+        /* العداد التنازلي */
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .timer-unit {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 12px;
+            border-radius: 14px;
+            min-width: 70px;
+        }
+
+        .timer-val { font-size: 1.4rem; font-weight: bold; color: var(--gold-light); }
+        .timer-lbl { font-size: 0.75rem; color: #b8a8c4; margin-top: 2px; }
+
+        .floating-audio-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: #1a1024;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-light);
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 1.3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.6), 0 0 15px var(--accent-glow);
+        }
+
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+    </style>
+</head>
+<body>
+
+    <audio id="weddingAudio" loop></audio>
+
+    <!-- 1. لوحة صانع الدعوات -->
+    <div id="generator-screen">
+        <div class="gen-card">
+            <h2 class="main-title">صانع الدعوات الملكية</h2>
+            
+            <div class="form-group">
+                <label>اسم العريس:</label>
+                <input type="text" id="groomInput" class="form-control" value="إبراهيم">
+            </div>
+
+            <div class="form-group">
+                <label>اسم العروس:</label>
+                <input type="text" id="brideInput" class="form-control" value="نور">
+            </div>
+
+            <div class="form-group">
+                <label>رابط صورة العروسين / البوستر (اختياري):</label>
+                <input type="text" id="photoInput" class="form-control" placeholder="https://example.com/photo.jpg">
+            </div>
+
+            <div class="form-group">
+                <label>تاريخ الحفل (مثال: 2026-10-31):</label>
+                <input type="text" id="dateInput" class="form-control" value="2026-10-31">
+            </div>
+
+            <div class="form-group">
+                <label>اسم القاعة والموقع:</label>
+                <input type="text" id="locationInput" class="form-control" value="بغداد - السيدية - قاعات بغداد الدولية">
+            </div>
+
+            <div class="form-group">
+                <label>رقم الواتساب لتأكيد الحضور (مع رمز الدولة):</label>
+                <input type="text" id="whatsappInput" class="form-control" value="9647700000000">
+            </div>
+
+            <div class="form-group">
+                <label>الموسيقى الخلفية:</label>
+                <select id="audioTypeSelect" class="form-control" onchange="toggleAudioField()">
+                    <option value="preset">معزوفة رومانسية فاخرة (جاهزة)</option>
+                    <option value="custom">رابط صوت مباشر (MP3 Link)</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="audioUrlGroup" style="display:none;">
+                <label>ضع رابط الصوت المباشر:</label>
+                <input type="text" id="audioUrlInput" class="form-control" placeholder="https://example.com/song.mp3">
+            </div>
+
+            <div class="btn-group">
+                <button class="action-btn btn-preview-mode" onclick="previewInvitation()">👁️ معاينة الدعوة</button>
+                <button class="action-btn btn-generate" onclick="generateInvitation()">🔗 إنشاء الرابط</button>
+            </div>
+
+            <div class="share-box" id="shareBox">
+                <strong style="color: var(--gold-light);">تم إنشاء رابط الدعوة الفاخرة بنجاح! 🎉</strong>
+                <input type="text" id="shareUrlInput" class="share-url" readonly>
+                <button class="copy-btn" onclick="copyShareUrl()">نسخ الرابط 📋</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. شاشة الباب الملكي والختم الشمعي -->
+    <div id="royal-gate-screen">
+        <div class="gate-card" onclick="openGate()">
+            <div class="wax-seal">👑</div>
+            <div class="gate-subtitle">دعوة زفاف خاصة</div>
+            <div class="gate-names" id="gateNames">إبراهيم & نور</div>
+            <div class="open-hint">اضغط لفتح الدعوة الملكية 💌</div>
+        </div>
+    </div>
+
+    <!-- زر التحكم بالصوت -->
+    <div class="floating-audio-btn" id="audioBtn" onclick="toggleAudio()">🎶</div>
+
+    <!-- 3. شاشة عرض الدعوة للضيوف -->
+    <div id="invitation-screen">
+        <div class="inv-card">
+            <!-- صورة العروسين -->
+            <div class="couple-photo-container" id="couplePhotoBox">
+                <img id="couplePhoto" class="couple-photo" src="" alt="صورة العروسين">
+            </div>
+
+            <span style="color: var(--gold-light); font-size: 0.95rem; font-weight: 600;">« بارك الله لهما وبارك عليهما »</span>
+            <h1 id="mainNames">إبراهيم & نور</h1>
+            <p>يتشرفون بدعوتكم لمشاركتهم أجمل لحظات العمر في حفل زفافهم المبارك، وتكتمل سعادتنا بحضوركم الكريم.</p>
+            
+            <!-- العداد التنازلي -->
+            <div class="timer-grid">
+                <div class="timer-unit"><div class="timer-val" id="days">00</div><div class="timer-lbl">يوم</div></div>
+                <div class="timer-unit"><div class="timer-val" id="hours">00</div><div class="timer-lbl">ساعة</div></div>
+                <div class="timer-unit"><div class="timer-val" id="minutes">00</div><div class="timer-lbl">دقيقة</div></div>
+                <div class="timer-unit"><div class="timer-val" id="seconds">00</div><div class="timer-lbl">ثانية</div></div>
+            </div>
+        </div>
+
+        <!-- تفاصيل الحفل وجدول الفقرات -->
+        <div class="inv-card">
+            <h2 style="color: var(--gold-light); font-size: 1.5rem; margin-bottom: 15px;">تفاصيل ومواعيد الحفل</h2>
+            <p><strong>التاريخ:</strong> <span id="displayDate" style="color:#fff;">31 أكتوبر 2026</span></p>
+            <p style="margin-top: 6px;"><strong>المكان:</strong> <span id="displayLocation" style="color:#fff;">السيدية - قاعات بغداد الدولية</span></p>
+            
+            <div class="timeline-section">
+                <div class="timeline-item">
+                    <div class="timeline-icon">🕗</div>
+                    <div class="timeline-info">
+                        <h4>استقبال الضيوف الكرام</h4>
+                        <p>الساعة 7:00 مساءً</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">👑</div>
+                    <div class="timeline-info">
+                        <h4>دخول العروسين للقاعة</h4>
+                        <p>الساعة 8:00 مساءً</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🍽️</div>
+                    <div class="timeline-info">
+                        <h4>تناول وجبة العشاء</h4>
+                        <p>الساعة 9:00 مساءً</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🎂</div>
+                    <div class="timeline-info">
+                        <h4>تقطيع كعكة الزفاف والتبريكات</h4>
+                        <p>الساعة 10:00 مساءً</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 22px;">
+                <a id="mapBtn" class="btn-rsvp btn-map-link" target="_blank">📍 موقع الحفل على Google Maps</a>
+            </div>
+        </div>
+
+        <!-- تأكيد الحضور RSVP -->
+        <div class="inv-card">
+            <div class="rsvp-title">تأكيد الحضور</div>
+            <div class="rsvp-buttons">
+                <button class="btn-rsvp btn-accept" onclick="sendRSVP(true)">💬يشرفني الحضور بكل سرور</button>
+                <button class="btn-rsvp btn-decline" onclick="sendRSVP(false)">💐 اعتذر لعدم التمكن من الحضور</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        let weddingTargetDate = new Date();
+        let targetWhatsapp = "";
+
+        function toggleAudioField() {
+            const type = document.getElementById('audioTypeSelect').value;
+            document.getElementById('audioUrlGroup').style.display = (type === 'preset') ? 'none' : 'block';
+        }
+
+        if (urlParams.has('groom')) {
+            document.getElementById('generator-screen').style.display = 'none';
+            document.getElementById('royal-gate-screen').style.display = 'flex';
+
+            const groom = urlParams.get('groom');
+            const bride = urlParams.get('bride');
+            const date = urlParams.get('date');
+            const location = urlParams.get('location');
+            const photo = urlParams.get('photo');
+            const audio = urlParams.get('audio');
+            targetWhatsapp = urlParams.get('wa') || "";
+
+            document.getElementById('gateNames').innerText = `${groom} & ${bride}`;
+            document.getElementById('mainNames').innerText = `${groom} & ${bride}`;
+            document.getElementById('displayDate').innerText = date;
+            document.getElementById('displayLocation').innerText = location;
+            
+            if (photo && photo.trim() !== "") {
+                document.getElementById('couplePhoto').src = photo;
+                document.getElementById('couplePhotoBox').style.display = 'block';
+            }
+
+            document.getElementById('mapBtn').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+            document.getElementById('weddingAudio').src = audio || 'https://www.bensound.com/bensound-music/bensound-romantic.mp3';
+
+            if (!isNaN(Date.parse(date))) {
+                weddingTargetDate = new Date(date);
+            } else {
+                weddingTargetDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+            }
+            startTimer();
+        }
+
+        function getAudioUrl() {
+            const type = document.getElementById('audioTypeSelect').value;
+            if (type === 'preset') return 'https://www.bensound.com/bensound-music/bensound-romantic.mp3';
+            return document.getElementById('audioUrlInput').value || 'https://www.bensound.com/bensound-music/bensound-romantic.mp3';
+        }
+
+        function getParamsUrl() {
+            const groom = document.getElementById('groomInput').value;
+            const bride = document.getElementById('brideInput').value;
+            const photo = document.getElementById('photoInput').value;
+            const date = document.getElementById('dateInput').value;
+            const location = document.getElementById('locationInput').value;
+            const wa = document.getElementById('whatsappInput').value;
+            const audio = getAudioUrl();
+
+            return `${window.location.origin}${window.location.pathname}?groom=${encodeURIComponent(groom)}&bride=${encodeURIComponent(bride)}&photo=${encodeURIComponent(photo)}&date=${encodeURIComponent(date)}&location=${encodeURIComponent(location)}&wa=${encodeURIComponent(wa)}&audio=${encodeURIComponent(audio)}`;
+        }
+
+        function previewInvitation() {
+            window.open(getParamsUrl(), '_blank');
+        }
+
+        function generateInvitation() {
+            document.getElementById('shareUrlInput').value = getParamsUrl();
+            document.getElementById('shareBox').style.display = 'block';
+        }
+
+        function copyShareUrl() {
+            const urlInput = document.getElementById('shareUrlInput');
+            urlInput.select();
+            navigator.clipboard.writeText(urlInput.value);
+            alert("تم نسخ رابط الدعوة بنجاح! 📋");
+        }
+
+        function openGate() {
+            const audio = document.getElementById("weddingAudio");
+            audio.play().catch(e => console.log("Audio play touch required"));
+
+            const gate = document.getElementById("royal-gate-screen");
+            gate.style.opacity = '0';
+            gate.style.transform = 'scale(1.1)';
+
+            setTimeout(() => {
+                gate.style.display = 'none';
+                document.getElementById('invitation-screen').style.display = 'flex';
+                document.getElementById('audioBtn').style.display = 'flex';
+            }, 800);
+        }
+
+        function toggleAudio() {
+            const audio = document.getElementById("weddingAudio");
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+        }
+
+        function sendRSVP(attending) {
+            let msg = attending 
+                ? "ألف مبروك! يشرفني ويعدني تأكيد حضوري لحفل الزفاف المبارك 🎉✨" 
+                : "ألف مبروك! أقدم أطيب التبريكات وأعتذر عن عدم التمكن من الحضور بسبب الظروف. أمنى لكم حياة سعيدة 💐";
+            
+            window.open(`https://wa.me/${targetWhatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function startTimer() {
+            setInterval(() => {
+                const now = new Date().getTime();
+                const distance = weddingTargetDate - now;
+                if (distance > 0) {
+                    document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
