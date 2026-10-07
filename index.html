@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة تصميم دعوات الزفاف الاحترافية</title>
+    <title>دعوة زفاف إلكترونية احترافية</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -87,7 +87,7 @@
         .btn-action:hover { background: #0369a1; }
         .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-dark); }
 
-        /* Editor Layout */
+        /* Editor Screen */
         .editor-screen { display: none; }
         .editor-topbar {
             display: flex; justify-content: space-between; align-items: center;
@@ -156,7 +156,7 @@
         }
 
         /* ------------------------------------------------------------------ */
-        /* FULLSCREEN INVITATION VIEW (معاينة الدعوة الكاملة للمدعو)         */
+        /* FULLSCREEN INVITATION VIEW (شاشة المعاينة والدعوة للمدعو)         */
         /* ------------------------------------------------------------------ */
         #invitationModalView {
             display: none;
@@ -169,7 +169,7 @@
 
         .invitation-fullscreen-card {
             width: 100%; height: 100%;
-            max-width: 500px; margin: 0 auto;
+            max-width: 480px; margin: 0 auto;
             position: relative;
             background-size: cover !important;
             background-position: center !important;
@@ -178,7 +178,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 40px 20px;
+            padding: 35px 18px;
             color: #fff;
             text-align: center;
         }
@@ -191,7 +191,7 @@
             background-position: center !important;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.65);
             z-index: 20;
             display: flex;
             flex-direction: column;
@@ -232,12 +232,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 22px;
+            gap: 18px;
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(35px);
             transition: all 1.2s ease-out;
-            margin-top: auto;
-            margin-bottom: auto;
+            margin-top: 10px;
         }
         .inv-content-wrap.animate-in {
             opacity: 1;
@@ -252,13 +251,70 @@
         }
 
         .inv-sub-text {
-            font-size: 1.05rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.5;
             background: rgba(0, 0, 0, 0.55);
-            padding: 14px 20px;
+            padding: 12px 18px;
             border-radius: 14px;
             backdrop-filter: blur(6px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Countdown Timer Bar Style */
+        .countdown-bar {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .timer-box { text-align: center; }
+        .timer-num { font-size: 1.3rem; font-weight: bold; color: #fbbf24; }
+        .timer-label { font-size: 0.72rem; opacity: 0.85; margin-top: 2px; }
+
+        /* Calendar Grid Style */
+        .calendar-card {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 16px;
+            padding: 14px;
+        }
+        .cal-header-title { font-size: 0.95rem; font-weight: bold; margin-bottom: 10px; color: #fef08a; }
+        .cal-grid-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+        .cal-day-header { font-weight: bold; opacity: 0.7; padding-bottom: 4px; }
+        .cal-day-cell {
+            padding: 6px 0;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            position: relative;
+        }
+        .cal-day-cell.wedding-heart {
+            background: #dc2626;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 0 12px rgba(220, 38, 38, 0.8);
+            border-radius: 50%;
+            transform: scale(1.15);
+        }
+        .cal-day-cell.wedding-heart::after {
+            content: "❤️";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
         }
 
         .inv-info-card {
@@ -266,21 +322,22 @@
             backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 16px;
-            padding: 18px;
+            padding: 14px;
             width: 100%;
+            font-size: 0.95rem;
         }
 
         .inv-map-btn {
             background: #0284c7;
             color: #ffffff;
-            padding: 13px 24px;
+            padding: 12px 22px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: bold;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             box-shadow: 0 6px 18px rgba(2, 132, 199, 0.5);
         }
 
@@ -310,7 +367,7 @@
 </head>
 <body>
 
-    <!-- Hidden Audio Player -->
+    <!-- Audio Player -->
     <audio id="weddingAudio" loop></audio>
 
     <!-- ================================================================= -->
@@ -321,8 +378,8 @@
         <!-- Theme Selector Screen -->
         <div id="screenTemplates">
             <div class="main-header">
-                <h1>لوحة تصميم دعوات الزفاف الاحترافية</h1>
-                <p>اختر خلفية الدعوة وابدأ بتخصيص التفاصيل والأغنية فوراً</p>
+                <h1>منصة تصميم دعوات الزفاف الذكية</h1>
+                <p>اختر الخلفية ثم اضبط وقت الحضور والتقويم والبصمة الصوتية بسهولة</p>
             </div>
 
             <div class="templates-grid">
@@ -330,7 +387,7 @@
                     <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600" class="template-img">
                     <div class="template-info">
                         <h3>باب الفرح</h3>
-                        <button class="btn btn-action" style="margin-top: 8px;">اختيار هذا الثيم 👈</button>
+                        <button class="btn btn-action" style="margin-top: 8px;">اختيار الثيم 👈</button>
                     </div>
                 </div>
 
@@ -338,7 +395,7 @@
                     <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=600" class="template-img">
                     <div class="template-info">
                         <h3>قوس الزهور</h3>
-                        <button class="btn btn-action" style="margin-top: 8px;">اختيار هذا الثيم 👈</button>
+                        <button class="btn btn-action" style="margin-top: 8px;">اختيار الثيم 👈</button>
                     </div>
                 </div>
 
@@ -346,7 +403,7 @@
                     <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600" class="template-img">
                     <div class="template-info">
                         <h3>كلاسيك راقي</h3>
-                        <button class="btn btn-action" style="margin-top: 8px;">اختيار هذا الثيم 👈</button>
+                        <button class="btn btn-action" style="margin-top: 8px;">اختيار الثيم 👈</button>
                     </div>
                 </div>
             </div>
@@ -367,17 +424,17 @@
                     <!-- Section 1: Basics -->
                     <div class="acc-item active">
                         <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>📝 الأساسيات (أسماء العروسين والدعوة)</span>
+                            <span>📝 أسماء العروسين والدعوة</span>
                             <span>▼</span>
                         </div>
                         <div class="acc-content">
                             <div class="form-group">
                                 <label>اسم العريس:</label>
-                                <input type="text" id="groomInput" class="form-control" value="محمد" oninput="updatePreview()">
+                                <input type="text" id="groomInput" class="form-control" value="إبراهيم" oninput="updatePreview()">
                             </div>
                             <div class="form-group">
                                 <label>اسم العروس:</label>
-                                <input type="text" id="brideInput" class="form-control" value="زينب" oninput="updatePreview()">
+                                <input type="text" id="brideInput" class="form-control" value="نور" oninput="updatePreview()">
                             </div>
                             <div class="form-group">
                                 <label>عبارة الدعوة:</label>
@@ -386,63 +443,20 @@
                         </div>
                     </div>
 
-                    <!-- Section 2: Full Height Custom Background Image -->
+                    <!-- Section 2: Date, Attendance Time & Location -->
                     <div class="acc-item">
                         <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>🖼️ صورة الدعوة الخاصة بك (تظهر على طول الشاشة)</span>
+                            <span>📅 التاريخ، وقت الحضور، واللوكيشن</span>
                             <span>▼</span>
                         </div>
                         <div class="acc-content">
                             <div class="form-group">
-                                <label>ارفع صورتك الخاصة لتظهر على طول خلفية الدعوة بالكامل:</label>
-                                <input type="file" id="imageFileInput" accept="image/*" class="form-control" onchange="handleImageUpload(this)">
+                                <label>تاريخ الحفل (لتوليد التقويم والعد التنازلي):</label>
+                                <input type="date" id="dateInput" class="form-control" value="2026-11-20" onchange="updatePreview()">
                             </div>
                             <div class="form-group">
-                                <label>أو ضع رابط صورة مباشر:</label>
-                                <input type="text" id="imageUrlInput" class="form-control" placeholder="https://..." oninput="handleImageUrlInput(this.value)">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 3: Audio Tracks & Voice Upload -->
-                    <div class="acc-item">
-                        <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>🎵 اختيار الأغنية / البصمة الصوتية</span>
-                            <span>▼</span>
-                        </div>
-                        <div class="acc-content">
-                            <div class="form-group">
-                                <label>اختر من مقاطع الزفاف الجاهزة:</label>
-                                <select id="presetAudioSelect" class="form-control" onchange="selectPresetAudio(this.value)">
-                                    <option value="">-- اختر نغمة/أغنية زفاف جاهزة --</option>
-                                    <option value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">موسيقى زفاف كلاسيكية رومانسية</option>
-                                    <option value="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a734e7.mp3">موسيقى بيانو هادئة للدعوات</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>أو ارفع ملف صوتي/بصمة من آيفونك أو جهازك:</label>
-                                <input type="file" id="audioFileInput" accept="audio/*" class="form-control" onchange="handleAudioUpload(this)">
-                                <p id="audioStatusText" style="font-size:0.8rem; color:#10b981; margin-top:5px; font-weight:bold;"></p>
-                            </div>
-
-                            <div class="form-group">
-                                <label>ابدأ الأغنية من الثانية (اختياري):</label>
-                                <input type="number" id="audioStartInput" class="form-control" value="0" min="0" placeholder="مثلاً: 10 لتشغيل الأغنية من الثانية 10">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Section 4: Date, Location & Map -->
-                    <div class="acc-item">
-                        <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>📅 التاريخ، المكان، ورابط الخريطة</span>
-                            <span>▼</span>
-                        </div>
-                        <div class="acc-content">
-                            <div class="form-group">
-                                <label>تاريخ الحفل:</label>
-                                <input type="date" id="dateInput" class="form-control" value="2026-11-20" oninput="updatePreview()">
+                                <label>ساعة موعد الحضور:</label>
+                                <input type="text" id="timeInput" class="form-control" value="الساعة 7:00 مساءً" placeholder="مثال: الساعة 7:30 مساءً" oninput="updatePreview()">
                             </div>
                             <div class="form-group">
                                 <label>اسم القاعة / المكان:</label>
@@ -455,15 +469,63 @@
                         </div>
                     </div>
 
+                    <!-- Section 3: Custom Background Image -->
+                    <div class="acc-item">
+                        <div class="acc-header" onclick="toggleAccordion(this)">
+                            <span>🖼️ صورة الدعوة (على طول خلفية الشاشة)</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="acc-content">
+                            <div class="form-group">
+                                <label>رفع صورة من الجهاز/الآيفون:</label>
+                                <input type="file" id="imageFileInput" accept="image/*" class="form-control" onchange="handleImageUpload(this)">
+                            </div>
+                            <div class="form-group">
+                                <label>أو وضع رابط صورة مباشر:</label>
+                                <input type="text" id="imageUrlInput" class="form-control" placeholder="https://..." oninput="handleImageUrlInput(this.value)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Audio Tracks -->
+                    <div class="acc-item">
+                        <div class="acc-header" onclick="toggleAccordion(this)">
+                            <span>🎵 الأغنية / الصوت وتحديد بداية التشغيل</span>
+                            <span>▼</span>
+                        </div>
+                        <div class="acc-content">
+                            <div class="form-group">
+                                <label>اختر نغمة زفاف جاهزة:</label>
+                                <select id="presetAudioSelect" class="form-control" onchange="selectPresetAudio(this.value)">
+                                    <option value="">-- اختر نغمة/أغنية جاهزة --</option>
+                                    <option value="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">موسيقى زفاف كلاسيكية رومانسية</option>
+                                    <option value="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a734e7.mp3">موسيقى بيانو هادئة للدعوات</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>أو ارفع ملف صوتي/بصمة من آيفونك:</label>
+                                <input type="file" id="audioFileInput" accept="audio/*" class="form-control" onchange="handleAudioUpload(this)">
+                                <p id="audioStatusText" style="font-size:0.8rem; color:#10b981; margin-top:5px; font-weight:bold;"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <label>ابدأ الأغنية من الثانية (اختياري):</label>
+                                <input type="number" id="audioStartInput" class="form-control" value="0" min="0" placeholder="مثلاً: 10 للبدء من الثانية 10">
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Action Buttons -->
-                    <button class="btn btn-preview" onclick="openPreviewModal()">👁️ عرض الدعوة (معاينة قبل الإرسال)</button>
+                    <button class="btn btn-preview" onclick="openPreviewModal()">👁️ عرض الدعوة (معاينة شاملة للتصميم والتقويم والعد التنازلي)</button>
                     <button class="btn btn-primary" onclick="generateGuestLink()">🚀 حفظ وتوليد رابط الدعوة للمدعوين</button>
 
                     <!-- Share Link Box -->
                     <div class="share-box" id="shareBox" style="display: none;">
-                        <p style="font-size:0.9rem; color:#065f46; margin-bottom:8px; font-weight:bold;">تم جاهزية رابط الدعوة بنجاح! 🎉</p>
+                        <p style="font-size:0.95rem; color:#065f46; margin-bottom:6px; font-weight:bold;" id="shareTitleDisplay">💌 دعوة زفاف إبراهيم & نور</p>
+                        <p style="font-size:0.8rem; color:#047857; margin-bottom:10px;">رابط الدعوة المباشر جاهز للإرسال للضيوف:</p>
                         <input type="text" id="finalUrl" class="form-control" readonly style="margin-bottom:10px; text-align:center; font-weight:bold;">
-                        <button class="btn btn-action" onclick="copyLink()">نسخ رابط الدعوة للمدعوين 📋</button>
+                        <button class="btn btn-action" onclick="copyLink()">نسخ رابط الدعوة 📋</button>
                     </div>
 
                 </div>
@@ -472,22 +534,23 @@
                 <div class="phone-container">
                     <div class="phone-mockup">
                         <div class="phone-screen" id="phoneCard">
-                            <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.5); z-index:1;"></div>
+                            <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.52); z-index:1;"></div>
                             
                             <div style="position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
                                 <div>
                                     <p style="font-size:0.75rem; letter-spacing:1px; margin-top:10px;">دعوة زفاف</p>
-                                    <h2 id="pNames" style="font-family:'Amiri', serif; font-size:1.6rem; margin:10px 0;">محمد & زينب</h2>
+                                    <h2 id="pNames" style="font-family:'Amiri', serif; font-size:1.6rem; margin:8px 0;">إبراهيم & نور</h2>
                                     <p id="pSub" style="font-size:0.8rem; opacity:0.9; line-height:1.4;">يتشرفان بدعوتكم لمشاركتهما فرحة العمر</p>
                                 </div>
 
                                 <div style="background: rgba(0,0,0,0.45); padding: 10px; border-radius: 10px; font-size: 0.8rem;">
                                     <p id="pDate">📅 2026-11-20</p>
-                                    <p id="pLoc" style="margin-top:4px;">📍 قاعة الفردوس - بغداد</p>
+                                    <p id="pTime" style="margin-top:2px;">⏰ الساعة 7:00 مساءً</p>
+                                    <p id="pLoc" style="margin-top:2px;">📍 قاعة الفردوس - بغداد</p>
                                 </div>
 
                                 <div style="background: rgba(255,255,255,0.2); backdrop-filter:blur(4px); padding: 10px; border-radius: 15px; font-size: 0.8rem; cursor:pointer;" onclick="openPreviewModal()">
-                                    اضغط للبدء والمعاينة 👁️
+                                    اضغط للمعاينة الحية ✨
                                 </div>
                             </div>
 
@@ -502,7 +565,7 @@
     </div>
 
     <!-- ================================================================= -->
-    <!-- FULLSCREEN INVITATION VIEW (شاشة المعاينة والرابط المباشر)        -->
+    <!-- FULLSCREEN INVITATION VIEW (عرض الدعوة بالتقويم والعداد والقلب)   -->
     <!-- ================================================================= -->
     <div id="invitationModalView">
         <button class="close-preview-btn" id="closePreviewBtn" onclick="closePreviewModal()">✕ إغلاق المعاينة</button>
@@ -516,21 +579,39 @@
             <!-- Cover Screen with Blurred Overlay -->
             <div class="cover-overlay" id="coverOverlay">
                 <h2 id="coverGroomBride" style="font-family:'Amiri', serif; font-size: 2.2rem; margin-bottom: 12px; text-shadow:0 2px 8px rgba(0,0,0,0.8);">دعوة زفاف</h2>
-                <p style="font-size: 1rem; margin-bottom: 30px; opacity: 0.95;">اضغط للأسفل لفتح الدعوة وتشغيل الأغنية</p>
+                <p style="font-size: 1rem; margin-bottom: 30px; opacity: 0.95;">اضغط للأسفل لفتح الدعوة واستماع الأغنية</p>
                 <button class="open-inv-btn" onclick="openInvitationAction()">افتح الدعوة ✨</button>
             </div>
 
-            <!-- Main Invitation Content (Auto animated & scrollable) -->
+            <!-- Main Invitation Content -->
             <div class="inv-content-wrap" id="invContentWrap">
-                <p style="font-size:0.95rem; letter-spacing:2px;">بسم الله الرحمن الرحيم</p>
+                <p style="font-size:0.9rem; letter-spacing:2px;">بسم الله الرحمن الرحيم</p>
                 
-                <h1 class="inv-names-title" id="guestNames">محمد & زينب</h1>
+                <h1 class="inv-names-title" id="guestNames">إبراهيم & نور</h1>
                 
                 <p class="inv-sub-text" id="guestSub">يتشرفان بدعوتكم لمشاركتهما فرحة العمر وحضور حفل الزفاف</p>
 
+                <!-- Countdown Timer Bar -->
+                <div class="countdown-bar">
+                    <div class="timer-box"><div class="timer-num" id="cdDays">00</div><div class="timer-label">أيام</div></div>
+                    <div class="timer-box"><div class="timer-num" id="cdHours">00</div><div class="timer-label">ساعات</div></div>
+                    <div class="timer-box"><div class="timer-num" id="cdMins">00</div><div class="timer-label">دقائق</div></div>
+                    <div class="timer-box"><div class="timer-num" id="cdSecs">00</div><div class="timer-label">ثواني</div></div>
+                </div>
+
+                <!-- Calendar View with Heart Highlight -->
+                <div class="calendar-card">
+                    <div class="cal-header-title" id="calMonthTitle">تقويم الشهر (تشرين الثاني 2026)</div>
+                    <div class="cal-grid-days" id="calGridDays">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- Location & Time Details Card -->
                 <div class="inv-info-card">
-                    <p id="guestDate" style="font-size: 1.15rem; font-weight: bold; margin-bottom: 8px;">📅 2026-11-20</p>
-                    <p id="guestLoc" style="font-size: 1.05rem; opacity: 0.95;">📍 قاعة الفردوس - بغداد</p>
+                    <p id="guestDate" style="font-weight: bold; margin-bottom: 4px;">📅 التاريخ: 2026-11-20</p>
+                    <p id="guestTime" style="margin-bottom: 4px; color:#fef08a; font-weight:bold;">⏰ موعد الحضور: الساعة 7:00 مساءً</p>
+                    <p id="guestLoc" style="opacity: 0.95;">📍 المكان: قاعة الفردوس - بغداد</p>
                 </div>
 
                 <a id="guestMapLink" href="#" target="_blank" class="inv-map-btn">
@@ -538,7 +619,7 @@
                 </a>
             </div>
 
-            <div style="position: relative; z-index:5; font-size: 0.85rem; opacity: 0.8; margin-top: auto;">
+            <div style="position: relative; z-index:5; font-size: 0.85rem; opacity: 0.8; margin-top: 15px;">
                 أهلاً وسهلاً بحضوركم الكريم 🎉
             </div>
         </div>
@@ -552,15 +633,24 @@
         let currentBgImg = 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600';
         let currentAudioSrc = '';
         let audioStartTime = 0;
+        let countdownInterval = null;
 
-        // Check URL mode on load (Admin vs Guest Link)
+        const monthNamesArabic = [
+            "كانون الثاني (يناير)", "شباط (فبراير)", "آذار (مارس)", "نيسان (أبريل)", 
+            "أيار (مايو)", "حزيران (يونيو)", "تموز (يوليو)", "آب (أغسطس)", 
+            "أيلول (سبتمبر)", "تشرين الأول (أكتوبر)", "تشرين الثاني (نوفمبر)", "كانون الأول (ديسمبر)"
+        ];
+
+        // Check URL parameters on Load
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             if (params.get('mode') === 'invite') {
                 document.getElementById('adminPanel').style.display = 'none';
-                document.getElementById('closePreviewBtn').style.display = 'none'; // Hide close button for real guests
+                document.getElementById('closePreviewBtn').style.display = 'none';
                 document.getElementById('invitationModalView').style.display = 'block';
                 loadDataFromParams(params);
+            } else {
+                updatePreview();
             }
         });
 
@@ -588,15 +678,16 @@
             const bride = document.getElementById('brideInput').value || 'العروس';
             const sub = document.getElementById('subInput').value;
             const date = document.getElementById('dateInput').value;
+            const time = document.getElementById('timeInput').value;
             const loc = document.getElementById('locInput').value;
 
             document.getElementById('pNames').innerText = `${groom} & ${bride}`;
             document.getElementById('pSub').innerText = sub;
             document.getElementById('pDate').innerText = `📅 ${date}`;
+            document.getElementById('pTime').innerText = `⏰ ${time}`;
             document.getElementById('pLoc').innerText = `📍 ${loc}`;
         }
 
-        // Handle Custom Background Image Upload (Full Height)
         function handleImageUpload(input) {
             const file = input.files[0];
             if (file) {
@@ -616,12 +707,11 @@
             }
         }
 
-        // Handle Audio Uploads & Audio Presets
         function selectPresetAudio(url) {
             if (url) {
                 currentAudioSrc = url;
                 document.getElementById('weddingAudio').src = url;
-                document.getElementById('audioStatusText').innerText = "تم اختيار نغمة الزفاف الجاهزة بنجاح 🎵";
+                document.getElementById('audioStatusText').innerText = "تم اختيار نغمة الزفاف الجاهزة 🎵";
             }
         }
 
@@ -638,12 +728,94 @@
             }
         }
 
-        // Open Fullscreen Preview Modal
+        // Generate Full Month Calendar Grid with Heart Highlight on Wedding Day
+        function renderCalendar(dateString) {
+            const gridEl = document.getElementById('calGridDays');
+            gridEl.innerHTML = '';
+
+            const dateObj = new Date(dateString);
+            if (isNaN(dateObj)) return;
+
+            const year = dateObj.getFullYear();
+            const month = dateObj.getMonth();
+            const weddingDay = dateObj.getDate();
+
+            document.getElementById('calMonthTitle').innerText = `📅 تقويم شهر (${monthNamesArabic[month]} ${year})`;
+
+            // Headers for Day Names
+            const dayHeaders = ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'];
+            dayHeaders.forEach(dh => {
+                const dEl = document.createElement('div');
+                dEl.className = 'cal-day-header';
+                dEl.innerText = dh;
+                gridEl.appendChild(dEl);
+            });
+
+            // Calculate first day of month & total days
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            const totalDays = new Date(year, month + 1, 0).getDate();
+
+            // Empty slots for padding
+            for (let i = 0; i < firstDayIndex; i++) {
+                const emptyCell = document.createElement('div');
+                gridEl.appendChild(emptyCell);
+            }
+
+            // Fill Month Days
+            for (let day = 1; day <= totalDays; day++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'cal-day-cell';
+                dayCell.innerText = day;
+
+                // Highlight chosen wedding date with heart ❤️
+                if (day === weddingDay) {
+                    dayCell.classList.add('wedding-heart');
+                }
+
+                gridEl.appendChild(dayCell);
+            }
+        }
+
+        // Live Countdown Timer logic
+        function startCountdown(dateString) {
+            if (countdownInterval) clearInterval(countdownInterval);
+
+            const targetDate = new Date(dateString).getTime();
+
+            function updateTimer() {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+
+                if (diff <= 0) {
+                    document.getElementById('cdDays').innerText = "00";
+                    document.getElementById('cdHours').innerText = "00";
+                    document.getElementById('cdMins').innerText = "00";
+                    document.getElementById('cdSecs').innerText = "00";
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('cdDays').innerText = days < 10 ? '0' + days : days;
+                document.getElementById('cdHours').innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById('cdMins').innerText = mins < 10 ? '0' + mins : mins;
+                document.getElementById('cdSecs').innerText = secs < 10 ? '0' + secs : secs;
+            }
+
+            updateTimer();
+            countdownInterval = setInterval(updateTimer, 1000);
+        }
+
+        // Open Full Preview Modal
         function openPreviewModal() {
             const groom = document.getElementById('groomInput').value || 'العريس';
             const bride = document.getElementById('brideInput').value || 'العروس';
             const sub = document.getElementById('subInput').value;
             const date = document.getElementById('dateInput').value;
+            const time = document.getElementById('timeInput').value;
             const loc = document.getElementById('locInput').value;
             const map = document.getElementById('mapInput').value;
 
@@ -652,11 +824,14 @@
             document.getElementById('coverGroomBride').innerText = `${groom} & ${bride}`;
             document.getElementById('guestNames').innerText = `${groom} & ${bride}`;
             document.getElementById('guestSub').innerText = sub;
-            document.getElementById('guestDate').innerText = `📅 ${date}`;
-            document.getElementById('guestLoc').innerText = `📍 ${loc}`;
+            document.getElementById('guestDate').innerText = `📅 التاريخ: ${date}`;
+            document.getElementById('guestTime').innerText = `⏰ موعد الحضور: ${time}`;
+            document.getElementById('guestLoc').innerText = `📍 المكان: ${loc}`;
             document.getElementById('guestMapLink').href = map;
 
-            // Reset Overlay & View
+            renderCalendar(date);
+            startCountdown(date);
+
             document.getElementById('coverOverlay').classList.remove('opened');
             document.getElementById('invContentWrap').classList.remove('animate-in');
             document.getElementById('invitationModalView').style.display = 'block';
@@ -664,15 +839,12 @@
 
         function closePreviewModal() {
             document.getElementById('invitationModalView').style.display = 'none';
-            const audio = document.getElementById('weddingAudio');
-            audio.pause();
+            document.getElementById('weddingAudio').pause();
         }
 
         function openInvitationAction() {
-            // Remove Blur & Cover
             document.getElementById('coverOverlay').classList.add('opened');
 
-            // Play Music
             audioStartTime = parseFloat(document.getElementById('audioStartInput').value || '0');
             const audio = document.getElementById('weddingAudio');
             if (audio.src) {
@@ -680,10 +852,8 @@
                 audio.play().catch(() => {});
             }
 
-            // Animate Content & Gentle Scroll
             setTimeout(() => {
-                const wrap = document.getElementById('invContentWrap');
-                wrap.classList.add('animate-in');
+                document.getElementById('invContentWrap').classList.add('animate-in');
             }, 200);
         }
 
@@ -694,14 +864,18 @@
             }
         }
 
-        // Generate Guest Sharing Link
+        // Generate Clean Share Link
         function generateGuestLink() {
+            const groom = document.getElementById('groomInput').value || 'العريس';
+            const bride = document.getElementById('brideInput').value || 'العروس';
+
             const url = new URL(window.location.href.split('?')[0]);
             url.searchParams.set('mode', 'invite');
-            url.searchParams.set('g', document.getElementById('groomInput').value);
-            url.searchParams.set('b', document.getElementById('brideInput').value);
+            url.searchParams.set('g', groom);
+            url.searchParams.set('b', bride);
             url.searchParams.set('sub', document.getElementById('subInput').value);
             url.searchParams.set('d', document.getElementById('dateInput').value);
+            url.searchParams.set('t', document.getElementById('timeInput').value);
             url.searchParams.set('l', document.getElementById('locInput').value);
             url.searchParams.set('map', document.getElementById('mapInput').value);
             url.searchParams.set('astart', document.getElementById('audioStartInput').value || '0');
@@ -713,12 +887,12 @@
                 url.searchParams.set('audio', currentAudioSrc);
             }
 
-            // Save large uploaded audio/image to localStorage as fallback
             try {
                 localStorage.setItem('inv_bg', currentBgImg);
                 localStorage.setItem('inv_audio', currentAudioSrc);
             } catch(e){}
 
+            document.getElementById('shareTitleDisplay').innerText = `💌 دعوة زفاف ${groom} & ${bride}`;
             document.getElementById('finalUrl').value = url.toString();
             document.getElementById('shareBox').style.display = 'block';
         }
@@ -727,14 +901,15 @@
             const urlInput = document.getElementById('finalUrl');
             urlInput.select();
             navigator.clipboard.writeText(urlInput.value);
-            alert("تم نسخ رابط الدعوة بنجاح! يمكنك إرساله للضيوف الآن 📋");
+            alert("تم نسخ رابط الدعوة بنجاح! يمكنك مشاركته الآن 📋");
         }
 
         function loadDataFromParams(params) {
             const groom = params.get('g') || 'العريس';
             const bride = params.get('b') || 'العروس';
             const sub = params.get('sub') || 'يتشرفان بدعوتكم لحضور حفل الزفاف';
-            const date = params.get('d') || '';
+            const date = params.get('d') || '2026-11-20';
+            const time = params.get('t') || 'الساعة 7:00 مساءً';
             const loc = params.get('l') || '';
             const map = params.get('map') || '#';
             const bg = params.get('bg') || localStorage.getItem('inv_bg') || currentBgImg;
@@ -746,9 +921,13 @@
             document.getElementById('coverGroomBride').innerText = `${groom} & ${bride}`;
             document.getElementById('guestNames').innerText = `${groom} & ${bride}`;
             document.getElementById('guestSub').innerText = sub;
-            document.getElementById('guestDate').innerText = `📅 ${date}`;
-            document.getElementById('guestLoc').innerText = `📍 ${loc}`;
+            document.getElementById('guestDate').innerText = `📅 التاريخ: ${date}`;
+            document.getElementById('guestTime').innerText = `⏰ موعد الحضور: ${time}`;
+            document.getElementById('guestLoc').innerText = `📍 المكان: ${loc}`;
             document.getElementById('guestMapLink').href = map;
+
+            renderCalendar(date);
+            startCountdown(date);
 
             if (audioUrl) {
                 document.getElementById('weddingAudio').src = audioUrl;
