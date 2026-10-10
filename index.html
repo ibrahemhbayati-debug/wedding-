@@ -253,10 +253,6 @@
                                     <option value="https://ia800201.us.archive.org/12/items/wedding-march-piano/wedding-march.mp3">موسيقى بيانو هادئة 🎹</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>أو ضع رابط أونلاين مباشر لأغنيتك الخاصّة (MP3 Direct Link):</label>
-                                <input type="text" id="audioUrlInput" class="form-control" placeholder="https://domain.com/song.mp3" oninput="handleAudioUrlInput(this.value)">
-                            </div>
                         </div>
                     </div>
 
@@ -335,7 +331,6 @@
         }
 
         function selectPresetAudio(url) { currentAudioSrc = url; audioEl.src = url; }
-        function handleAudioUrlInput(url) { if (url.trim() !== '') { currentAudioSrc = url.trim(); audioEl.src = url.trim(); } }
 
         function updatePreview() {
             const groom = document.getElementById('groomInput').value || 'إبراهيم';
@@ -384,16 +379,14 @@
             else { audioEl.pause(); document.getElementById('guestAudioBtn').innerText = '🔇'; }
         }
 
-        /* ----- إنشاء رابط قصير ونظيف جداً بدون تشفير ضخم ----- */
+        /* ----- الرابط القصير النظيف الخالي من التشفير الطويل ----- */
         function generateShortLink() {
             const groom = document.getElementById('groomInput').value || 'إبراهيم';
             const bride = document.getElementById('brideInput').value || 'نور';
-            const date = document.getElementById('dateInput').value;
-            const time = document.getElementById('timeInput').value;
-            const loc = document.getElementById('locInput').value;
 
+            // الاعتماد على رابط بسيط ونظيف جداً بدون تكويد حروف طويلة
             const baseUrl = window.location.href.split('?')[0].split('#')[0];
-            const cleanUrl = `${baseUrl}?g=${encodeURIComponent(groom)}&b=${encodeURIComponent(bride)}&d=${encodeURIComponent(date)}&t=${encodeURIComponent(time)}&l=${encodeURIComponent(loc)}`;
+            const cleanUrl = `${baseUrl}?inv=1`;
 
             const msg = `💌 دعوة زفاف إلكترونية\n\nيتشرف العروسان (${groom} & ${bride}) بدعوتكم لحضور حفل الزفاف المبارك 🎉\n\nافتح الظرف والتفاصيل عبر الرابط المباشر:\n${cleanUrl}`;
 
@@ -413,15 +406,10 @@
             alert("تم نسخ الدعوة والرابط بنجاح! 📋");
         }
 
-        /* قراءة بيانات المدعوين التلقائية عند فتح الرابط */
+        /* فتح المعاينة فوراً عند دخول المدعوين */
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('g')) {
-                document.getElementById('groomInput').value = urlParams.get('g');
-                document.getElementById('brideInput').value = urlParams.get('b');
-                document.getElementById('dateInput').value = urlParams.get('d');
-                document.getElementById('timeInput').value = urlParams.get('t');
-                document.getElementById('locInput').value = urlParams.get('l');
+            if (urlParams.has('inv')) {
                 openPreviewModal();
             } else {
                 updatePreview();
