@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">دعوة زفاف إلكترونية</title>
 
-    <meta property="og:title" content="دعوة زفاف إلكترونية">
-    <meta property="og:description" content="يتشرفان بدعوتكم لمشاركتهما فرحة العمر وحضور حفل الزفاف">
-
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #d97706;
-            --primary-hover: #b45309;
             --bg-body: #f5f5f4;
             --card-bg: #ffffff;
             --text-dark: #1c1917;
@@ -37,20 +33,9 @@
             padding: 20px 15px;
         }
 
-        .main-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .main-header h1 {
-            font-family: 'Amiri', serif;
-            font-size: 2.2rem;
-            color: var(--text-dark);
-        }
-        .main-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 5px;
-        }
+        .main-header { text-align: center; margin-bottom: 25px; }
+        .main-header h1 { font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--text-dark); }
+        .main-header p { color: var(--text-muted); font-size: 0.95rem; margin-top: 5px; }
 
         .templates-grid {
             display: grid;
@@ -75,18 +60,13 @@
             display: inline-block; width: 100%; padding: 12px 15px;
             border-radius: 10px; border: none; font-weight: bold;
             font-family: inherit; font-size: 0.95rem; cursor: pointer;
-            text-align: center; transition: background 0.2s, transform 0.1s; text-decoration: none;
+            text-align: center; transition: background 0.2s; text-decoration: none;
             margin-bottom: 8px;
         }
-        .btn:active { transform: scale(0.98); }
         .btn-preview { background: #8b5cf6; color: #fff; font-size: 1.05rem; }
-        .btn-preview:hover { background: #7c3aed; }
         .btn-primary { background: #10b981; color: #fff; font-size: 1.05rem; }
-        .btn-primary:hover { background: #059669; }
         .btn-action { background: #0284c7; color: #fff; }
-        .btn-action:hover { background: #0369a1; }
         .btn-whatsapp { background: #25D366; color: #fff; font-size: 1.05rem; }
-        .btn-whatsapp:hover { background: #1da851; }
         .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-dark); }
 
         .editor-screen { display: none; }
@@ -103,9 +83,7 @@
             align-items: start;
         }
 
-        @media (max-width: 850px) {
-            .editor-layout { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 850px) { .editor-layout { grid-template-columns: 1fr; } }
 
         .acc-item {
             background: var(--card-bg);
@@ -117,13 +95,9 @@
         .acc-header {
             padding: 15px 18px; font-weight: bold; display: flex;
             justify-content: space-between; align-items: center;
-            cursor: pointer; user-select: none; font-size: 0.95rem; background: #fff;
+            cursor: pointer; font-size: 0.95rem; background: #fff;
         }
-        .acc-header:hover { background: #fafaf9; }
-        .acc-content {
-            padding: 18px; border-top: 1px solid var(--border-color);
-            display: none; background: #fff;
-        }
+        .acc-content { padding: 18px; border-top: 1px solid var(--border-color); display: none; background: #fff; }
         .acc-item.active .acc-content { display: block; }
         .acc-item.active .acc-header { color: var(--primary); }
 
@@ -133,7 +107,6 @@
             width: 100%; padding: 10px 12px; border: 1px solid var(--border-color);
             border-radius: 8px; font-size: 0.9rem; font-family: inherit; outline: none;
         }
-        .form-control:focus { border-color: var(--primary); }
 
         .phone-container { position: sticky; top: 20px; display: flex; justify-content: center; }
         .phone-mockup {
@@ -153,289 +126,82 @@
             border-radius: 12px; padding: 15px; text-align: center;
         }
 
-        /* FULLSCREEN GUEST INVITATION & ENVELOPE */
+        /* FULLSCREEN GUEST INVITATION */
         #invitationModalView {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: 99999;
-            background: #000;
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh; z-index: 99999; background: #000;
         }
 
         .invitation-fullscreen-card {
-            width: 100%; height: 100%;
-            max-width: 480px; margin: 0 auto;
-            position: relative;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 35px 18px;
-            color: #fff;
-            text-align: center;
+            width: 100%; height: 100%; max-width: 480px; margin: 0 auto;
+            position: relative; background-size: cover !important; background-position: center !important;
+            overflow-y: auto; display: flex; flex-direction: column; justify-content: space-between;
+            padding: 35px 18px; color: #fff; text-align: center;
         }
 
         .envelope-cover-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 20;
-            background-size: cover !important;
-            background-position: center !important;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            background-color: rgba(0, 0, 0, 0.72);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            position: absolute; inset: 0; z-index: 20;
+            background-size: cover !important; background-position: center !important;
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            background-color: rgba(0, 0, 0, 0.72); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; padding: 20px;
             transition: opacity 0.8s ease, visibility 0.8s;
         }
 
-        .envelope-cover-overlay.opened {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
+        .envelope-cover-overlay.opened { opacity: 0; visibility: hidden; pointer-events: none; }
 
         .envelope-wrapper {
-            position: relative;
-            width: 290px;
-            height: 200px;
-            background: #fdfbf7;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.4);
-            border: 2px solid var(--envelope-gold);
-            cursor: pointer;
-            perspective: 1000px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.3s ease;
-        }
-
-        .envelope-wrapper:hover { transform: scale(1.03); }
-
-        .envelope-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            border-top: 100px solid #f3ebd9;
-            border-left: 143px solid transparent;
-            border-right: 143px solid transparent;
-            transform-origin: top;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 3;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
-        }
-
-        .envelope-wrapper.open-flap::before {
-            transform: rotateX(180deg);
-            z-index: 1;
+            position: relative; width: 290px; height: 200px; background: #fdfbf7;
+            border-radius: 12px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--envelope-gold); cursor: pointer;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
 
         .wax-seal-btn {
-            position: absolute;
-            top: 65px;
-            z-index: 10;
-            width: 75px; height: 75px;
+            position: absolute; top: 65px; z-index: 10; width: 75px; height: 75px;
             background: radial-gradient(circle, #fde047 0%, #d97706 100%);
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #451a03;
-            font-weight: bold;
-            font-size: 0.8rem;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-            animation: pulseSeal 2s infinite;
-        }
-
-        @keyframes pulseSeal {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
+            border: 2px solid #ffffff; border-radius: 50%; display: flex;
+            flex-direction: column; justify-content: center; align-items: center;
+            color: #451a03; font-weight: bold; font-size: 0.8rem; box-shadow: 0 6px 18px rgba(0,0,0,0.4);
         }
 
         .envelope-groom-text {
-            position: absolute;
-            bottom: 22px;
-            font-family: 'Amiri', serif;
-            font-size: 1.5rem;
-            color: #78350f;
-            font-weight: bold;
-            z-index: 2;
+            position: absolute; bottom: 22px; font-family: 'Amiri', serif;
+            font-size: 1.5rem; color: #78350f; font-weight: bold;
         }
 
         .inv-content-wrap {
-            position: relative;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            opacity: 0;
-            transform: translateY(35px);
-            transition: all 1.2s ease-out;
-            margin-top: 10px;
+            position: relative; z-index: 5; display: flex; flex-direction: column;
+            align-items: center; gap: 16px; opacity: 0; transform: translateY(35px);
+            transition: all 1.2s ease-out; margin-top: 10px;
         }
-
-        .inv-content-wrap.animate-in {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .inv-content-wrap.animate-in { opacity: 1; transform: translateY(0); }
 
         .inv-quran-box {
-            font-family: 'Amiri', serif;
-            font-size: 1.15rem;
-            color: #fef08a;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px dashed rgba(254, 240, 138, 0.5);
-            padding: 12px 16px;
-            border-radius: 14px;
-            line-height: 1.6;
-            width: 100%;
+            font-family: 'Amiri', serif; font-size: 1.15rem; color: #fef08a;
+            background: rgba(0, 0, 0, 0.6); border: 1px dashed rgba(254, 240, 138, 0.5);
+            padding: 12px 16px; border-radius: 14px; width: 100%;
         }
 
-        .inv-names-title {
-            font-family: 'Amiri', serif;
-            font-size: 2.5rem;
-            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
-            line-height: 1.2;
-        }
-
-        .inv-sub-text {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            background: rgba(0, 0, 0, 0.55);
-            padding: 10px 16px;
-            border-radius: 14px;
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .countdown-bar {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 16px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .timer-box { text-align: center; }
-        .timer-num { font-size: 1.3rem; font-weight: bold; color: #fbbf24; }
-        .timer-label { font-size: 0.72rem; opacity: 0.85; margin-top: 2px; }
-
-        .calendar-card {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 16px;
-            padding: 14px;
-        }
-        .cal-header-title { font-size: 0.95rem; font-weight: bold; margin-bottom: 10px; color: #fef08a; }
-        .cal-grid-days {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-            font-size: 0.75rem;
-            text-align: center;
-        }
-        .cal-day-header { font-weight: bold; opacity: 0.7; padding-bottom: 4px; }
-        .cal-day-cell { padding: 6px 0; border-radius: 8px; font-size: 0.8rem; position: relative; }
-        .cal-day-cell.wedding-heart {
-            background: #dc2626; color: #fff; font-weight: bold;
-            box-shadow: 0 0 12px rgba(220, 38, 38, 0.8); border-radius: 50%; transform: scale(1.15);
-        }
-        .cal-day-cell.wedding-heart::after {
-            content: "❤️"; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 0.75rem;
-        }
+        .inv-names-title { font-family: 'Amiri', serif; font-size: 2.5rem; text-shadow: 0 3px 10px rgba(0,0,0,0.8); }
 
         .inv-info-card {
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 16px;
-            padding: 14px;
-            width: 100%;
-            font-size: 0.95rem;
-            text-align: right;
-        }
-
-        .map-box-container {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.65);
-            border-radius: 16px;
-            padding: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            margin-top: 5px;
-        }
-        .map-iframe {
-            width: 100%;
-            height: 160px;
-            border: 0;
-            border-radius: 12px;
-            margin-bottom: 8px;
-        }
-
-        .inv-map-btn {
-            background: #0284c7;
-            color: #ffffff;
-            padding: 10px 18px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            width: 100%;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.4);
-        }
-
-        .inv-notes-box {
-            background: rgba(220, 38, 38, 0.25);
-            border: 1px solid rgba(248, 113, 113, 0.5);
-            border-radius: 12px;
-            padding: 10px 14px;
-            font-size: 0.85rem;
-            width: 100%;
-            color: #fecaca;
+            background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 16px;
+            padding: 14px; width: 100%; text-align: right;
         }
 
         .close-preview-btn {
-            position: fixed;
-            top: 15px; right: 15px;
-            z-index: 100000;
-            background: rgba(255,255,255,0.9);
-            color: #000; font-weight: bold;
-            padding: 8px 16px; border-radius: 20px;
-            border: none; cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: fixed; top: 15px; right: 15px; z-index: 100000;
+            background: rgba(255,255,255,0.9); color: #000; font-weight: bold;
+            padding: 8px 16px; border-radius: 20px; border: none; cursor: pointer;
         }
 
         .floating-audio-btn {
-            position: fixed;
-            bottom: 20px; left: 20px;
-            z-index: 10000;
-            background: rgba(255, 255, 255, 0.9);
-            color: #000; width: 45px; height: 45px;
-            border-radius: 50%; display: flex;
-            justify-content: center; align-items: center;
+            position: fixed; bottom: 20px; left: 20px; z-index: 10000;
+            background: rgba(255, 255, 255, 0.9); color: #000; width: 45px; height: 45px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
             cursor: pointer; font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -444,149 +210,52 @@
     <audio id="weddingAudio" loop preload="auto" crossorigin="anonymous"></audio>
 
     <div class="admin-container" id="adminPanel">
-
         <div id="screenTemplates">
             <div class="main-header">
                 <h1>منصة تصميم دعوات الزفاف الذكية</h1>
-                <p>صمم دعوة زفاف إلكترونية متكاملة مع ظرف 3D تفاعلي والتقويم والصوت</p>
+                <p>صمم دعوة زفاف إلكترونية أنيقة مع ظرف تفاعلي وصوت</p>
             </div>
 
             <div class="templates-grid">
                 <div class="template-card" onclick="selectTemplate('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600', 'ثيم باب الفرح')">
                     <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600" class="template-img">
-                    <div class="template-info">
-                        <h3>باب الفرح</h3>
-                        <button class="btn btn-action" style="margin-top: 8px;">اختيار الثيم 👈</button>
-                    </div>
-                </div>
-
-                <div class="template-card" onclick="selectTemplate('https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=600', 'ثيم قوس الزهور')">
-                    <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=600" class="template-img">
-                    <div class="template-info">
-                        <h3>قوس الزهور</h3>
-                        <button class="btn btn-action" style="margin-top: 8px;">اختيار الثيم 👈</button>
-                    </div>
-                </div>
-
-                <div class="template-card" onclick="selectTemplate('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600', 'ثيم كلاسيك راقي')">
-                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=600" class="template-img">
-                    <div class="template-info">
-                        <h3>كلاسيك راقي</h3>
-                        <button class="btn btn-action" style="margin-top: 8px;">اختيار الثيم 👈</button>
-                    </div>
+                    <div class="template-info"><h3>باب الفرح</h3><button class="btn btn-action" style="margin-top: 8px;">اختيار الثيم 👈</button></div>
                 </div>
             </div>
         </div>
 
         <div class="editor-screen" id="screenEditor">
-            
             <div class="editor-topbar">
                 <button class="btn btn-outline" style="width: auto; padding: 6px 14px;" onclick="showTemplatesScreen()">← اختيار ثيم آخر</button>
                 <strong id="activeThemeTitle" style="color: var(--primary);">الثيم الحالي: باب الفرح</strong>
             </div>
 
             <div class="editor-layout">
-                
                 <div>
                     <div class="acc-item active">
-                        <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>📝 أسماء العروسين والعبارات القرآنية</span>
-                            <span>▼</span>
-                        </div>
+                        <div class="acc-header" onclick="toggleAccordion(this)"><span>📝 تفاصيل الدعوة والعروسين</span></div>
                         <div class="acc-content">
-                            <div class="form-group">
-                                <label>الآية القرآنية / العبارة الافتتاحية:</label>
-                                <input type="text" id="quranInput" class="form-control" value="﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا ﴾" oninput="updatePreview()">
-                            </div>
-                            <div class="form-group">
-                                <label>اسم العريس:</label>
-                                <input type="text" id="groomInput" class="form-control" value="إبراهيم" oninput="updatePreview()">
-                            </div>
-                            <div class="form-group">
-                                <label>اسم العروس:</label>
-                                <input type="text" id="brideInput" class="form-control" value="نور" oninput="updatePreview()">
-                            </div>
-                            <div class="form-group">
-                                <label>عبارة الدعوة:</label>
-                                <input type="text" id="subInput" class="form-control" value="يتشرفان بدعوتكم لمشاركتهما فرحة العمر وحضور حفل الزفاف" oninput="updatePreview()">
-                            </div>
+                            <div class="form-group"><label>اسم العريس:</label><input type="text" id="groomInput" class="form-control" value="إبراهيم" oninput="updatePreview()"></div>
+                            <div class="form-group"><label>اسم العروس:</label><input type="text" id="brideInput" class="form-control" value="نور" oninput="updatePreview()"></div>
+                            <div class="form-group"><label>تاريخ الحفل:</label><input type="date" id="dateInput" class="form-control" value="2026-10-31" onchange="updatePreview()"></div>
+                            <div class="form-group"><label>ساعة موعد الحضور:</label><input type="text" id="timeInput" class="form-control" value="الساعة 5:00 مساءً" oninput="updatePreview()"></div>
+                            <div class="form-group"><label>مكان الحفل والقاعة:</label><input type="text" id="locInput" class="form-control" value="قاعات بغداد الدولية، القاعة الفضية" oninput="updatePreview()"></div>
                         </div>
                     </div>
 
                     <div class="acc-item">
-                        <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>📍 التاريخ والموقع وترسيم الخريطة</span>
-                            <span>▼</span>
-                        </div>
+                        <div class="acc-header" onclick="toggleAccordion(this)"><span>🎵 الصوت والأغنية (مضمونة للجميع)</span></div>
                         <div class="acc-content">
                             <div class="form-group">
-                                <label>تاريخ الحفل:</label>
-                                <input type="date" id="dateInput" class="form-control" value="2026-10-31" onchange="updatePreview()">
-                            </div>
-                            <div class="form-group">
-                                <label>ساعة موعد الحضور:</label>
-                                <input type="text" id="timeInput" class="form-control" value="الساعة 5:00 مساءً" placeholder="مثال: الساعة 5:00 مساءً" oninput="updatePreview()">
-                            </div>
-                            <div class="form-group">
-                                <label>اسم القاعة والموقع:</label>
-                                <input type="text" id="locInput" class="form-control" value="قاعات بغداد الدولية، القاعة الفضية" oninput="updatePreview()">
-                            </div>
-                            <div class="form-group">
-                                <label>رابط خريطة مباشر (Google Maps Link):</label>
-                                <input type="text" id="mapInput" class="form-control" placeholder="https://maps.google.com/..." value="" oninput="updatePreview()">
-                            </div>
-                            <div class="form-group">
-                                <label>ملاحظات إضافية:</label>
-                                <input type="text" id="notesInput" class="form-control" value="ملاحظة: جنة الأطفال منازلهم 🌸 | يرجى عدم التصوير 🚫" oninput="updatePreview()">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="acc-item">
-                        <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>🖼️ خلفية الدعوة</span>
-                            <span>▼</span>
-                        </div>
-                        <div class="acc-content">
-                            <div class="form-group">
-                                <label>رفع صورة من الجهاز/الآيفون:</label>
-                                <input type="file" id="imageFileInput" accept="image/*" class="form-control" onchange="handleImageUpload(this)">
-                            </div>
-                            <div class="form-group">
-                                <label>أو وضع رابط صورة مباشر:</label>
-                                <input type="text" id="imageUrlInput" class="form-control" placeholder="https://..." oninput="handleImageUrlInput(this.value)">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="acc-item">
-                        <div class="acc-header" onclick="toggleAccordion(this)">
-                            <span>🎵 الصوت والأغنية (تعمل تلقائياً عند الضغط)</span>
-                            <span>▼</span>
-                        </div>
-                        <div class="acc-content">
-                            <div class="form-group">
-                                <label>📂 اختيار ملف أغنية من آيفونك أو Google Drive:</label>
-                                <input type="file" id="audioFileInput" accept="audio/*,video/*,.mp3,.m4a,.mp4,.wav,.aac,.mov,.ogg,.opus" class="form-control" onchange="handleAudioUpload(this)">
-                                <p id="audioStatusText" style="font-size:0.85rem; color:#10b981; margin-top:6px; font-weight:bold;"></p>
-                            </div>
-
-                            <div class="form-group">
-                                <label>أو اختر نغمة زفاف جاهزة مضمونة 100%:</label>
+                                <label>اختر نغمة زفاف جاهزة ومضمونة 100%:</label>
                                 <select id="presetAudioSelect" class="form-control" onchange="selectPresetAudio(this.value)">
                                     <option value="https://upload.wikimedia.org/wikipedia/commons/2/2a/Wagner_wedding_march.ogg">موسيقى زفاف ملكية كلاسيكية 🎵</option>
-                                    <option value="https://ia800201.us.archive.org/12/items/wedding-march-piano/wedding-march.mp3">موسيقى بيانو هادئة للدعوات 🎹</option>
+                                    <option value="https://ia800201.us.archive.org/12/items/wedding-march-piano/wedding-march.mp3">موسيقى بيانو هادئة 🎹</option>
                                 </select>
                             </div>
-
                             <div class="form-group">
-                                <label>أو ضع رابط مباشر لأي أغنية (Direct MP3 Link):</label>
+                                <label>أو ضع رابط أونلاين مباشر لأغنيتك الخاصّة (MP3 Direct Link):</label>
                                 <input type="text" id="audioUrlInput" class="form-control" placeholder="https://domain.com/song.mp3" oninput="handleAudioUrlInput(this.value)">
-                            </div>
-
-                            <div class="form-group">
-                                <label>ابدأ الأغنية من الثانية (اختياري):</label>
-                                <input type="number" id="audioStartInput" class="form-control" value="0" min="0" placeholder="مثلاً: 10" oninput="updateAudioStartTime(this.value)">
                             </div>
                         </div>
                     </div>
@@ -595,114 +264,55 @@
                     <button class="btn btn-primary" id="generateBtn" onclick="generateShortLink()">🚀 حفظ وتوليد الرابط القصير للمدعوين</button>
 
                     <div class="share-box" id="shareBox" style="display: none;">
-                        <p style="font-size:1.05rem; color:#065f46; margin-bottom:8px; font-weight:bold;" id="shareTitleDisplay">💌 دعوة زفاف إبراهيم & نور</p>
-                        
+                        <p style="font-size:1.05rem; color:#065f46; margin-bottom:8px; font-weight:bold;" id="shareTitleDisplay">💌 رابط الدعوة القصير جاهز!</p>
                         <button class="btn btn-whatsapp" onclick="shareToWhatsApp()">📲 إرسال عبر الواتساب مباشرة</button>
-                        <button class="btn btn-action" onclick="copyCleanLink()">📋 نسخ الرابط القصير فقط</button>
-
-                        <div style="margin-top:10px; text-align:right;">
-                            <label style="font-size:0.8rem; font-weight:bold; color:#065f46;">الرابط القصير والجاهز للإرسال:</label>
-                            <textarea id="whatsappFormattedText" class="form-control" rows="4" readonly style="font-size:0.95rem; margin-top:4px; background:#f0fdf4; font-weight:bold; text-align:center;"></textarea>
-                        </div>
+                        <button class="btn btn-action" onclick="copyCleanLink()">📋 نسخ النص والرابط القصير</button>
+                        <textarea id="whatsappFormattedText" class="form-control" rows="4" readonly style="font-size:0.95rem; margin-top:8px; text-align:center; background:#f0fdf4; font-weight:bold;"></textarea>
                     </div>
-
                 </div>
 
                 <div class="phone-container">
                     <div class="phone-mockup">
                         <div class="phone-screen" id="phoneCard">
                             <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.52); z-index:1;"></div>
-                            
                             <div style="position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-                                <div>
-                                    <p id="pQuran" style="font-size:0.65rem; color:#fef08a; font-family:'Amiri'; margin-top:5px; padding:0 5px;">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا ﴾</p>
-                                    <h2 id="pNames" style="font-family:'Amiri', serif; font-size:1.5rem; margin:6px 0;">إبراهيم & نور</h2>
-                                    <p id="pSub" style="font-size:0.75rem; opacity:0.9; line-height:1.3;">يتشرفان بدعوتكم لمشاركتهما فرحة العمر</p>
-                                </div>
-
+                                <h2 id="pNames" style="font-family:'Amiri', serif; font-size:1.5rem; margin-top:20px;">إبراهيم & نور</h2>
                                 <div style="background: rgba(0,0,0,0.45); padding: 8px; border-radius: 10px; font-size: 0.75rem;">
                                     <p id="pDate">📅 2026-10-31</p>
                                     <p id="pTime" style="margin-top:2px;">⏰ الساعة 5:00 مساءً</p>
                                     <p id="pLoc" style="margin-top:2px;">📍 قاعات بغداد الدولية</p>
                                 </div>
-
-                                <div style="background: rgba(255,255,255,0.2); backdrop-filter:blur(4px); padding: 8px; border-radius: 12px; font-size: 0.75rem; cursor:pointer;" onclick="openPreviewModal()">
-                                    اضغط لفتح الظرف والمعاينة ✉️
-                                </div>
+                                <div style="background: rgba(255,255,255,0.2); backdrop-filter:blur(4px); padding: 8px; border-radius: 12px; font-size: 0.75rem; cursor:pointer;" onclick="openPreviewModal()">اضغط لفتح الظرف والمعاينة ✉️</div>
                             </div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     <div id="invitationModalView">
-        <button class="close-preview-btn" id="closePreviewBtn" onclick="closePreviewModal()">✕ إغلاق المعاينة</button>
-
+        <button class="close-preview-btn" onclick="closePreviewModal()">✕ إغلاق المعاينة</button>
         <div class="invitation-fullscreen-card" id="guestCardBg">
             <div style="position: absolute; inset:0; background: rgba(0,0,0,0.45); z-index:1;"></div>
-
             <div class="floating-audio-btn" id="guestAudioBtn" onclick="toggleGuestAudio()">🎵</div>
 
             <div class="envelope-cover-overlay" id="coverOverlay">
                 <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelopeAction()">
-                    <div class="wax-seal-btn">
-                        <span>افتح</span>
-                        <span>💌</span>
-                    </div>
+                    <div class="wax-seal-btn"><span>افتح</span><span>💌</span></div>
                     <div class="envelope-groom-text" id="coverGroomBride">إبراهيم & نور</div>
                 </div>
-                <p style="font-size: 0.95rem; color:#fff; margin-top: 25px; opacity: 0.9;">اضغط على الظرف لفتح الدعوة ✉️</p>
+                <p style="font-size: 0.95rem; color:#fff; margin-top: 25px;">اضغط على الظرف لفتح الدعوة ✉️</p>
             </div>
 
             <div class="inv-content-wrap" id="invContentWrap">
-                
-                <div class="inv-quran-box" id="guestQuran">
-                    ﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا ﴾
-                </div>
-                
+                <div class="inv-quran-box">﴿ وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا ﴾</div>
                 <h1 class="inv-names-title" id="guestNames">إبراهيم & نور</h1>
-                
-                <p class="inv-sub-text" id="guestSub">يتشرفان بدعوتكم لمشاركتهما فرحة العمر وحضور حفل الزفاف</p>
-
-                <div class="countdown-bar">
-                    <div class="timer-box"><div class="timer-num" id="cdDays">00</div><div class="timer-label">أيام</div></div>
-                    <div class="timer-box"><div class="timer-num" id="cdHours">00</div><div class="timer-label">ساعات</div></div>
-                    <div class="timer-box"><div class="timer-num" id="cdMins">00</div><div class="timer-label">دقائق</div></div>
-                    <div class="timer-box"><div class="timer-num" id="cdSecs">00</div><div class="timer-label">ثواني</div></div>
-                </div>
-
-                <div class="calendar-card">
-                    <div class="cal-header-title" id="calMonthTitle">تقويم الشهر</div>
-                    <div class="cal-grid-days" id="calGridDays"></div>
-                </div>
-
                 <div class="inv-info-card">
-                    <p id="guestDate" style="font-weight: bold; margin-bottom: 4px;">📅 التاريخ: 2026-10-31</p>
-                    <p id="guestTime" style="margin-bottom: 4px; color:#fef08a; font-weight:bold;">⏰ موعد الحضور: الساعة 5:00 مساءً</p>
-                    <p id="guestLoc" style="opacity: 0.95;">📍 المكان: قاعات بغداد الدولية، القاعة الفضية</p>
+                    <p id="guestDate">📅 التاريخ: 2026-10-31</p>
+                    <p id="guestTime">⏰ موعد الحضور: الساعة 5:00 مساءً</p>
+                    <p id="guestLoc">📍 المكان: قاعات بغداد الدولية</p>
                 </div>
-
-                <div class="map-box-container">
-                    <iframe id="guestMapIframe" class="map-iframe" loading="lazy" allowfullscreen src=""></iframe>
-                    <a id="guestMapLink" href="#" target="_blank" class="inv-map-btn">
-                        🗺️ فتح اللوكيشن في تطبيق الخرائط (Google Maps)
-                    </a>
-                </div>
-
-                <div class="inv-notes-box" id="guestNotes">
-                    ملاحظة: جنة الأطفال منازلهم 🌸 | يرجى عدم التصوير 🚫
-                </div>
-
-            </div>
-
-            <div style="position: relative; z-index:5; font-size: 0.85rem; opacity: 0.8; margin-top: 15px;">
-                أهلاً وسهلاً بحضوركم الكريم 🎉
             </div>
         </div>
     </div>
@@ -710,286 +320,86 @@
     <script>
         let currentBgUrl = 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600';
         let currentAudioSrc = 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Wagner_wedding_march.ogg';
-        let audioStartTime = 0;
-        let countdownInterval = null;
-
         const audioEl = document.getElementById('weddingAudio');
 
-        function toggleAccordion(header) {
-            header.parentElement.classList.toggle('active');
-        }
-
+        function toggleAccordion(header) { header.parentElement.classList.toggle('active'); }
         function selectTemplate(url, title) {
             currentBgUrl = url;
-            document.getElementById('activeThemeTitle').innerText = 'الثيم الحالي: ' + title;
             document.getElementById('screenTemplates').style.display = 'none';
             document.getElementById('screenEditor').style.display = 'block';
             updatePreview();
         }
-
         function showTemplatesScreen() {
             document.getElementById('screenEditor').style.display = 'none';
             document.getElementById('screenTemplates').style.display = 'block';
         }
 
-        function handleAudioUpload(input) {
-            const file = input.files[0];
-            const statusText = document.getElementById('audioStatusText');
-            if (!file) return;
-
-            const ext = file.name.split('.').pop().toLowerCase();
-            const allowedExts = ['mp3', 'm4a', 'wav', 'aac', 'ogg', 'opus', 'mp4', 'mov', 'm4v', '3gp', 'caf'];
-
-            const isValidExt = allowedExts.includes(ext);
-            const isValidType = file.type.startsWith('audio/') || file.type.startsWith('video/') || file.type === '';
-
-            if (isValidExt || isValidType) {
-                statusText.innerText = '⏳ جاري استعداد الملف الصوتِي...';
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    currentAudioSrc = e.target.result;
-                    audioEl.src = currentAudioSrc;
-                    statusText.innerText = '✅ تم اختيار الملف الصوتِي: ' + file.name;
-                };
-                reader.onerror = function() {
-                    statusText.innerText = '❌ تعذر قراءة الملف، يرجى تجربة ملف آخر.';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                alert('صيغة الملف غير مدعومة. يرجى اختيار ملف صوتي أو فيديو.');
-            }
-        }
-
-        function selectPresetAudio(url) {
-            currentAudioSrc = url;
-            audioEl.src = currentAudioSrc;
-            document.getElementById('audioStatusText').innerText = '✅ تم اختيار النغمة الجاهزة.';
-        }
-
-        function handleAudioUrlInput(url) {
-            if (url.trim() !== '') {
-                currentAudioSrc = url.trim();
-                audioEl.src = currentAudioSrc;
-                document.getElementById('audioStatusText').innerText = '✅ تم اعتماد الرابط المباشر.';
-            }
-        }
-
-        function updateAudioStartTime(val) {
-            audioStartTime = parseFloat(val) || 0;
-        }
-
-        function handleImageUpload(input) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    currentBgUrl = e.target.result;
-                    updatePreview();
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function handleImageUrlInput(url) {
-            if (url.trim() !== '') {
-                currentBgUrl = url.trim();
-                updatePreview();
-            }
-        }
+        function selectPresetAudio(url) { currentAudioSrc = url; audioEl.src = url; }
+        function handleAudioUrlInput(url) { if (url.trim() !== '') { currentAudioSrc = url.trim(); audioEl.src = url.trim(); } }
 
         function updatePreview() {
-            const groom = document.getElementById('groomInput').value || 'العريس';
-            const bride = document.getElementById('brideInput').value || 'العروس';
-            const namesStr = groom + ' & ' + bride;
-
-            document.getElementById('pQuran').innerText = document.getElementById('quranInput').value;
-            document.getElementById('pNames').innerText = namesStr;
-            document.getElementById('pSub').innerText = document.getElementById('subInput').value;
+            const groom = document.getElementById('groomInput').value || 'إبراهيم';
+            const bride = document.getElementById('brideInput').value || 'نور';
+            document.getElementById('pNames').innerText = groom + ' & ' + bride;
             document.getElementById('pDate').innerText = '📅 ' + document.getElementById('dateInput').value;
             document.getElementById('pTime').innerText = '⏰ ' + document.getElementById('timeInput').value;
             document.getElementById('pLoc').innerText = '📍 ' + document.getElementById('locInput').value;
-
             document.getElementById('phoneCard').style.backgroundImage = `url('${currentBgUrl}')`;
         }
 
         function openPreviewModal() {
-            const groom = document.getElementById('groomInput').value || 'العريس';
-            const bride = document.getElementById('brideInput').value || 'العروس';
+            const groom = document.getElementById('groomInput').value || 'إبراهيم';
+            const bride = document.getElementById('brideInput').value || 'نور';
             const namesStr = groom + ' & ' + bride;
 
             document.getElementById('coverGroomBride').innerText = namesStr;
-            document.getElementById('guestQuran').innerText = document.getElementById('quranInput').value;
             document.getElementById('guestNames').innerText = namesStr;
-            document.getElementById('guestSub').innerText = document.getElementById('subInput').value;
             document.getElementById('guestDate').innerText = '📅 التاريخ: ' + document.getElementById('dateInput').value;
             document.getElementById('guestTime').innerText = '⏰ موعد الحضور: ' + document.getElementById('timeInput').value;
             document.getElementById('guestLoc').innerText = '📍 المكان: ' + document.getElementById('locInput').value;
-            document.getElementById('guestNotes').innerText = document.getElementById('notesInput').value;
 
             document.getElementById('guestCardBg').style.backgroundImage = `url('${currentBgUrl}')`;
             document.getElementById('coverOverlay').style.backgroundImage = `url('${currentBgUrl}')`;
 
-            const mapUrl = document.getElementById('mapInput').value.trim();
-            const mapIframe = document.getElementById('guestMapIframe');
-            const mapLink = document.getElementById('guestMapLink');
-            if (mapUrl) {
-                mapIframe.src = mapUrl.includes('embed') ? mapUrl : `https://maps.google.com/maps?q=${encodeURIComponent(document.getElementById('locInput').value)}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
-                mapLink.href = mapUrl;
-            } else {
-                mapIframe.src = `https://maps.google.com/maps?q=${encodeURIComponent(document.getElementById('locInput').value)}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
-                mapLink.href = `https://maps.google.com/maps?q=${encodeURIComponent(document.getElementById('locInput').value)}`;
-            }
-
             document.getElementById('coverOverlay').classList.remove('opened');
-            document.getElementById('envelopeWrapper').classList.remove('open-flap');
             document.getElementById('invContentWrap').classList.remove('animate-in');
-
-            audioEl.src = currentAudioSrc;
-
             document.getElementById('invitationModalView').style.display = 'block';
 
-            renderCalendar(document.getElementById('dateInput').value);
-            startCountdown(document.getElementById('dateInput').value);
+            audioEl.src = currentAudioSrc;
         }
 
         function closePreviewModal() {
             document.getElementById('invitationModalView').style.display = 'none';
             audioEl.pause();
-            if (countdownInterval) clearInterval(countdownInterval);
         }
 
         function openEnvelopeAction() {
-            document.getElementById('envelopeWrapper').classList.add('open-flap');
-
-            audioEl.currentTime = audioStartTime;
             audioEl.play().catch(e => console.log('Audio play blocked:', e));
-
-            setTimeout(() => {
-                document.getElementById('coverOverlay').classList.add('opened');
-                document.getElementById('invContentWrap').classList.add('animate-in');
-            }, 700);
+            document.getElementById('coverOverlay').classList.add('opened');
+            document.getElementById('invContentWrap').classList.add('animate-in');
         }
 
         function toggleGuestAudio() {
-            if (audioEl.paused) {
-                audioEl.play();
-                document.getElementById('guestAudioBtn').innerText = '🎵';
-            } else {
-                audioEl.pause();
-                document.getElementById('guestAudioBtn').innerText = '🔇';
-            }
+            if (audioEl.paused) { audioEl.play(); document.getElementById('guestAudioBtn').innerText = '🎵'; }
+            else { audioEl.pause(); document.getElementById('guestAudioBtn').innerText = '🔇'; }
         }
 
-        function startCountdown(dateStr) {
-            if (countdownInterval) clearInterval(countdownInterval);
-            const targetDate = new Date(dateStr + 'T00:00:00').getTime();
-
-            function update() {
-                const now = new Date().getTime();
-                const diff = targetDate - now;
-
-                if (diff <= 0) {
-                    document.getElementById('cdDays').innerText = '00';
-                    document.getElementById('cdHours').innerText = '00';
-                    document.getElementById('cdMins').innerText = '00';
-                    document.getElementById('cdSecs').innerText = '00';
-                    return;
-                }
-
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-                document.getElementById('cdDays').innerText = String(days).padStart(2, '0');
-                document.getElementById('cdHours').innerText = String(hours).padStart(2, '0');
-                document.getElementById('cdMins').innerText = String(mins).padStart(2, '0');
-                document.getElementById('cdSecs').innerText = String(secs).padStart(2, '0');
-            }
-
-            update();
-            countdownInterval = setInterval(update, 1000);
-        }
-
-        function renderCalendar(dateStr) {
-            const dateObj = new Date(dateStr);
-            const year = dateObj.getFullYear();
-            const month = dateObj.getMonth();
-            const weddingDay = dateObj.getDate();
-
-            const monthNames = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
-            document.getElementById('calMonthTitle').innerText = 'تقويم شهر ' + monthNames[month] + ' ' + year;
-
-            const grid = document.getElementById('calGridDays');
-            grid.innerHTML = '';
-
-            const dayHeaders = ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'];
-            dayHeaders.forEach(dh => {
-                const div = document.createElement('div');
-                div.className = 'cal-day-header';
-                div.innerText = dh;
-                grid.appendChild(div);
-            });
-
-            const firstDay = new Date(year, month, 1).getDay();
-            const totalDays = new Date(year, month + 1, 0).getDate();
-
-            for (let i = 0; i < firstDay; i++) {
-                const empty = document.createElement('div');
-                grid.appendChild(empty);
-            }
-
-            for (let day = 1; day <= totalDays; day++) {
-                const cell = document.createElement('div');
-                cell.className = 'cal-day-cell';
-                cell.innerText = day;
-                if (day === weddingDay) {
-                    cell.classList.add('wedding-heart');
-                }
-                grid.appendChild(cell);
-            }
-        }
-
-        /* ----- دالة اختصار وتشفير الضغط المحلي المتقدمة ----- */
-        async function generateShortLink() {
-            const btn = document.getElementById('generateBtn');
-            btn.innerText = '⏳ جاري اختصار وتجهيز الرابط...';
-
+        /* ----- إنشاء رابط قصير ونظيف جداً ----- */
+        function generateShortLink() {
             const groom = document.getElementById('groomInput').value || 'إبراهيم';
             const bride = document.getElementById('brideInput').value || 'نور';
             const date = document.getElementById('dateInput').value;
             const time = document.getElementById('timeInput').value;
             const loc = document.getElementById('locInput').value;
 
-            // ضغط البيانات محلية عبر Base64 نظيف بدون رموز تعقيد
-            const payload = JSON.stringify({ g: groom, b: bride, d: date, t: time, l: loc, a: currentAudioSrc });
-            const compressedStr = btoa(unescape(encodeURIComponent(payload)));
-            const baseUrl = window.location.href.split('#')[0].split('?')[0];
-            const cleanUrl = baseUrl + '#inv=' + compressedStr;
+            // تمرير المتغيرات كـ Query Parameters خفيفة جداً بدون تشفير ملفات
+            const baseUrl = window.location.href.split('?')[0].split('#')[0];
+            const cleanUrl = `${baseUrl}?g=${encodeURIComponent(groom)}&b=${encodeURIComponent(bride)}&d=${encodeURIComponent(date)}&t=${encodeURIComponent(time)}&l=${encodeURIComponent(loc)}`;
 
-            try {
-                // تجربة اختصار الرابط عن طريق خدمة is.gd بدون محددات أمان
-                const res = await fetch(`https://is.gd/create.php?format=json&url=${encodeURIComponent(cleanUrl)}`);
-                const data = await res.json();
+            const msg = `💌 دعوة زفاف إلكترونية\n\nيتشرف العروسان (${groom} & ${bride}) بدعوتكم لحضور حفل الزفاف المبارك 🎉\n\nافتح الظرف والتفاصيل عبر الرابط المباشر:\n${cleanUrl}`;
 
-                let finalUrl = cleanUrl;
-                if (data.shorturl) {
-                    finalUrl = data.shorturl;
-                }
-
-                const msg = `💌 دعوة زفاف إلكترونية\n\nيتشرف العروسان (${groom} & ${bride}) بدعوتكم لحضور حفل الزفاف المبارك 🎉\n\nافتح الظرف والتفاصيل عبر الرابط المباشر:\n${finalUrl}`;
-
-                document.getElementById('whatsappFormattedText').value = msg;
-                document.getElementById('shareBox').style.display = 'block';
-                btn.innerText = '🚀 حفظ وتوليد الرابط القصير للمدعوين';
-            } catch (e) {
-                // خيار احتياطي نظيف في حال وجود تقييد شبكة محلي
-                const msg = `💌 دعوة زفاف إلكترونية\n\nيتشرف العروسان (${groom} & ${bride}) بدعوتكم لحضور حفل الزفاف المبارك 🎉\n\nافتح الظرف والتفاصيل عبر الرابط المباشر:\n${cleanUrl}`;
-                document.getElementById('whatsappFormattedText').value = msg;
-                document.getElementById('shareBox').style.display = 'block';
-                btn.innerText = '🚀 حفظ وتوليد الرابط القصير للمدعوين';
-            }
+            document.getElementById('whatsappFormattedText').value = msg;
+            document.getElementById('shareBox').style.display = 'block';
         }
 
         function shareToWhatsApp() {
@@ -1000,31 +410,20 @@
         function copyCleanLink() {
             const copyText = document.getElementById('whatsappFormattedText');
             copyText.select();
-            copyText.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(copyText.value);
-            alert("تم نسخ نص الدعوة والرابط بنجاح! 📋");
+            alert("تم نسخ الدعوة والرابط بنجاح! 📋");
         }
 
-        /* ----- فك الضغط التلقائي عن فتح الرابط للمدعوين ----- */
+        /* قراءة بيانات المدعوين التلقائية عند فتح الرابط */
         window.onload = function() {
-            const hash = window.location.hash;
-            if (hash && hash.includes('#inv=')) {
-                try {
-                    const encodedData = hash.split('#inv=')[1];
-                    const decodedData = decodeURIComponent(escape(atob(encodedData)));
-                    const data = JSON.parse(decodedData);
-
-                    document.getElementById('groomInput').value = data.g || '';
-                    document.getElementById('brideInput').value = data.b || '';
-                    document.getElementById('dateInput').value = data.d || '';
-                    document.getElementById('timeInput').value = data.t || '';
-                    document.getElementById('locInput').value = data.l || '';
-                    if (data.a) currentAudioSrc = data.a;
-
-                    openPreviewModal();
-                } catch (e) {
-                    updatePreview();
-                }
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('g')) {
+                document.getElementById('groomInput').value = urlParams.get('g');
+                document.getElementById('brideInput').value = urlParams.get('b');
+                document.getElementById('dateInput').value = urlParams.get('d');
+                document.getElementById('timeInput').value = urlParams.get('t');
+                document.getElementById('locInput').value = urlParams.get('l');
+                openPreviewModal();
             } else {
                 updatePreview();
             }
