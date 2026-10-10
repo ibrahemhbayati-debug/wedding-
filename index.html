@@ -1,6 +1,3 @@
-تفضل الكود الكامل الشامل مجتمعاً في ملف واحد جاهز للتنسيق والتشغيل مباشرة، متضمناً معالجة الرفع من **iOS/iPhone**، العداد التنازلي، التقويم، الأغنية، وتقصير الرابط تلقائياً:
-
-```html
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -444,7 +441,6 @@
 </head>
 <body>
 
-    <!-- Global Audio Element -->
     <audio id="weddingAudio" loop preload="auto" crossorigin="anonymous"></audio>
 
     <div class="admin-container" id="adminPanel">
@@ -482,7 +478,6 @@
             </div>
         </div>
 
-        <!-- Editor Screen -->
         <div class="editor-screen" id="screenEditor">
             
             <div class="editor-topbar">
@@ -493,7 +488,6 @@
             <div class="editor-layout">
                 
                 <div>
-                    <!-- Section 1 -->
                     <div class="acc-item active">
                         <div class="acc-header" onclick="toggleAccordion(this)">
                             <span>📝 أسماء العروسين والعبارات القرآنية</span>
@@ -519,7 +513,6 @@
                         </div>
                     </div>
 
-                    <!-- Section 2 -->
                     <div class="acc-item">
                         <div class="acc-header" onclick="toggleAccordion(this)">
                             <span>📍 التاريخ والموقع وترسيم الخريطة</span>
@@ -549,7 +542,6 @@
                         </div>
                     </div>
 
-                    <!-- Section 3 -->
                     <div class="acc-item">
                         <div class="acc-header" onclick="toggleAccordion(this)">
                             <span>🖼️ خلفية الدعوة</span>
@@ -567,7 +559,6 @@
                         </div>
                     </div>
 
-                    <!-- Section 4 -->
                     <div class="acc-item">
                         <div class="acc-header" onclick="toggleAccordion(this)">
                             <span>🎵 الصوت والأغنية (تعمل تلقائياً عند الضغط)</span>
@@ -603,7 +594,6 @@
                     <button class="btn btn-preview" onclick="openPreviewModal()">👁️ معاينة الدعوة مع فتح الظرف</button>
                     <button class="btn btn-primary" id="generateBtn" onclick="generateShortLink()">🚀 حفظ وتوليد الرابط القصير للمدعوين</button>
 
-                    <!-- Share Results Box -->
                     <div class="share-box" id="shareBox" style="display: none;">
                         <p style="font-size:1.05rem; color:#065f46; margin-bottom:8px; font-weight:bold;" id="shareTitleDisplay">💌 دعوة زفاف إبراهيم & نور</p>
                         
@@ -618,7 +608,6 @@
 
                 </div>
 
-                <!-- Live Phone Mockup Side -->
                 <div class="phone-container">
                     <div class="phone-mockup">
                         <div class="phone-screen" id="phoneCard">
@@ -652,7 +641,6 @@
 
     </div>
 
-    <!-- FULLSCREEN GUEST INVITATION VIEW -->
     <div id="invitationModalView">
         <button class="close-preview-btn" id="closePreviewBtn" onclick="closePreviewModal()">✕ إغلاق المعاينة</button>
 
@@ -661,7 +649,6 @@
 
             <div class="floating-audio-btn" id="guestAudioBtn" onclick="toggleGuestAudio()">🎵</div>
 
-            <!-- Envelope Cover Overlay -->
             <div class="envelope-cover-overlay" id="coverOverlay">
                 <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelopeAction()">
                     <div class="wax-seal-btn">
@@ -673,7 +660,6 @@
                 <p style="font-size: 0.95rem; color:#fff; margin-top: 25px; opacity: 0.9;">اضغط على الظرف لفتح الدعوة ✉️</p>
             </div>
 
-            <!-- Invitation Content -->
             <div class="inv-content-wrap" id="invContentWrap">
                 
                 <div class="inv-quran-box" id="guestQuran">
@@ -684,7 +670,6 @@
                 
                 <p class="inv-sub-text" id="guestSub">يتشرفان بدعوتكم لمشاركتهما فرحة العمر وحضور حفل الزفاف</p>
 
-                <!-- Countdown Timer Bar -->
                 <div class="countdown-bar">
                     <div class="timer-box"><div class="timer-num" id="cdDays">00</div><div class="timer-label">أيام</div></div>
                     <div class="timer-box"><div class="timer-num" id="cdHours">00</div><div class="timer-label">ساعات</div></div>
@@ -692,20 +677,17 @@
                     <div class="timer-box"><div class="timer-num" id="cdSecs">00</div><div class="timer-label">ثواني</div></div>
                 </div>
 
-                <!-- Calendar View -->
                 <div class="calendar-card">
                     <div class="cal-header-title" id="calMonthTitle">تقويم الشهر</div>
                     <div class="cal-grid-days" id="calGridDays"></div>
                 </div>
 
-                <!-- Location & Details Card -->
                 <div class="inv-info-card">
                     <p id="guestDate" style="font-weight: bold; margin-bottom: 4px;">📅 التاريخ: 2026-10-31</p>
                     <p id="guestTime" style="margin-bottom: 4px; color:#fef08a; font-weight:bold;">⏰ موعد الحضور: الساعة 5:00 مساءً</p>
                     <p id="guestLoc" style="opacity: 0.95;">📍 المكان: قاعات بغداد الدولية، القاعة الفضية</p>
                 </div>
 
-                <!-- Embedded Google Map Box -->
                 <div class="map-box-container">
                     <iframe id="guestMapIframe" class="map-iframe" loading="lazy" allowfullscreen src=""></iframe>
                     <a id="guestMapLink" href="#" target="_blank" class="inv-map-btn">
@@ -713,7 +695,6 @@
                     </a>
                 </div>
 
-                <!-- Notes / Special Comments -->
                 <div class="inv-notes-box" id="guestNotes">
                     ملاحظة: جنة الأطفال منازلهم 🌸 | يرجى عدم التصوير 🚫
                 </div>
@@ -726,7 +707,6 @@
         </div>
     </div>
 
-    <!-- JavaScript Script Section -->
     <script>
         let currentBgUrl = 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=600';
         let currentAudioSrc = 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Wagner_wedding_march.ogg';
@@ -736,8 +716,7 @@
         const audioEl = document.getElementById('weddingAudio');
 
         function toggleAccordion(header) {
-            const item = header.parentElement;
-            item.classList.toggle('active');
+            header.parentElement.classList.toggle('active');
         }
 
         function selectTemplate(url, title) {
@@ -753,7 +732,6 @@
             document.getElementById('screenTemplates').style.display = 'block';
         }
 
-        /* ----- معالجة رفع الصوت مع دعم كامل لآيفون iOS ----- */
         function handleAudioUpload(input) {
             const file = input.files[0];
             const statusText = document.getElementById('audioStatusText');
@@ -766,13 +744,13 @@
             const isValidType = file.type.startsWith('audio/') || file.type.startsWith('video/') || file.type === '';
 
             if (isValidExt || isValidType) {
-                statusText.innerText = '⏳ جاري تحميل واستعداد الملف الصوتِي...';
+                statusText.innerText = '⏳ جاري استعداد الملف الصوتِي...';
                 
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     currentAudioSrc = e.target.result;
                     audioEl.src = currentAudioSrc;
-                    statusText.innerText = '✅ تم اختيار الملف الصوتِي محلياً: ' + file.name;
+                    statusText.innerText = '✅ تم اختيار الملف الصوتِي: ' + file.name;
                 };
                 reader.onerror = function() {
                     statusText.innerText = '❌ تعذر قراءة الملف، يرجى تجربة ملف آخر.';
@@ -801,7 +779,6 @@
             audioStartTime = parseFloat(val) || 0;
         }
 
-        /* ----- معالجة رفع الصور ----- */
         function handleImageUpload(input) {
             const file = input.files[0];
             if (file) {
@@ -821,7 +798,6 @@
             }
         }
 
-        /* ----- تحديث المعاينة الحية ----- */
         function updatePreview() {
             const groom = document.getElementById('groomInput').value || 'العريس';
             const bride = document.getElementById('brideInput').value || 'العروس';
@@ -837,7 +813,6 @@
             document.getElementById('phoneCard').style.backgroundImage = `url('${currentBgUrl}')`;
         }
 
-        /* ----- فتح وإغلاق شاشة المعاينة التفاعلية والظرف ----- */
         function openPreviewModal() {
             const groom = document.getElementById('groomInput').value || 'العريس';
             const bride = document.getElementById('brideInput').value || 'العروس';
@@ -906,7 +881,6 @@
             }
         }
 
-        /* ----- العداد التنازلي والتقويم ----- */
         function startCountdown(dateStr) {
             if (countdownInterval) clearInterval(countdownInterval);
             const targetDate = new Date(dateStr + 'T00:00:00').getTime();
@@ -977,7 +951,7 @@
             }
         }
 
-        /* ----- توليد واختصار الرابط تلقائياً ----- */
+        /* ----- دالة اختصار وتشفير الضغط المحلي المتقدمة ----- */
         async function generateShortLink() {
             const btn = document.getElementById('generateBtn');
             btn.innerText = '⏳ جاري اختصار وتجهيز الرابط...';
@@ -988,21 +962,30 @@
             const time = document.getElementById('timeInput').value;
             const loc = document.getElementById('locInput').value;
 
-            // رابط الدعوة الكامل يتضمن المعلمات
-            const longUrl = window.location.href.split('?')[0] + `?g=${encodeURIComponent(groom)}&b=${encodeURIComponent(bride)}&d=${encodeURIComponent(date)}&t=${encodeURIComponent(time)}&l=${encodeURIComponent(loc)}&a=${encodeURIComponent(currentAudioSrc)}`;
+            // ضغط البيانات محلية عبر Base64 نظيف بدون رموز تعقيد
+            const payload = JSON.stringify({ g: groom, b: bride, d: date, t: time, l: loc, a: currentAudioSrc });
+            const compressedStr = btoa(unescape(encodeURIComponent(payload)));
+            const baseUrl = window.location.href.split('#')[0].split('?')[0];
+            const cleanUrl = baseUrl + '#inv=' + compressedStr;
 
             try {
-                // استخدام api لتقصير الرابط إلى TinyURL تلقائياً
-                const res = await fetch(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(longUrl)}`);
-                const shortUrl = await res.text();
+                // تجربة اختصار الرابط عن طريق خدمة is.gd بدون محددات أمان
+                const res = await fetch(`https://is.gd/create.php?format=json&url=${encodeURIComponent(cleanUrl)}`);
+                const data = await res.json();
 
-                const msg = `💌 دعوة زفاف إلكترونية\n\nيتشرف العروسان (${groom} & ${bride}) بدعوتكم لحضور حفل الزفاف المبارك 🎉\n\nاضغط على الرابط التالي لفتح الظرف والتفاصيل:\n${shortUrl}`;
+                let finalUrl = cleanUrl;
+                if (data.shorturl) {
+                    finalUrl = data.shorturl;
+                }
+
+                const msg = `💌 دعوة زفاف إلكترونية\n\nيتشرف العروسان (${groom} & ${bride}) بدعوتكم لحضور حفل الزفاف المبارك 🎉\n\nافتح الظرف والتفاصيل عبر الرابط المباشر:\n${finalUrl}`;
 
                 document.getElementById('whatsappFormattedText').value = msg;
                 document.getElementById('shareBox').style.display = 'block';
                 btn.innerText = '🚀 حفظ وتوليد الرابط القصير للمدعوين';
             } catch (e) {
-                const msg = `💌 دعوة زفاف إلكترونية\n\nيتشرف العروسان (${groom} & ${bride}) بدعوتكم لحضور حفل الزفاف المبارك 🎉\n\nاضغط على الرابط التالي لفتح الظرف والتفاصيل:\n${longUrl}`;
+                // خيار احتياطي نظيف في حال وجود تقييد شبكة محلي
+                const msg = `💌 دعوة زفاف إلكترونية\n\nيتشرف العروسان (${groom} & ${bride}) بدعوتكم لحضور حفل الزفاف المبارك 🎉\n\nافتح الظرف والتفاصيل عبر الرابط المباشر:\n${cleanUrl}`;
                 document.getElementById('whatsappFormattedText').value = msg;
                 document.getElementById('shareBox').style.display = 'block';
                 btn.innerText = '🚀 حفظ وتوليد الرابط القصير للمدعوين';
@@ -1022,19 +1005,26 @@
             alert("تم نسخ نص الدعوة والرابط بنجاح! 📋");
         }
 
-        // قراءة المعلمات عند فتح الرابط المباشر من المدعوين
+        /* ----- فك الضغط التلقائي عن فتح الرابط للمدعوين ----- */
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('g')) {
-                document.getElementById('groomInput').value = urlParams.get('g');
-                document.getElementById('brideInput').value = urlParams.get('b');
-                document.getElementById('dateInput').value = urlParams.get('d');
-                document.getElementById('timeInput').value = urlParams.get('t');
-                document.getElementById('locInput').value = urlParams.get('l');
-                if (urlParams.has('a')) {
-                    currentAudioSrc = urlParams.get('a');
+            const hash = window.location.hash;
+            if (hash && hash.includes('#inv=')) {
+                try {
+                    const encodedData = hash.split('#inv=')[1];
+                    const decodedData = decodeURIComponent(escape(atob(encodedData)));
+                    const data = JSON.parse(decodedData);
+
+                    document.getElementById('groomInput').value = data.g || '';
+                    document.getElementById('brideInput').value = data.b || '';
+                    document.getElementById('dateInput').value = data.d || '';
+                    document.getElementById('timeInput').value = data.t || '';
+                    document.getElementById('locInput').value = data.l || '';
+                    if (data.a) currentAudioSrc = data.a;
+
+                    openPreviewModal();
+                } catch (e) {
+                    updatePreview();
                 }
-                openPreviewModal();
             } else {
                 updatePreview();
             }
@@ -1042,5 +1032,3 @@
     </script>
 </body>
 </html>
-
-```
