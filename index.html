@@ -384,7 +384,7 @@
             else { audioEl.pause(); document.getElementById('guestAudioBtn').innerText = '🔇'; }
         }
 
-        /* ----- إنشاء رابط قصير ونظيف جداً ----- */
+        /* ----- إنشاء رابط قصير ونظيف جداً بدون تشفير ضخم ----- */
         function generateShortLink() {
             const groom = document.getElementById('groomInput').value || 'إبراهيم';
             const bride = document.getElementById('brideInput').value || 'نور';
@@ -392,7 +392,6 @@
             const time = document.getElementById('timeInput').value;
             const loc = document.getElementById('locInput').value;
 
-            // تمرير المتغيرات كـ Query Parameters خفيفة جداً بدون تشفير ملفات
             const baseUrl = window.location.href.split('?')[0].split('#')[0];
             const cleanUrl = `${baseUrl}?g=${encodeURIComponent(groom)}&b=${encodeURIComponent(bride)}&d=${encodeURIComponent(date)}&t=${encodeURIComponent(time)}&l=${encodeURIComponent(loc)}`;
 
